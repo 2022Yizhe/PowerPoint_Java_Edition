@@ -4,6 +4,7 @@ import manage.DisplayEngine;
 import window.component.NoDotsSplitPane;
 import window.component.ShortSplitPane;
 import window.enums.CloseAction;
+import window.layout.ListLayout;
 import window.service.MainService;
 
 import javax.swing.*;
@@ -16,12 +17,12 @@ import java.util.Queue;
 
 public class MainWindow extends AbstractWindow <MainService>{
 
-    private DefaultMutableTreeNode root;
-
     public MainWindow(String title){
         super(title, new Dimension(1280, 800), true, MainService.class);
         this.setDefaultCloseAction(CloseAction.DISPOSE);    // 窗口关闭不直接退出程序
         this.initWindowContent();   // 初始化窗口内容
+
+        service.displayProject();   // 初始化时渲染默认项目
     }
 
     /**
@@ -108,47 +109,51 @@ public class MainWindow extends AbstractWindow <MainService>{
     }
 
     /**
-     * TODO
      * 创建左侧预览面板，用于预览整个项目
      * @return 预览板块
      */
     private JScrollPane createLeftPanel(){
+        // 创建一个可操作面板
+        JPanel previewPanel = new JPanel();
+        previewPanel.setLayout(new ListLayout());  // 列表布局
+        this.mapComponent("main.panel.preview", previewPanel);
 
-        // 配置右键幻灯片的弹出菜单，包括创建新的幻灯片和删除幻灯片
-        JPopupMenu slide_popupMenu = new JPopupMenu();
-        this.mapComponent("main.popup.slide", slide_popupMenu);
-        this.add(slide_popupMenu);
+        // 配置右键弹出菜单，包括创建新的幻灯片和删除幻灯片
+        JPopupMenu popupMenu = new JPopupMenu();
+        this.mapComponent("main.popup.slide", popupMenu);
+        this.add(popupMenu);
 
         JMenuItem createItem = new JMenuItem("新建幻灯片");
-        createItem.addActionListener(e -> service.createNewFile());
-        slide_popupMenu.add(createItem);
+        createItem.addActionListener(e -> service.createSlide());
+        popupMenu.add(createItem);
+
+        JMenuItem copyItem = new JMenuItem("复制幻灯片");
+        copyItem.addActionListener(e -> service.copySlide());
+        popupMenu.add(copyItem);
 
         JMenuItem deleteItem = new JMenuItem("删除幻灯片");
-        deleteItem.addActionListener(e -> service.deleteProjectFile());
-        slide_popupMenu.add(deleteItem);
+        deleteItem.addActionListener(e -> service.deleteSlide());
+        popupMenu.add(deleteItem);
 
-//        slide_queue.addMouseListener(service.fileTreeRightClick());
+        previewPanel.addMouseListener(service.rightClick());
 
-        JTree slide_queue = new JTree();
-        // 文件树构造完成后，直接放进滚动面板返回就行了
-        return new JScrollPane(slide_queue);
+        return new JScrollPane(previewPanel);
     }
 
     /**
-     * TODO
      * 创建右侧展示和编辑板块，包括对幻灯片进行编辑操作
      * @return 编辑板块
      */
     private JScrollPane createRightPanel(){
-        JTextArea editArea = new JTextArea();
-        this.mapComponent("main.textarea.edit", editArea);
+        // 创建一个可操作面板
+        JPanel editPanel = new JPanel();
+        editPanel.setLayout(new OverlayLayout(editPanel));  // 可重叠布局 (更适合幻灯片的实际情况)
+        this.mapComponent("main.panel.edit", editPanel);
 
         // 快速配置编辑文本域的各项功能
         this.service.setupEditArea();
 
-        // 默认情况下无法进行编辑，必须选中文件之后才可以
-        editArea.setEditable(false);
-        return new JScrollPane(editArea);
+        return new JScrollPane(editPanel);
     }
 
     /**

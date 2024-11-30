@@ -1,5 +1,6 @@
 package manage;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.core.exc.StreamReadException;
 
@@ -23,6 +24,7 @@ import java.util.List;
 public class DisplayEngine {
     public static Presentation JsonParser(String json_path){
         ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.JAVA_LANG_OBJECT, JsonTypeInfo.As.PROPERTY);
 
         try {
             // 读取 JSON 文件

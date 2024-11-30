@@ -27,7 +27,7 @@ public class LinedJPanel extends JPanel {
         super.paintComponent(g);   // 原有的绘制不变，以下是额外的边界线绘制操作
         g.setColor(Color.GRAY);
         if (top) g.drawLine(0, 0, this.getWidth(), 0);
-        if (bottom) g.drawLine(0, this.getHeight(), this.getWidth(), this.getHeight());     // *画的线宽度为 0
+        if (bottom) g.drawLine(0, this.getHeight(), this.getWidth(), this.getHeight());
         if (left) g.drawLine(0, 0, 0, this.getHeight());
         if (right) g.drawLine(this.getWidth(), 0, this.getWidth(), this.getHeight());
     }

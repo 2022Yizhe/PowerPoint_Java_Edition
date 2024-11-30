@@ -7,7 +7,7 @@ import lombok.Setter;
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
-        property = "type"
+        property = "type"   // 会占用 type 字段，需要新的属性和字段，如：contentType
 )
 @JsonSubTypes({
         @JsonSubTypes.Type(value = TextContent.class, name = "text"),
@@ -19,5 +19,7 @@ import lombok.Setter;
 })
 @Setter @Getter
 public abstract class AbstractContent {
-    private String type;
+    private String contentType;
+
+    public String ContentType(){ return contentType; }
 }

@@ -23,7 +23,8 @@ public class ProjectManager {
     }
 
     public static ProjectManager getManager() { return INSTANCE; }
-    public ProjectEntity getProject() { return PROJECT; }
+    public static ProjectEntity getProject() { return PROJECT; }
+    public static ProcessEntity getProcess() { return PROCESS; }
 
     /**
      * 创建默认项目，在工作目录下生成默认项目文件: $workspace$/project/default.json
@@ -55,14 +56,7 @@ public class ProjectManager {
         INSTANCE = new ProjectManager();
 
         // 解析默认项目 ~ parse 'default.json'
-        Presentation presentation = JsonParser(PROJECT.Filepath() + '/' + PROJECT.Name());
-        if (presentation == null) {
-            PROCESS.setPresentation(null);
-            PROCESS.setExitcode(ReturnCode.FAIL_TO_PARSE);
-        } else {
-            PROCESS.setPresentation(presentation);
-            PROCESS.setExitcode(ReturnCode.SUCCESS);
-        }
+        parseProject();
     }
 
     /**
@@ -82,14 +76,7 @@ public class ProjectManager {
         }
 
         // 解析指定项目 ~ parse target file
-        Presentation presentation = JsonParser(filepath + '/' + name);
-        if (presentation == null) {
-            PROCESS.setPresentation(null);
-            PROCESS.setExitcode(ReturnCode.FAIL_TO_PARSE);
-        } else {
-            PROCESS.setPresentation(presentation);
-            PROCESS.setExitcode(ReturnCode.SUCCESS);
-        }
+        parseProject();
     }
 
     /**
@@ -109,4 +96,15 @@ public class ProjectManager {
      * @param filepath 项目文件目录
      */
     public static void saveProject(String name, String filepath) {}
+
+    private static void parseProject() {
+        Presentation presentation = JsonParser(PROJECT.Filepath() + '/' + PROJECT.Name());
+        if (presentation == null) {
+            PROCESS.setPresentation(null);
+            PROCESS.setExitcode(ReturnCode.FAIL_TO_PARSE);
+        } else {
+            PROCESS.setPresentation(presentation);
+            PROCESS.setExitcode(ReturnCode.SUCCESS);
+        }
+    }
 }
