@@ -7,6 +7,7 @@ import manage.ProjectManager;
 import window.MainWindow;
 import window.component.NoDotsSplitPane;
 import window.dialog.DirectoryChooserDialog;
+import window.enums.ColorName;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -21,7 +22,7 @@ public class MainService extends AbstractService {
     private int index;                  // 当前编辑幻灯片的索引，随用户操作更新
     private String path;                // 当前项目的路径和项目名称
 
-    private UndoManager undoManager;    // 重做管理器，用于编辑框支持撤销和重做操作的
+    private UndoManager undoManager;    // 重做管理器，用于编辑框支持撤销和重做操作
 
     /**
      * 设定当前项目的名称和路径
@@ -335,9 +336,10 @@ public class MainService extends AbstractService {
      * TextContent: String value, int x, int y, String color
      */
     private void drawTextContent(TextContent textContent, JPanel targetPanel) {
-        JTextArea value = new JTextArea(textContent.getValue());        // 设置文本
-        value.setLocation(textContent.X(), textContent.Y());            // 设置位置
-        value.setForeground(Color.getColor(textContent.getColor()));    // 设置颜色
+        JTextArea value = new JTextArea(textContent.getValue());            // 设置文本
+//        value.setLocation(textContent.X(), textContent.Y());              // 设置位置
+        value.setBounds(textContent.X(), textContent.Y(), 200, 40);
+        value.setForeground(ColorName.getColor(textContent.getColor()));    // 设置颜色
 
         value.setEditable(true);
         value.setLineWrap(true);        // 启用行换行

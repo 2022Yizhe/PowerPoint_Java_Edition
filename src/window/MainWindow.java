@@ -4,6 +4,7 @@ import manage.DisplayEngine;
 import window.component.NoDotsSplitPane;
 import window.component.ShortSplitPane;
 import window.enums.CloseAction;
+import window.enums.ColorName;
 import window.layout.ListLayout;
 import window.service.MainService;
 
@@ -52,17 +53,17 @@ public class MainWindow extends AbstractWindow <MainService>{
         this.addComponent("main.panel.content", new NoDotsSplitPane(JSplitPane.VERTICAL_SPLIT), BorderLayout.CENTER, panel -> {
             // 先纵向分割出最下方提示行和中心区域两个部分
             panel.setResizeWeight(0.99);    // 上侧面板将保持更大的相对大小
-            panel.setEnabled(false);        // 禁用分隔条移动
+            panel.setEnabled(false);        // 禁用分割条移动
 
             // 配置最下方的提示行区域
             panel.setBottomComponent(this.createStatusPanel());     // x5.提示行
 
             // 配置中心区域，再次分割面板，包含左侧预览区域和右侧单页展示和编辑界面
-            JSplitPane centerPanel = new JSplitPane();
-            centerPanel.setResizeWeight(0.16);    // 右侧面板将保持更大的相对大小
+            NoDotsSplitPane centerPanel = new NoDotsSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+            centerPanel.setResizeWeight(0.20);  // 右侧面板将保持更大的相对大小
+            centerPanel.setEnabled(false);      // 禁用分割条移动
             centerPanel.setLeftComponent(this.createLeftPanel());   // x3.预览窗口
             centerPanel.setRightComponent(this.createRightPanel()); // x4.展示和编辑窗口
-            centerPanel.setEnabled(true);
 
             panel.setTopComponent(centerPanel);
         });
@@ -116,6 +117,7 @@ public class MainWindow extends AbstractWindow <MainService>{
         // 创建一个可操作面板
         JPanel previewPanel = new JPanel();
         previewPanel.setLayout(new ListLayout());  // 列表布局
+        previewPanel.setBackground(ColorName.DEFAULT.getColor());
         this.mapComponent("main.panel.preview", previewPanel);
 
         // 配置右键弹出菜单，包括创建新的幻灯片和删除幻灯片
@@ -137,7 +139,7 @@ public class MainWindow extends AbstractWindow <MainService>{
 
         previewPanel.addMouseListener(service.rightClick());
 
-        return new JScrollPane(previewPanel);
+        return  new JScrollPane(previewPanel);
     }
 
     /**
@@ -147,7 +149,9 @@ public class MainWindow extends AbstractWindow <MainService>{
     private JScrollPane createRightPanel(){
         // 创建一个可操作面板
         JPanel editPanel = new JPanel();
-        editPanel.setLayout(new OverlayLayout(editPanel));  // 可重叠布局 (更适合幻灯片的实际情况)
+        editPanel.setLayout(null);              // null 布局 (更适合幻灯片的实际情况)
+        editPanel.setBackground(Color.WHITE);   // 设置背景色为白色
+
         this.mapComponent("main.panel.edit", editPanel);
 
         // 快速配置编辑文本域的各项功能
