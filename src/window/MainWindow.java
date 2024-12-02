@@ -3,6 +3,7 @@ package window;
 import manage.DisplayEngine;
 import window.component.NoDotsSplitPane;
 import window.component.ShortSplitPane;
+import window.component.SlidePanel;
 import window.enums.CloseAction;
 import window.enums.ColorName;
 import window.layout.ListLayout;
@@ -64,6 +65,9 @@ public class MainWindow extends AbstractWindow <MainService>{
             centerPanel.setEnabled(false);      // 禁用分割条移动
             centerPanel.setLeftComponent(this.createLeftPanel());   // x3.预览窗口
             centerPanel.setRightComponent(this.createRightPanel()); // x4.展示和编辑窗口
+
+            centerPanel.revalidate();   // 强制布局 -- 有时启动程序会发现分割比例并非 2:8
+            centerPanel.repaint();
 
             panel.setTopComponent(centerPanel);
         });
@@ -148,7 +152,7 @@ public class MainWindow extends AbstractWindow <MainService>{
      */
     private JScrollPane createRightPanel(){
         // 创建一个可操作面板
-        JPanel editPanel = new JPanel();
+        SlidePanel editPanel = new SlidePanel();
         editPanel.setLayout(null);              // null 布局 (更适合幻灯片的实际情况)
         editPanel.setBackground(Color.WHITE);   // 设置背景色为白色
 

@@ -38,6 +38,10 @@ class ShortSplitPaneUI extends BasicSplitPaneUI {
     }
 }
 
+/**
+ * 短分割线的分割面板
+ * 继承自分割面板类
+ */
 public class ShortSplitPane extends JSplitPane {
     public ShortSplitPane(int orientation) {
         super(orientation);

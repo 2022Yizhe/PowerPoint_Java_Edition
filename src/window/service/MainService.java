@@ -6,6 +6,7 @@ import manage.ProjectManager;
 
 import window.MainWindow;
 import window.component.NoDotsSplitPane;
+import window.component.SlidePanel;
 import window.dialog.DirectoryChooserDialog;
 import window.enums.ColorName;
 
@@ -197,48 +198,7 @@ public class MainService extends AbstractService {
      * 配置编辑框的各项功能
      */
     public void setupEditArea(){
-        // TODO - 这只是文本组件的重做管理，可以同理修改为幻灯片编辑的重做管理
-//        JTextArea editArea = this.getComponent("main.textarea.edit");
-//        // 当文本内容发生变化时，自动写入到文件中
-//        editArea.getDocument().addDocumentListener(new DocumentListener() {
-//            @Override
-//            public void insertUpdate(DocumentEvent e) {
-//                MainService.this.saveFile();
-//            }
-//            @Override
-//            public void removeUpdate(DocumentEvent e) {
-//                MainService.this.saveFile();
-//            }
-//            @Override
-//            public void changedUpdate(DocumentEvent e) {
-//                MainService.this.saveFile();
-//            }
-//        });
-//        // 按下 Tab 键时，应该输入四个空格，而不是一个 Tab 缩进（不然太丑）
-//        editArea.addKeyListener(new KeyAdapter() {
-//            @Override
-//            public void keyPressed(KeyEvent e) {
-//                if(e.getKeyCode() == 9) {
-//                    e.consume();
-//                    editArea.insert("    ", editArea.getCaretPosition());
-//                }
-//            }
-//        });
-//        // 由于默认的文本区域不支持重做和撤销操作，需要使用 UndoManager 进行配置，这里添加快捷键
-//        editArea.getInputMap().put(KeyStroke.getKeyStroke("control Y"), "Redo");
-//        editArea.getActionMap().put("Redo", new AbstractAction() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                if(undoManager.canRedo()) undoManager.redo();
-//            }
-//        });
-//        editArea.getInputMap().put(KeyStroke.getKeyStroke("control Z"), "Undo");
-//        editArea.getActionMap().put("Undo", new AbstractAction() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                if(undoManager.canUndo()) undoManager.undo();
-//            }
-//        });
+        // TODO - 参考文本组件的重做管理，同理修改为幻灯片编辑的重做管理
     }
 
     public void displayProject(){
@@ -258,36 +218,8 @@ public class MainService extends AbstractService {
         List<Slide> slides = presentation.Slides();
 
         // 渲染 Slide
-        // TODO 预览面板的渲染位置可能需要压缩
         JPanel previewPanel = this.getComponent("main.panel.preview");
-//        for (Slide slide : slides) {
-//            // 渲染 Content
-//            for (AbstractContent ele : slide.Contents()) {
-//                switch (ele.getType()) {
-//                    case "text":
-//                        drawTextContent((TextContent) ele, previewPanel);
-//                        break;
-//                    case "line":
-//                        drawLineContent((LineContent) ele, previewPanel);
-//                        break;
-//                    case "rectangle":
-//                        drawRectangleContent((RectangleContent) ele, previewPanel);
-//                        break;
-//                    case "oval":
-//                        drawOvalContent((OvalContent) ele, previewPanel);
-//                        break;
-//                    case "circle":
-//                        drawCircleContent((CircleContent) ele, previewPanel);
-//                        break;
-//                    case "image":
-//                        drawImageContent((ImageContent) ele, previewPanel);
-//                        break;
-//                    default:
-//                        // 未识别的 content
-//                        break;
-//                }
-//            }
-//        }
+        // TODO 预览面板的渲染位置可能需要压缩
     }
 
     /**
@@ -300,91 +232,10 @@ public class MainService extends AbstractService {
         List<Slide> slides = presentation.Slides();
         Slide slide = slides.get(index);
 
-        // 渲染 Content
-        JPanel editPanel = this.getComponent("main.panel.edit");
-        for (AbstractContent ele : slide.Contents()) {
-            switch (ele.ContentType()) {
-                case "text":
-                    drawTextContent((TextContent) ele, editPanel);
-                    break;
-                case "line":
-                    drawLineContent((LineContent) ele, editPanel);
-                    break;
-                case "rectangle":
-                    drawRectangleContent((RectangleContent) ele, editPanel);
-                    break;
-                case "oval":
-                    drawOvalContent((OvalContent) ele, editPanel);
-                    break;
-                case "circle":
-                    drawCircleContent((CircleContent) ele, editPanel);
-                    break;
-                case "image":
-                    drawImageContent((ImageContent) ele, editPanel);
-                    break;
-                default:
-                    // 未识别的 content
-                    break;
-            }
-        }
+        // ☆ 渲染 Contents ☆
+        SlidePanel editPanel = this.getComponent("main.panel.edit");
+        editPanel.setContents(slide.Contents());
     }
-
-    /**
-     * 渲染文本
-     * @param textContent Content 的具体子类
-     * @param targetPanel 指定渲染的面板
-     * TextContent: String value, int x, int y, String color
-     */
-    private void drawTextContent(TextContent textContent, JPanel targetPanel) {
-        JTextArea value = new JTextArea(textContent.getValue());            // 设置文本
-//        value.setLocation(textContent.X(), textContent.Y());              // 设置位置
-        value.setBounds(textContent.X(), textContent.Y(), 200, 40);
-        value.setForeground(ColorName.getColor(textContent.getColor()));    // 设置颜色
-
-        value.setEditable(true);
-        value.setLineWrap(true);        // 启用行换行
-        value.setWrapStyleWord(true);   // 只在单词边界换行
-
-        targetPanel.add(value);
-    }
-
-    /**
-     * 渲染直线
-     * @param lineContent Content 的具体子类
-     * @param targetPanel 指定渲染的面板
-     * LineContent: int startX, int startY, int endX, int endY, String color
-     */
-    private void drawLineContent(LineContent lineContent, JPanel targetPanel) {}
-
-    /**
-     * 渲染矩形
-     * @param rectangleContent Content 的具体子类
-     * @param targetPanel 指定渲染的面板
-     */
-    private void drawRectangleContent(RectangleContent rectangleContent, JPanel targetPanel) {}
-
-    /**
-     * 渲染椭圆
-     * @param ovalContent Content 的具体子类
-     * @param targetPanel 指定渲染的面板
-     */
-    private void drawOvalContent(OvalContent ovalContent, JPanel targetPanel) {}
-
-    /**
-     * 渲染圆形
-     * @param circleContent Content 的具体子类
-     * @param targetPanel 指定渲染的面板
-     */
-    private void drawCircleContent(CircleContent circleContent, JPanel targetPanel) {}
-
-    /**
-     * 渲染图像
-     * @param imageContent Content 的具体子类
-     * @param targetPanel 指定渲染的面板
-     */
-    private void drawImageContent(ImageContent imageContent, JPanel targetPanel) {}
-
-
 
 
 

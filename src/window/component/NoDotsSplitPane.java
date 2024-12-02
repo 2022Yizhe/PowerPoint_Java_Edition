@@ -24,6 +24,10 @@ class NoDotsSplitPaneUI extends BasicSplitPaneUI {
     }
 }
 
+/**
+ * 不带三个点的分割面板
+ * 继承自分割面板类
+ */
 public class NoDotsSplitPane extends JSplitPane {
     public NoDotsSplitPane(int orientation) {
         super(orientation);
