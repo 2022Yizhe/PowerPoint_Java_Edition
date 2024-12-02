@@ -35,6 +35,7 @@ public class ImageItem extends VisualItem {
         this.add(popupMenu);
 
         // 监听器
+        this.addMouseListeners();
         this.addMouseListener(new MouseAdapter() {
             /// 注：mouseClicked 包括了 mousePressed 和 mouseReleased 两个监听信号，这里只用到 mousePressed
             @Override
@@ -43,23 +44,6 @@ public class ImageItem extends VisualItem {
                 mouseOffset = e.getPoint();
                 SelectManager.getInstance().selectItem(ImageItem.this);  // 通知选择管理
                 repaint();  // 鼠标按下时立即请求重绘，以显示边框
-            }
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (e.getButton() == MouseEvent.BUTTON3) { // 右键显示菜单
-                    popupMenu.show(e.getComponent(), e.getX(), e.getY());
-                }
-            }
-        });
-
-        this.addMouseMotionListener(new MouseAdapter() {
-            @Override
-            public void mouseDragged(MouseEvent e) {
-                // 获取当前组件的位置
-                int x = getX() + e.getX() - mouseOffset.x;
-                int y = getY() + e.getY() - mouseOffset.y;
-                setLocation(x, y);  // 更新组件位置 (移动时)
             }
         });
     }

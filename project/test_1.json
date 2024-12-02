@@ -1,0 +1,59 @@
+{
+  "title": "My Presentation",
+  "author": "Author Name",
+  "slides": [
+    {
+      "title": "Slide 1",
+      "content": [
+        {
+          "type": "text",
+          "contentType": "text",
+          "value": "你好",
+          "x": 250,
+          "y": 250,
+          "color": "green"
+        },
+        {
+          "type": "rectangle",
+          "contentType": "rectangle",
+          "width": 150,
+          "height": 100,
+          "x": 10,
+          "y": 10,
+          "color": "blue"
+        },
+        {
+          "type": "oval",
+          "contentType": "oval",
+          "radiusX": 100,
+          "radiusY": 50,
+          "x": 200,
+          "y": 100,
+          "color": "dark_gray"
+        },
+        {
+          "type": "image",
+          "contentType": "image",
+          "src": "E:\\Java\\project\\PowerPoint_Java_Edition_1.1\\project\\resource\\momoi_.png",
+          "width": 400,
+          "height": 400,
+          "x": 300,
+          "y": 0
+        }
+      ]
+    },
+    {
+      "title": "Slide 2",
+      "content": [
+        {
+          "type": "text",
+          "contentType": "text",
+          "value": "我喜欢你",
+          "x": 100,
+          "y": 100,
+          "color": "sky_blue"
+        }
+      ]
+    }
+  ]
+}

@@ -12,9 +12,6 @@ import window.service.MainService;
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.awt.*;
-import java.util.LinkedList;
-import java.util.Objects;
-import java.util.Queue;
 
 
 public class MainWindow extends AbstractWindow <MainService>{
@@ -156,7 +153,7 @@ public class MainWindow extends AbstractWindow <MainService>{
         this.mapComponent("main.panel.edit", editPanel);
 
         // 快速配置编辑文本域的各项功能
-        this.service.setupEditArea();
+        this.service.redoEditArea();
 
         return new JScrollPane(editPanel);
     }

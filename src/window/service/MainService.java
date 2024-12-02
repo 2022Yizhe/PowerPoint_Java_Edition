@@ -1,20 +1,14 @@
 package window.service;
 
 import entity.storage.*;
-import manage.DisplayEngine;
 import manage.ProjectManager;
 
 import window.MainWindow;
-import window.component.NoDotsSplitPane;
 import window.component.SlidePanel;
 import window.dialog.DirectoryChooserDialog;
-import window.enums.ColorName;
 
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.undo.UndoManager;
-import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.util.List;
@@ -30,7 +24,7 @@ public class MainService extends AbstractService {
      * @param json_path 路径
      */
     public void setPath(String json_path){
-        this.path = path.replace("\\", "/");
+        this.path = json_path.replace("\\", "/");
     }
 
     /**
@@ -195,12 +189,16 @@ public class MainService extends AbstractService {
     }
 
     /**
-     * 配置编辑框的各项功能
+     * 配置编辑面板的撤销和重做功能
      */
-    public void setupEditArea(){
+    public void redoEditArea(){
         // TODO - 参考文本组件的重做管理，同理修改为幻灯片编辑的重做管理
     }
 
+    /**
+     * 渲染项目
+     * index 指示渲染编辑面板的幻灯片，也指示预览面板的显示窗口 (例如预览面板最多放 5 张幻灯片)
+     */
     public void displayProject(){
         // 渲染预览面板
         previewSlides();
@@ -210,20 +208,20 @@ public class MainService extends AbstractService {
     }
 
     /**
-     * 渲染预览面板的幻灯片序列，代号 - main.panel.preview
+     * 渲染预览面板的幻灯片序列，面板代号 - main.panel.preview
      */
     private void previewSlides() {
         // 获取幻灯片序列
         Presentation presentation = ProjectManager.getProcess().getPresentation();
         List<Slide> slides = presentation.Slides();
 
-        // 渲染 Slide
+        // ☆ 渲染 Slide ☆ -- TODO 预览面板的渲染坐标可能需要压缩
         JPanel previewPanel = this.getComponent("main.panel.preview");
-        // TODO 预览面板的渲染位置可能需要压缩
+
     }
 
     /**
-     * 渲染显示和编辑面板的幻灯片，代号 - main.panel.edit
+     * 渲染显示和编辑面板的幻灯片，面板代号 - main.panel.edit
      * @param index 幻灯片序列中的索引
      */
     private void displaySlide(int index){
@@ -244,7 +242,7 @@ public class MainService extends AbstractService {
      * 切换展示和编辑的幻灯片，同时保存编辑的内容
      * @param path 文件路径
      */
-    public void switchEditSlide(String path) {
+    private void switchEditSlide(String path) {
         // TODO
     }
 
