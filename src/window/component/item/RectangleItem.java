@@ -1,6 +1,7 @@
 package window.component.item;
 
 import entity.storage.RectangleContent;
+import manage.SelectManager;
 import window.enums.ColorName;
 
 import javax.swing.*;
@@ -8,9 +9,12 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class RectangleItem extends JComponent {
+/**
+ * 矩形组件
+ * 继承自视觉组件 - VisualItem
+ */
+public class RectangleItem extends VisualItem {
     private final RectangleContent rectangle;
-    private final JPopupMenu popupMenu;
 
     public RectangleItem(RectangleContent rectangle) {
         super();
@@ -27,6 +31,15 @@ public class RectangleItem extends JComponent {
 
         // 监听器
         this.addMouseListener(new MouseAdapter() {
+            /// 注：mouseClicked 包括了 mousePressed 和 mouseReleased 两个监听信号，这里只用到 mousePressed
+            @Override
+            public void mousePressed(MouseEvent e) {
+                // 记录鼠标相对组件的位置
+                mouseOffset = e.getPoint();
+                SelectManager.getInstance().selectItem(RectangleItem.this);  // 通知选择管理
+                repaint();  // 鼠标按下时立即请求重绘，以显示边框
+            }
+
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1)        // 左键
@@ -35,13 +48,23 @@ public class RectangleItem extends JComponent {
                     popupMenu.show(e.getComponent(), e.getX(), e.getY());
             }
         });
+
+        this.addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                // 获取当前组件的位置
+                int x = getX() + e.getX() - mouseOffset.x;
+                int y = getY() + e.getY() - mouseOffset.y;
+                setLocation(x, y);  // 更新组件位置 (移动时)
+            }
+        });
     }
 
     /**
      * 组件配置逻辑，设置矩形属性
      */
     private void configure(){
-        this.setBounds(rectangle.X(), rectangle.Y(), rectangle.Width(), rectangle.Height());
+        this.setBounds(rectangle.X(), rectangle.Y(), rectangle.Width() + 20, rectangle.Height() + 20);    // 更宽以添加外边框
 
         this.setOpaque(false);  // 透明背景
     }
@@ -64,6 +87,12 @@ public class RectangleItem extends JComponent {
 
         // 绘制矩形边框
         g2d.setColor(ColorName.getColor(rectangle.Color()));
-        g2d.drawRect(rectangle.X(), rectangle.Y(), rectangle.Width() - 15, rectangle.Height() - 15);    // 边框占用额外宽度
+        g2d.drawRect(rectangle.X(), rectangle.Y(), rectangle.Width() , rectangle.Height());    // 边框占用额外宽度，置中心
+
+        // 如果选中，绘制边框
+        if (isSelected) {
+            g2d.setColor(ColorName.LIGHT_GRAY.getColor());   // 设置边框颜色
+            g2d.drawRect(0, 0, getWidth() - 1, getHeight() - 1); // 绘制边框
+        }
     }
 }

@@ -1,6 +1,8 @@
 package window.component.item;
 
 import entity.storage.ImageContent;
+import manage.SelectManager;
+import window.enums.ColorName;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,9 +13,12 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-public class ImageItem extends JComponent {
+/**
+ * 图像组件
+ * 继承自视觉组件 - VisualItem
+ */
+public class ImageItem extends VisualItem {
     private final ImageContent imageContent;
-    private final JPopupMenu popupMenu;
 
     private BufferedImage image;
 
@@ -31,11 +36,30 @@ public class ImageItem extends JComponent {
 
         // 监听器
         this.addMouseListener(new MouseAdapter() {
+            /// 注：mouseClicked 包括了 mousePressed 和 mouseReleased 两个监听信号，这里只用到 mousePressed
+            @Override
+            public void mousePressed(MouseEvent e) {
+                // 记录鼠标相对组件的位置
+                mouseOffset = e.getPoint();
+                SelectManager.getInstance().selectItem(ImageItem.this);  // 通知选择管理
+                repaint();  // 鼠标按下时立即请求重绘，以显示边框
+            }
+
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON3) { // 右键显示菜单
                     popupMenu.show(e.getComponent(), e.getX(), e.getY());
                 }
+            }
+        });
+
+        this.addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                // 获取当前组件的位置
+                int x = getX() + e.getX() - mouseOffset.x;
+                int y = getY() + e.getY() - mouseOffset.y;
+                setLocation(x, y);  // 更新组件位置 (移动时)
             }
         });
     }
@@ -64,9 +88,15 @@ public class ImageItem extends JComponent {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
+        // 绘制图像到此组件的 (0, 0) 位置 - Bounds(imageContent.X(), imageContent.Y())
         if (image != null) {
-            // 绘制图像到此组件的 (0, 0) 位置 - Bounds(imageContent.X(), imageContent.Y())
             g.drawImage(image, 0, 0, image.getWidth(), image.getHeight(), this);
+        }
+
+        // 如果选中，绘制边框
+        if (isSelected) {
+            g.setColor(ColorName.LIGHT_GRAY.getColor());
+            g.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
         }
     }
 

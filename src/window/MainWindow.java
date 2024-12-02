@@ -153,9 +153,6 @@ public class MainWindow extends AbstractWindow <MainService>{
     private JScrollPane createRightPanel(){
         // 创建一个可操作面板
         SlidePanel editPanel = new SlidePanel();
-        editPanel.setLayout(null);              // null 布局 (更适合幻灯片的实际情况)
-        editPanel.setBackground(Color.WHITE);   // 设置背景色为白色
-
         this.mapComponent("main.panel.edit", editPanel);
 
         // 快速配置编辑文本域的各项功能

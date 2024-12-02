@@ -13,6 +13,10 @@ import java.util.stream.Stream;
 
 import static manage.DisplayEngine.*;
 
+/**
+ * 项目管理器
+ * 用于加载项目
+ */
 public class ProjectManager {
     private static ProjectManager INSTANCE;         // 静态变量用于管理
     private static ProjectEntity PROJECT;

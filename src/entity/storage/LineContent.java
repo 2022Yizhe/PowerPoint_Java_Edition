@@ -2,9 +2,6 @@ package entity.storage;
 
 import lombok.Getter;
 import lombok.Setter;
-import window.enums.ColorName;
-
-import java.awt.*;
 
 @Getter @Setter
 public class LineContent extends AbstractContent{
@@ -20,10 +17,4 @@ public class LineContent extends AbstractContent{
     public int EndX(){ return endX; }
     public int EndY(){ return endY; }
     public String Color(){ return color; }
-
-    @Override
-    public void draw(Graphics g) {
-        g.setColor(ColorName.getColor(color));
-        // TODO
-    }
 }

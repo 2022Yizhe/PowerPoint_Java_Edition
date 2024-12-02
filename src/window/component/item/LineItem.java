@@ -1,6 +1,7 @@
 package window.component.item;
 
 import entity.storage.LineContent;
+import manage.SelectManager;
 import window.enums.ColorName;
 
 import javax.swing.*;
@@ -8,9 +9,12 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class LineItem extends JComponent {
+/**
+ * 直线组件
+ * 继承自视觉组件 - VisualItem
+ */
+public class LineItem extends VisualItem {
     private final LineContent line;
-    private final JPopupMenu popupMenu;
 
     public LineItem(LineContent line) {
         super();
@@ -27,12 +31,31 @@ public class LineItem extends JComponent {
 
         // 监听器
         this.addMouseListener(new MouseAdapter() {
+            /// 注：mouseClicked 包括了 mousePressed 和 mouseReleased 两个监听信号，这里只用到 mousePressed
+            @Override
+            public void mousePressed(MouseEvent e) {
+                // 记录鼠标相对组件的位置
+                mouseOffset = e.getPoint();
+                SelectManager.getInstance().selectItem(LineItem.this);  // 通知选择管理
+                repaint();  // 鼠标按下时立即请求重绘，以显示边框
+            }
+
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1)        // 左键
                     ;// DO NOTHING
                 else if (e.getButton() == MouseEvent.BUTTON3)   // 右键显示菜单
                     popupMenu.show(e.getComponent(), e.getX(), e.getY());
+            }
+        });
+
+        this.addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                // 获取当前组件的位置
+                int x = getX() + e.getX() - mouseOffset.x;
+                int y = getY() + e.getY() - mouseOffset.y;
+                setLocation(x, y);  // 更新组件位置 (移动时)
             }
         });
     }
@@ -67,5 +90,11 @@ public class LineItem extends JComponent {
 
         // 绘制直线
         g2d.drawLine(0, 0, line.EndX() - line.StartX(), line.EndY() - line.StartY());
+
+        // 如果选中，绘制边框
+        if (isSelected) {
+            g.setColor(ColorName.LIGHT_GRAY.getColor());   // 设置边框颜色
+            g.drawRect(0, 0, getWidth() - 1, getHeight() - 1); // 绘制边框
+        }
     }
 }

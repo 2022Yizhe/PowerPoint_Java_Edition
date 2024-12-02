@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.awt.*;
-
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
@@ -24,6 +22,4 @@ public abstract class AbstractContent {
     private String contentType;
 
     public String ContentType(){ return contentType; }
-
-    public abstract void draw(Graphics g);  // 抽象绘制方法
 }

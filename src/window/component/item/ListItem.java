@@ -8,8 +8,9 @@ import java.awt.event.MouseEvent;
 import java.util.function.Consumer;
 
 /**
- * 列表单元组件，继承自基本组件类
- * Rule.以此组件填充一个列表，用于构造序列化的 UI
+ * 列表单元组件
+ * 继承自基本组件 - JComponent
+ * 以此组件填充一个列表，用于构造序列化的 UI
  */
 public class ListItem extends JComponent {
     private final String name;
