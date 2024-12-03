@@ -1,5 +1,4 @@
 import com.formdev.flatlaf.*;
-import manage.ProjectManager;
 import window.MainWindow;
 
 import javax.swing.*;
@@ -12,8 +11,6 @@ public class Main {
     public static void main(String[] args) throws Exception {
         // 启用 DPI 缩放
         System.setProperty("sun.java2d.uiScale", "1.5");
-        // 加载项目
-        ProjectManager.loadDefaultProject();
         // 加载皮肤
         UIManager.setLookAndFeel(new FlatLightLaf());
         UIManager.put("Label.font", new Font("Serif", Font.PLAIN, 15));

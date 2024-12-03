@@ -1,40 +1,43 @@
 package manage;
 
-import com.formdev.flatlaf.json.Json;
 import entity.ProcessEntity;
 import entity.ProjectEntity;
 import entity.storage.Presentation;
 import window.enums.ReturnCode;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.stream.Stream;
 
-import static manage.DisplayEngine.*;
+import static manage.ParseEngine.*;
 
 /**
  * 项目管理器
  * 用于加载项目
  */
 public class ProjectManager {
-    private static ProjectManager INSTANCE;         // 静态变量用于管理
-    private static ProjectEntity PROJECT;
-    private static ProcessEntity PROCESS;
+    private ProjectEntity PROJECT;
+    private ProcessEntity PROCESS;
+
+    private static ProjectManager INSTANCE; // 静态变量用于管理
 
     private ProjectManager(){
         PROCESS = new ProcessEntity();
     }
 
-    public static ProjectManager getManager() { return INSTANCE; }
-    public static ProjectEntity getProject() { return PROJECT; }
-    public static ProcessEntity getProcess() { return PROCESS; }
+    public static ProjectManager getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new ProjectManager();
+        }
+        return INSTANCE;
+    }
+
+    public ProjectEntity getProject() { return PROJECT; }
+    public ProcessEntity getProcess() { return PROCESS; }
 
     /**
      * 创建默认项目，在工作目录下生成默认项目文件: $workspace$/project/default.json
      * @throws IOException 调用这个方法的代码要处理可能发生的异常
      */
-    public static void loadDefaultProject() throws IOException {
+    public void loadDefaultProject() throws IOException {
         // 定位当前工作目录
         String currentDirectory = System.getProperty("user.dir");
         String projectDirectory = "project";    // 定义项目文件夹
@@ -55,9 +58,8 @@ public class ProjectManager {
             else
                 throw new IOException("Failed to create project!");
         } else {
-            PROJECT = new ProjectEntity(fileName, dir.getAbsolutePath());
+            PROJECT = new ProjectEntity(fileName, dir.getAbsolutePath());   // 创建默认实例
         }
-        INSTANCE = new ProjectManager();
 
         // 解析默认项目 ~ parse 'default.json'
         parseProject();
@@ -66,17 +68,17 @@ public class ProjectManager {
     /**
      * 打开一个存在的项目，需指定项目文件名称和存储目录
      * @param name 项目文件名
-     * @param filepath 项目文件目录
+     * @param directory 项目文件目录
      * @throws FileNotFoundException 调用这个方法的代码要处理可能发生的异常
      */
-    public static void loadProject(String name, String filepath) throws FileNotFoundException {
-        // 加载指定项目
-        File file = new File(filepath + "/" + name);
+    public void loadProject(String name, String directory) throws FileNotFoundException {
+        // 加载指定项目 - 删除旧项目 - 加载新项目
+        File file = new File(directory + "/" + name);
         if(!file.exists()) {
             throw new FileNotFoundException("Failed to load project!");
         } else {
-            PROJECT = new ProjectEntity(name, filepath);
-            INSTANCE = new ProjectManager();
+            PROJECT = null;                                 // 提示垃圾回收器 (GC) 可以回收
+            PROJECT = new ProjectEntity(name, directory);   // 创建新实例
         }
 
         // 解析指定项目 ~ parse target file
@@ -88,9 +90,8 @@ public class ProjectManager {
      * @param name 项目文件名
      * @param filepath 项目文件目录
      */
-    public static void createProject(String name, String filepath) {
+    public void createProject(String name, String filepath) {
         PROJECT = new ProjectEntity(name, filepath);
-        INSTANCE = new ProjectManager();
         // TODO
     }
 
@@ -99,9 +100,14 @@ public class ProjectManager {
      * @param name 项目文件名
      * @param filepath 项目文件目录
      */
-    public static void saveProject(String name, String filepath) {}
+    public void saveProject(String name, String filepath) {
 
-    private static void parseProject() {
+    }
+
+    /**
+     * 解析幻灯片项目，在加载完毕项目之后进行
+     */
+    private void parseProject() {
         Presentation presentation = JsonParser(PROJECT.Filepath() + '/' + PROJECT.Name());
         if (presentation == null) {
             PROCESS.setPresentation(null);

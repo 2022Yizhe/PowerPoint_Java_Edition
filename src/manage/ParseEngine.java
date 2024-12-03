@@ -5,24 +5,21 @@ import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.core.exc.StreamReadException;
 
 import entity.storage.*;
-import window.enums.ReturnCode;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.File;
-import java.util.List;
 
 
 /**
- * 进程执行引擎
+ * 解析引擎
  * 采用标准的 json 语法来存储 ppt 文件，并使用 Jackson 解析器实现对源文件的解析，步骤如下：
- * - 解析源文件 (.json)
- * - 渲染当前页
- * - 执行程序中断操作
- * 所有跟项目相关的操作都使用此执行引擎完成。
+ * - 解析源文件 (.json) 返回一个 presentation 对象
  */
-public class DisplayEngine {
+public class ParseEngine {
+    /**
+     * json 解析器
+     * @param json_path json 文件路径
+     * @return 解析结果 presentation，是一个幻灯片序列 (slides)
+     */
     public static Presentation JsonParser(String json_path){
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.JAVA_LANG_OBJECT, JsonTypeInfo.As.PROPERTY);
@@ -53,5 +50,8 @@ public class DisplayEngine {
         return null;
     }
 
+    /**
+     * 中断解析过程
+     */
     public static void stopProcess(){}
 }

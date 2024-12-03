@@ -6,7 +6,7 @@ import javax.swing.*;
 
 /**
  * 编辑面板管理器
- * 用于处理监听鼠标信号，并发出编辑面板对应组件的使能
+ * 用于处理鼠标信号，并发出编辑面板对应组件的使能
  */
 public class SelectManager {
     private static SelectManager INSTANCE;
@@ -27,7 +27,7 @@ public class SelectManager {
     }
 
     /**
-     * 编辑过的组件注册到管理器
+     * 注册表，将组件注册到管理器，暂时无用
      * @param item 幻灯片面板中的组件
      */
     public void registerItem(JComponent item) {}
@@ -59,6 +59,7 @@ public class SelectManager {
     }
 
     /**
+     * 管理选择信号，清除所有组件的选中状态
      * shut down all selection enables
      */
     public void clearAll() {

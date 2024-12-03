@@ -1,6 +1,7 @@
 package window;
 
-import manage.DisplayEngine;
+import manage.ParseEngine;
+import manage.ProjectManager;
 import window.component.NoDotsSplitPane;
 import window.component.ShortSplitPane;
 import window.component.SlidePanel;
@@ -12,6 +13,7 @@ import window.service.MainService;
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.awt.*;
+import java.io.IOException;
 
 
 public class MainWindow extends AbstractWindow <MainService>{
@@ -19,9 +21,16 @@ public class MainWindow extends AbstractWindow <MainService>{
     public MainWindow(String title){
         super(title, new Dimension(1280, 800), true, MainService.class);
         this.setDefaultCloseAction(CloseAction.DISPOSE);    // 窗口关闭不直接退出程序
-        this.initWindowContent();   // 初始化窗口内容
+        this.initWindowContent();                           // 初始化窗口组件
 
-        service.displayProject();   // 初始化时渲染默认项目
+        // 初始化时加载默认项目
+        try {
+            ProjectManager.getInstance().loadDefaultProject();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // 初始化时渲染默认项目
+        service.displayProject();
     }
 
     /**
@@ -279,7 +288,7 @@ public class MainWindow extends AbstractWindow <MainService>{
     @Override
     protected boolean onClose() {
         // 关闭之前的操作，保存修改但未保存的项目
-        DisplayEngine.stopProcess();
+        ParseEngine.stopProcess();
         return true;
     }
 

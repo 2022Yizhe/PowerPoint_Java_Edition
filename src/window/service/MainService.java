@@ -14,8 +14,11 @@ import java.io.*;
 import java.util.List;
 
 public class MainService extends AbstractService {
+    private String name;                // 当前项目的名称
+    private String directory;           // 当前项目的目录
+    private String path;                // 当前项目文件的路径
+
     private int index;                  // 当前编辑幻灯片的索引，随用户操作更新
-    private String path;                // 当前项目的路径和项目名称
 
     private UndoManager undoManager;    // 重做管理器，用于编辑框支持撤销和重做操作
 
@@ -80,16 +83,19 @@ public class MainService extends AbstractService {
         File selectedFile = chooser_dialog.getSelectedFile();
         if(selectedFile == null) return;
 
-        // 配置项目，并刷新显示面板
+        // 获取幻灯片文件名和目录，解析指定项目
         try {
-            ProjectManager.loadProject(selectedFile.getName(), selectedFile.getParentFile().getAbsolutePath()); // 获取幻灯片文件名和目录 (用于配置项目实体)
+            name = selectedFile.getName();
+            directory = selectedFile.getParentFile().getAbsolutePath();
+            path = selectedFile.getAbsolutePath();
+            ProjectManager.getInstance().loadProject(name, directory);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.setPath(selectedFile.getAbsolutePath());   // 保存幻灯片文件 (.json) 路径
 
-        MainWindow window = (MainWindow) this.getWindow();
-//        window.refreshSlideQueue();
+        // 渲染指定项目
+        this.clear();
+        this.displayProject();
     }
 
     /**
@@ -212,7 +218,7 @@ public class MainService extends AbstractService {
      */
     private void previewSlides() {
         // 获取幻灯片序列
-        Presentation presentation = ProjectManager.getProcess().getPresentation();
+        Presentation presentation = ProjectManager.getInstance().getProcess().getPresentation();
         List<Slide> slides = presentation.Slides();
 
         // ☆ 渲染 Slide ☆ -- TODO 预览面板的渲染坐标可能需要压缩
@@ -226,7 +232,7 @@ public class MainService extends AbstractService {
      */
     private void displaySlide(int index){
         // 获取指定位置的幻灯片
-        Presentation presentation = ProjectManager.getProcess().getPresentation();
+        Presentation presentation = ProjectManager.getInstance().getProcess().getPresentation();
         List<Slide> slides = presentation.Slides();
         Slide slide = slides.get(index);
 
@@ -235,6 +241,18 @@ public class MainService extends AbstractService {
         editPanel.setContents(slide.Contents());
     }
 
+    /**
+     * 清除旧项目的 UI 布局
+     */
+    private void clear(){
+        // 获取编辑面板
+        SlidePanel editPanel = this.getComponent("main.panel.edit");
+        editPanel.clear();
+
+        // 获取预览面板
+        JPanel previewPanel = this.getComponent("main.panel.preview");
+//        previewPanel.clear();
+    }
 
 
 

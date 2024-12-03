@@ -16,7 +16,7 @@ import java.util.List;
  * 继承自面板类，可用于添加各种形式的组件
  */
 public class SlidePanel extends JPanel {
-    private List<JComponent> items = new ArrayList<>();
+    private List<JComponent> items = new ArrayList<>(); // 右键菜单新增/复制幻灯片用得到
 
     public SlidePanel() {
         this.setLayout(null);               // 采用绝对布局 (以便自由拖动组件)
@@ -54,5 +54,18 @@ public class SlidePanel extends JPanel {
             addContent(content);
         }
         repaint();  // 请求重绘
+    }
+
+    /**
+     * 清空面板上所有已添加的组件
+     * 保留面板的基本设置，如布局、背景颜色等，这些在 MainWindow 中就已设置完毕，无需更改
+     */
+    public void clear(){
+        // 先移除窗口的组件，再清空管理容器
+        this.removeAll();
+        this.revalidate();  // 重新验证和重绘面板
+        this.repaint();
+        items.clear();
+        repaint();          // 请求重绘
     }
 }
