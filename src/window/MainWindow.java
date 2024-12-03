@@ -124,9 +124,9 @@ public class MainWindow extends AbstractWindow <MainService>{
      * @return 预览板块
      */
     private JScrollPane createLeftPanel(){
-        // 创建一个可操作面板
+        // 创建一个预览面板
         JPanel previewPanel = new JPanel();
-        previewPanel.setLayout(new ListLayout());  // 列表布局
+        previewPanel.setLayout(new ListLayout());  // 采用列表布局
         previewPanel.setBackground(ColorName.DEFAULT.getColor());
         this.mapComponent("main.panel.preview", previewPanel);
 
@@ -161,7 +161,7 @@ public class MainWindow extends AbstractWindow <MainService>{
         SlidePanel editPanel = new SlidePanel();
         this.mapComponent("main.panel.edit", editPanel);
 
-        // 快速配置编辑文本域的各项功能
+        // 配置编辑文本域的撤销和重做功能
         this.service.redoEditArea();
 
         return new JScrollPane(editPanel);

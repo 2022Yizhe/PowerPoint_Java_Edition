@@ -1,10 +1,12 @@
 package window.service;
 
+import com.sun.tools.javac.Main;
 import entity.storage.*;
 import manage.ProjectManager;
 
 import window.MainWindow;
 import window.component.SlidePanel;
+import window.component.item.ListItem;
 import window.dialog.DirectoryChooserDialog;
 
 import javax.swing.*;
@@ -12,6 +14,7 @@ import javax.swing.undo.UndoManager;
 import java.awt.event.*;
 import java.io.*;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class MainService extends AbstractService {
     private String name;                // 当前项目的名称
@@ -221,9 +224,16 @@ public class MainService extends AbstractService {
         Presentation presentation = ProjectManager.getInstance().getProcess().getPresentation();
         List<Slide> slides = presentation.Slides();
 
-        // ☆ 渲染 Slide ☆ -- TODO 预览面板的渲染坐标可能需要压缩
+        // ☆ preview ☆ -- TODO 渲染预览面板时，坐标可能需要压缩
         JPanel previewPanel = this.getComponent("main.panel.preview");
-
+        IntStream.range(0, slides.size())       // 使用 IntStream 获取索引，以便构造 clickAction
+                .forEach(index -> {
+                    Slide slide = slides.get(index);
+                    ListItem item = new ListItem(slide.Title(), () -> {
+                        displaySlide(index);    // TODO 存在重复显示的问题
+                    });
+                    previewPanel.add(item);
+                });
     }
 
     /**
@@ -236,24 +246,33 @@ public class MainService extends AbstractService {
         List<Slide> slides = presentation.Slides();
         Slide slide = slides.get(index);
 
-        // ☆ 渲染 Contents ☆
+        // ☆ edit ☆
         SlidePanel editPanel = this.getComponent("main.panel.edit");
+        this.clearEdit();
         editPanel.setContents(slide.Contents());
     }
 
     /**
-     * 清除旧项目的 UI 布局
+     * 清除旧项目的 UI 组件
      */
     private void clear(){
-        // 获取编辑面板
-        SlidePanel editPanel = this.getComponent("main.panel.edit");
-        editPanel.clear();
+        // 清除编辑面板组件
+        this.clearEdit();
 
-        // 获取预览面板
+        // 清除预览面板组件
         JPanel previewPanel = this.getComponent("main.panel.preview");
-//        previewPanel.clear();
+        previewPanel.removeAll();
+        previewPanel.revalidate();  // 重新验证
+        previewPanel.repaint();     // 请求重绘
     }
 
+    /**
+     * 清除现项目的编辑面板组件
+     */
+    private void clearEdit(){
+        SlidePanel editPanel = this.getComponent("main.panel.edit");
+        editPanel.clear();
+    }
 
 
     /**

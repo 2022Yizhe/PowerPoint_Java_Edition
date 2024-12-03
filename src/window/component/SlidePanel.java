@@ -32,6 +32,10 @@ public class SlidePanel extends JPanel {
         });
     }
 
+    /**
+     * 将 AbstractContent 转换为可布局的 JComponent
+     * @param content 解析后的一个 content 对象
+     */
     public void addContent(AbstractContent content) {
         JComponent item = switch (content.ContentType()) {
             case "text" -> new TextItem((TextContent) content);
@@ -43,17 +47,21 @@ public class SlidePanel extends JPanel {
             default -> throw new IllegalArgumentException("Unsupported content type: " + content.ContentType());
         };
 
-        // 组件识别成功后，先添加到管理容器，再添加到窗口
+        // 组件识别成功后，先添加到管理容器，再布局到窗口
         items.add(item);
         this.add(item);
     }
 
+    /**
+     * 布局一张幻灯片的所有内容
+     * @param contents 解析后的一张幻灯片中的内容列表，包含多个 content 对象
+     */
     public void setContents(List<AbstractContent> contents) {
         items.clear();
         for (AbstractContent content : contents) {
             addContent(content);
         }
-        repaint();  // 请求重绘
+        this.repaint();     // 请求重绘
     }
 
     /**
@@ -63,9 +71,9 @@ public class SlidePanel extends JPanel {
     public void clear(){
         // 先移除窗口的组件，再清空管理容器
         this.removeAll();
-        this.revalidate();  // 重新验证和重绘面板
-        this.repaint();
+        this.revalidate();  // 重新验证
         items.clear();
-        repaint();          // 请求重绘
+
+        this.repaint();     // 请求重绘
     }
 }

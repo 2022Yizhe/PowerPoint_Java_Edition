@@ -12,14 +12,13 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 /**
- * AbstractWindow 是当前项目中所有窗口的顶层抽象类，继承自JFrame类。
- * 考虑到我们的窗口功能复杂，所以：
- * - 窗口内只需要编写组件部分，仅包括 UI 相关内容。
- * - 每个窗口都有一个对应的 Service 来对各项功能进行具体实现。
- * - 与工具类、管理类这些底层操作相关的，只能由 Service 来交互。
- * 因此，我们在编写窗口的时候需要分三层来写，这样逻辑会更加清晰一些，比如：
- * - WelcomeWindow <-> WelcomeService <-> Tools、Manager
- * - MainWindow <-> MainService <-> Tools、Manager
+ * AbstractWindow 是当前项目中所有窗口的顶层抽象类，继承自 JFrame 类
+ * 考虑到我们的窗口功能复杂，所以:
+ * - 窗口内只需要编写组件部分，仅包括 UI 相关内容;
+ * - 窗口有一个对应的 Service 来对各项功能进行具体实现;
+ * - 与工具类、管理类这些底层操作相关的，只能由 Service 来交互 !
+ * 因此，我们在编写窗口的时候需要分 '四小层/两大层' 来写，这样逻辑会更加清晰一些
+ * 即: entity <-> Manager <---> MainService <-> MainWindow
  */
 public abstract class AbstractWindow <R extends AbstractService> extends JFrame {
     // 定义窗口的默认关闭行为
