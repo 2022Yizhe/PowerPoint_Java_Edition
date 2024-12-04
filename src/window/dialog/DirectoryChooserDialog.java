@@ -14,10 +14,10 @@ public class DirectoryChooserDialog extends AbstractDialog {
     private JFileChooser fileChooser;
 
     public DirectoryChooserDialog(AbstractDialog parent) {
-        super(parent, "请选择一个文件", new Dimension(600, 400));
+        super(parent, "请选择一个文件", new Dimension(720, 480));
     }
     public DirectoryChooserDialog(AbstractWindow parent) {
-        super(parent, "请选择一个文件", new Dimension(600, 400));
+        super(parent, "请选择一个文件", new Dimension(720, 480));
     }
 
     @Override

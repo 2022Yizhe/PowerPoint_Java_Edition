@@ -53,7 +53,6 @@ public class MainWindow extends AbstractWindow <MainService>{
 
             panel.setTopComponent(this.createControlPanel());       // x1.控制栏
             panel.setBottomComponent(createFileToolsPanel(panel));  // x2.工具栏 (默认显示文件选项的工具栏)
-
         });
 
         // 显示区域，包含左侧的预览区域，右侧的单页展示和编辑区域，还有最下面的提示行区域

@@ -1,7 +1,5 @@
 package window.component.item;
 
-import manage.SelectManager;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;

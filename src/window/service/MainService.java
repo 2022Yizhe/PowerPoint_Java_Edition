@@ -1,6 +1,5 @@
 package window.service;
 
-import com.sun.tools.javac.Main;
 import entity.storage.*;
 import manage.ProjectManager;
 
@@ -114,7 +113,8 @@ public class MainService extends AbstractService {
      * 保存一个已有的 miniPpt 项目
      */
     public void saveFileButtonAction() {
-
+        // 选择一个保存位置 - FileChooserDialog - TODO
+        ProjectManager.getInstance().saveProject(name, directory);
     }
 
     /**
@@ -230,7 +230,7 @@ public class MainService extends AbstractService {
                 .forEach(index -> {
                     Slide slide = slides.get(index);
                     ListItem item = new ListItem(slide.Title(), () -> {
-                        displaySlide(index);    // TODO 存在重复显示的问题
+                        displaySlide(index);
                     });
                     previewPanel.add(item);
                 });
@@ -272,30 +272,5 @@ public class MainService extends AbstractService {
     private void clearEdit(){
         SlidePanel editPanel = this.getComponent("main.panel.edit");
         editPanel.clear();
-    }
-
-
-    /**
-     * 切换展示和编辑的幻灯片，同时保存编辑的内容
-     * @param path 文件路径
-     */
-    private void switchEditSlide(String path) {
-        // TODO
-    }
-
-    /**
-     * 右键菜单 - 删除幻灯片
-     * @param index 右键的幻灯片索引
-     */
-    private void deleteSlide(int index){
-        // TODO
-    }
-
-    /**
-     * 重做管理
-     * 保存编辑到文件
-     */
-    private void saveFile(){
-        // TODO
     }
 }
