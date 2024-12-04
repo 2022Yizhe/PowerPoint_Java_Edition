@@ -228,10 +228,15 @@ public class MainService extends AbstractService {
         JPanel previewPanel = this.getComponent("main.panel.preview");
         IntStream.range(0, slides.size())       // 使用 IntStream 获取索引，以便构造 clickAction
                 .forEach(index -> {
+                    // 配置左键渲染
                     Slide slide = slides.get(index);
                     ListItem item = new ListItem(slide.Title(), () -> {
                         displaySlide(index);
                     });
+                    // 配置右键菜单
+                    JPopupMenu popupMenu = this.getComponent("main.popup.slide");
+                    item.setPopupMenu(popupMenu);
+                    // 配置完毕，装载到预览面板
                     previewPanel.add(item);
                 });
     }

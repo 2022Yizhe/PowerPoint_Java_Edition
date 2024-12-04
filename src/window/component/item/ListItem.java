@@ -15,8 +15,15 @@ import java.awt.event.MouseEvent;
  * 以此组件填充一个列表，用于构造预览面板
  */
 public class ListItem extends JComponent {
-    private final String title;         // 幻灯片的标题 (独立，并不属于 content)
-    private final JPopupMenu popupMenu; // 右键上下文菜单
+    private final String title;     // 幻灯片的标题 (独立，并不属于 content)
+
+    /**
+     * -- SETTER --
+     *  配置右键菜单
+     *  在 clickAction 中配置
+     */
+    @Setter
+    private JPopupMenu popupMenu;   // 右键上下文菜单
 
     /**
      * -- SETTER --
@@ -28,8 +35,8 @@ public class ListItem extends JComponent {
 
     public ListItem(String title, Runnable clickAction) {
         this.title = title;
-        this.popupMenu = new JPopupMenu();      // TODO - 配置右键菜单
-        this.clickAction = clickAction;         // TODO - 左键打开项目
+        this.popupMenu = null;
+        this.clickAction = clickAction;         // TODO - 左键打开项目，配置右键菜单
 
         // 配置自定义外观
         this.setUI(new ListItemUI());
@@ -53,7 +60,7 @@ public class ListItem extends JComponent {
             public void mouseClicked(MouseEvent e) {
                 if(e.getButton() == MouseEvent.BUTTON1)         // 左键打开项目 - clickAction 在 Service 层构造
                     clickAction.run();
-                else if (e.getButton() == MouseEvent.BUTTON3)   // 右键显示菜单
+                else if (e.getButton() == MouseEvent.BUTTON3)   // 右键显示菜单 - clickAction 在 Service 层构造
                     popupMenu.show(ListItem.this, e.getX(), e.getY());
             }
         });
