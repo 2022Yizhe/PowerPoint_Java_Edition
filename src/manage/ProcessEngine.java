@@ -1,12 +1,14 @@
 package manage;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.core.exc.StreamWriteException;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.core.exc.StreamReadException;
 
 import entity.storage.*;
 
 import java.io.File;
+import java.io.IOException;
 
 
 /**
@@ -14,15 +16,15 @@ import java.io.File;
  * 采用标准的 json 语法来存储 ppt 文件，并使用 Jackson 解析器实现对源文件的解析，步骤如下：
  * - 解析源文件 (.json) 返回一个 presentation 对象
  */
-public class ParseEngine {
+public class ProcessEngine {
     /**
-     * json 解析器
+     * 反序列化 - 将 json 字符串转换为 Ppt 对象
      * @param json_path json 文件路径
      * @return 解析结果 presentation，是一个幻灯片序列 (slides)
      */
     public static Presentation JsonParser(String json_path){
         ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.JAVA_LANG_OBJECT, JsonTypeInfo.As.PROPERTY);
+        objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.JAVA_LANG_OBJECT, JsonTypeInfo.As.PROPERTY);    // 启用多态性对象检查
 
         try {
             // 读取 JSON 文件
@@ -44,10 +46,27 @@ public class ParseEngine {
         } catch (StreamReadException e) {
             // 捕获 DatabindException
             System.out.println("Error during data binding: " + e.getMessage());
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * 序列化 - 将 Ppt 对象转换为 json 字符串，保存到指定路径
+     * @param presentation 一个 presentation 实例
+     * @param json_path 文件的保存路径
+     */
+    public static void JsonConverter(Presentation presentation, String json_path){
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        try {
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File(json_path), presentation);
+        } catch (StreamWriteException e){
+            System.out.println("Error during data binding: " + e.getMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

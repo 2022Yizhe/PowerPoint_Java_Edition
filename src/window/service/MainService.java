@@ -7,6 +7,7 @@ import window.MainWindow;
 import window.component.SlidePanel;
 import window.component.item.ListItem;
 import window.dialog.DirectoryChooserDialog;
+import window.dialog.FileChooserDialog;
 
 import javax.swing.*;
 import javax.swing.undo.UndoManager;
@@ -80,7 +81,7 @@ public class MainService extends AbstractService {
      */
     public void openFileButtonAction(){
         // 打开文件选择器，选择一个文件 (.json)
-        DirectoryChooserDialog chooser_dialog = new DirectoryChooserDialog(this.getWindow());
+        FileChooserDialog chooser_dialog = new FileChooserDialog(this.getWindow());
         chooser_dialog.openDialog();
         File selectedFile = chooser_dialog.getSelectedFile();
         if(selectedFile == null) return;
@@ -113,8 +114,23 @@ public class MainService extends AbstractService {
      * 保存一个已有的 miniPpt 项目
      */
     public void saveFileButtonAction() {
-        // 选择一个保存位置 - FileChooserDialog - TODO
-        ProjectManager.getInstance().saveProject(name, directory);
+        // 打开文件选择器，选择一个保存位置
+        DirectoryChooserDialog chooser_dialog = new DirectoryChooserDialog(this.getWindow());
+        chooser_dialog.openDialog();
+        File selectedFile = chooser_dialog.getSelectedFile();
+        if(selectedFile == null) return;
+
+        // 获取新路径
+        name = ProjectManager.getInstance().getProject().Name();    // 文件名与原文件一样
+        directory = selectedFile.getAbsolutePath();                 // 新路径
+        path = selectedFile.getAbsolutePath();                      // 新目录 - 两者一样是因为选择的是文件夹
+
+        // 保存项目到新路径
+        try {
+            ProjectManager.getInstance().saveProject(name, directory);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -224,7 +240,7 @@ public class MainService extends AbstractService {
         Presentation presentation = ProjectManager.getInstance().getProcess().getPresentation();
         List<Slide> slides = presentation.Slides();
 
-        // ☆ preview ☆ -- TODO 渲染预览面板时，坐标可能需要压缩
+        // ☆ preview ☆ -- TODO 如果渲染预览面板，坐标可能需要压缩
         JPanel previewPanel = this.getComponent("main.panel.preview");
         IntStream.range(0, slides.size())       // 使用 IntStream 获取索引，以便构造 clickAction
                 .forEach(index -> {

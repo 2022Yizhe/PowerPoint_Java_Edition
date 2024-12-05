@@ -3,21 +3,20 @@ package window.dialog;
 import window.AbstractWindow;
 
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.io.File;
 
 /**
- * 文件目录选择对话框
+ * 目录选择对话框
  */
 public class DirectoryChooserDialog extends AbstractDialog {
     private JFileChooser fileChooser;
 
     public DirectoryChooserDialog(AbstractDialog parent) {
-        super(parent, "请选择一个文件", new Dimension(720, 480));
+        super(parent, "请选择一个目录", new Dimension(720, 480));
     }
     public DirectoryChooserDialog(AbstractWindow parent) {
-        super(parent, "请选择一个文件", new Dimension(720, 480));
+        super(parent, "请选择一个目录", new Dimension(720, 480));
     }
 
     @Override
@@ -28,14 +27,11 @@ public class DirectoryChooserDialog extends AbstractDialog {
 
         // 添加一个组件: JFileChooser
         fileChooser = new JFileChooser();
-        // 创建文件过滤器，只允许选择 .json 文件
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("JSON Files", "json");
-        fileChooser.setFileFilter(filter);
+        fileChooser.setApproveButtonText("保存");
 
         this.addComponent(fileChooser, chooser -> {
-            // 设定选择器只能选择文件夹
-            chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-            // 监听器，当选择完成后，就关闭当前窗口
+            chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);    // 只选择目录
+            // 添加监听器，当选择完成后，就关闭当前窗口
             chooser.addActionListener(e -> DirectoryChooserDialog.this.closeDialog());
         });
     }

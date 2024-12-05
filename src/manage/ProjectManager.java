@@ -6,8 +6,10 @@ import entity.storage.Presentation;
 import window.enums.ReturnCode;
 
 import java.io.*;
+import java.util.List;
+import java.util.Map;
 
-import static manage.ParseEngine.*;
+import static manage.ProcessEngine.*;
 
 /**
  * 项目管理器
@@ -43,7 +45,7 @@ public class ProjectManager {
         String projectDirectory = "project";    // 定义项目文件夹
         String fileName = "default.json";       // 定义默认存储文件名
 
-        // 生成默认项目文件
+        // 创建默认项目文件目录
         File dir = new File(currentDirectory, projectDirectory);
         if (!dir.exists()) {
             if(!dir.mkdir())
@@ -96,12 +98,24 @@ public class ProjectManager {
     }
 
     /**
-     * 保存当前项目，需指定项目文件名称和存储目录
-     * @param name 项目文件名
-     * @param filepath 项目文件目录
+     * 序列化当前项目，保存文件到指定目录
+     * @param directory 文件目录
      */
-    public void saveProject(String name, String filepath) {
+    public void saveProject(String name, String directory) throws IOException {
+        // 创建项目文件目录，并检查
+        File dir = new File(directory);
+        boolean flag = dir.exists() && dir.isDirectory();
+        if (!flag) {
+            if(!dir.mkdir())
+                throw new IOException("Failed to create folder!");
+        }
 
+        // '反解析' - 并保存项目为 json 文件
+        JsonConverter(PROCESS.getPresentation(), directory + '/' + name);
+
+        // 更新 PROJECT 实例
+        PROJECT = null;                                 // 提示垃圾回收器 (GC) 可以回收
+        PROJECT = new ProjectEntity(name, directory);   // 创建新实例
     }
 
     /**

@@ -1,6 +1,6 @@
 package window;
 
-import manage.ParseEngine;
+import manage.ProcessEngine;
 import manage.ProjectManager;
 import window.component.NoDotsSplitPane;
 import window.component.ShortSplitPane;
@@ -11,7 +11,6 @@ import window.layout.ListLayout;
 import window.service.MainService;
 
 import javax.swing.*;
-import javax.swing.tree.DefaultMutableTreeNode;
 import java.awt.*;
 import java.io.IOException;
 
@@ -282,45 +281,14 @@ public class MainWindow extends AbstractWindow <MainService>{
         return tools_panel;
     }
 
+    /**
+     * 关闭窗口之前，应做什么在这里写
+     * @return 是否就绪
+     */
     @Override
     protected boolean onClose() {
-        // 关闭之前的操作，保存修改但未保存的项目
-        ParseEngine.stopProcess();
+        // 关闭之前的操作
+        ProcessEngine.stopProcess();
         return true;
-    }
-
-    /**
-     * TODO - 也许不需要这个类
-     * 内部类: QueueNode
-     * QueueNode 是幻灯片 (Slide) 的专用结点信息存储介质
-     */
-    private static class QueueNode{
-        private final String x1;
-        private final String x2;
-
-        public QueueNode(String x1, String x2){
-            this.x1 = x1;
-            this.x2 = x2;
-        }
-        @Override
-        public String toString() {
-            return null;
-        }
-    }
-
-    /**
-     * RefreshQueue
-     * 项目打开、修改后，立即刷新幻灯片队列
-     */
-    public void refreshSlideQueue(){
-        // TODO
-        SwingUtilities.updateComponentTreeUI(this);
-    }
-
-    /**
-     * BuildQueue
-     */
-    private void buildTreeNode(DefaultMutableTreeNode root){
-        // TODO
     }
 }
