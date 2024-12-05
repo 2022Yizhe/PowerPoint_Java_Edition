@@ -16,6 +16,9 @@ import java.io.*;
 import java.util.List;
 import java.util.stream.IntStream;
 
+/**
+ * 负责配置和管理 MainWindow 的用户交互服务
+ */
 public class MainService extends AbstractService {
     private String name;                // 当前项目的名称
     private String directory;           // 当前项目的目录

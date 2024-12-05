@@ -70,7 +70,7 @@ public class RectangleItem extends VisualItem {
 
         // 绘制矩形边框
         g2d.setColor(ColorName.getColor(rectangle.Color()));
-        g2d.drawRect(rectangle.X(), rectangle.Y(), rectangle.Width() , rectangle.Height());    // 边框占用额外宽度，置中心
+        g2d.drawRect(10, 10, rectangle.Width() , rectangle.Height());    // 边框占用额外宽度，置中心
 
         // 如果选中，绘制边框
         if (isSelected) {

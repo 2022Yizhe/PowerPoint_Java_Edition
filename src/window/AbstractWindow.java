@@ -18,7 +18,7 @@ import java.util.function.Consumer;
  * - 窗口有一个对应的 Service 来对各项功能进行具体实现;
  * - 与工具类、管理类这些底层操作相关的，只能由 Service 来交互 !
  * 因此，我们在编写窗口的时候需要分 '四小层/两大层' 来写，这样逻辑会更加清晰一些
- * 即: entity <-> Manager <---> MainService <-> MainWindow
+ * 即: entity <-> Manager <=> MainService <-> MainWindow
  */
 public abstract class AbstractWindow <R extends AbstractService> extends JFrame {
     // 定义窗口的默认关闭行为
