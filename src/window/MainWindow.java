@@ -30,6 +30,10 @@ public class MainWindow extends AbstractWindow <MainService>{
         }
         // 初始化时渲染默认项目
         service.displayProject();
+
+        // 更新状态栏
+        JLabel status_label = this.getComponent("main.label.status");
+        status_label.setText("Load default project: " + ProjectManager.getInstance().getProject().Filepath());
     }
 
     /**
@@ -41,7 +45,7 @@ public class MainWindow extends AbstractWindow <MainService>{
      * ----x5-----
      * <<
      * 主界面上方的面板作为控制区域
-     * 主界面下方的面板作为显示区域，分别包含左侧的预览区域，右侧的单页展示和编辑区域，还有最下面的提示行区域
+     * 主界面下方的面板作为显示区域，分别包含左侧的预览区域，右侧的单页展示和编辑区域，还有最下面的状态栏
      */
     @Override
     protected void initWindowContent() {
@@ -54,14 +58,14 @@ public class MainWindow extends AbstractWindow <MainService>{
             panel.setBottomComponent(createFileToolsPanel(panel));  // x2.工具栏 (默认显示文件选项的工具栏)
         });
 
-        // 显示区域，包含左侧的预览区域，右侧的单页展示和编辑区域，还有最下面的提示行区域
+        // 显示区域，包含左侧的预览区域，右侧的单页展示和编辑区域，还有最下面的状态栏区域
         this.addComponent("main.panel.content", new NoDotsSplitPane(JSplitPane.VERTICAL_SPLIT), BorderLayout.CENTER, panel -> {
-            // 先纵向分割出最下方提示行和中心区域两个部分
+            // 先纵向分割出最下方状态栏和中心区域两个部分
             panel.setResizeWeight(0.99);    // 上侧面板将保持更大的相对大小
             panel.setEnabled(false);        // 禁用分割条移动
 
             // 配置最下方的提示行区域
-            panel.setBottomComponent(this.createStatusPanel());     // x5.提示行
+            panel.setBottomComponent(this.createStatusPanel());     // x5.状态栏
 
             // 配置中心区域，再次分割面板，包含左侧预览区域和右侧单页展示和编辑界面
             NoDotsSplitPane centerPanel = new NoDotsSplitPane(JSplitPane.HORIZONTAL_SPLIT);
@@ -124,7 +128,7 @@ public class MainWindow extends AbstractWindow <MainService>{
     private JScrollPane createLeftPanel(){
         // 创建一个预览面板
         JPanel previewPanel = new JPanel();
-        previewPanel.setLayout(new ListLayout());  // 采用列表布局
+        previewPanel.setLayout(new ListLayout());   // 采用自定义列表布局
         previewPanel.setBackground(ColorName.DEFAULT.getColor());
         this.mapComponent("main.panel.preview", previewPanel);
 
@@ -145,7 +149,9 @@ public class MainWindow extends AbstractWindow <MainService>{
         deleteItem.addActionListener(e -> service.deleteSlide());
         popupMenu.add(deleteItem);
 
-        return new JScrollPane(previewPanel);
+        JScrollPane scrollPane = new JScrollPane(previewPanel);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);    // 禁用横向滚动条，不然会出现显示 bug (minor)
+        return scrollPane;
     }
 
     /**

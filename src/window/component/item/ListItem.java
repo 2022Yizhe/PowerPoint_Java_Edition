@@ -86,7 +86,7 @@ public class ListItem extends JComponent {
             Font font = g2d.getFont();
             g2d.setColor(ColorName.DARK_GRAY.getColor());
             g2d.setFont(new Font(font.getName(), Font.PLAIN, 15));  // 采用原字体, 样式为普通（非粗体、非斜体等）, 大小为 15px
-            g2d.drawString(title, 50, 22);
+            g2d.drawString(title, 50, 25);
 
             // 绘制一个小图标 (随机颜色)
             g2d.setColor(hashColor(title.hashCode()));

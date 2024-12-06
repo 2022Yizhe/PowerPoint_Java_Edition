@@ -103,6 +103,10 @@ public class MainService extends AbstractService {
         this.iterator = 0;
         this.clear();
         this.displayProject();
+
+        // 更新状态栏
+        JLabel status_label = this.getComponent("main.label.status");
+        status_label.setText("Load project: " + directory + "\\" + name);
     }
 
     /**
@@ -132,6 +136,10 @@ public class MainService extends AbstractService {
         this.iterator = 0;
         this.clear();
         this.displayProject();
+
+        // 更新状态栏
+        JLabel status_label = this.getComponent("main.label.status");
+        status_label.setText("New project: " + name + " - Unsaved");
     }
 
     /**
@@ -156,6 +164,10 @@ public class MainService extends AbstractService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        // 更新状态栏
+        JLabel status_label = this.getComponent("main.label.status");
+        status_label.setText("Load project: " + directory + "\\" + name);
     }
 
     /**
