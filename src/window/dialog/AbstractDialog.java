@@ -9,18 +9,19 @@ import java.awt.event.WindowEvent;
 import java.util.function.Consumer;
 
 /**
+ * 抽象 Dialog 类
  * 当前项目中所有对话框的顶层抽象类
  */
 public abstract class AbstractDialog extends JDialog {
 
     // 在特定的窗口中创建对话框
     public AbstractDialog(AbstractWindow parent, String title, Dimension size){
-        super(parent, title, true);   // 对话框默认情况下都采用这种模式
+        super(parent, title, true);      // 对话框默认情况下都采用这种模式
 
-        this.setSize(size);                 // 对话框的大小默认情况下无法进行修改
+        this.setSize(size);                     // 对话框的大小默认情况下无法进行修改
         this.setResizable(false);
-        this.setLocation(this.calculateCenter());  // 对话框也要相对于当前窗口进行居中
-        this.setLayout(null);               // 因为对话框默认大小不可变，所以对话框默认布局为空，方便布置组件
+        this.setLocation(this.calculateCenter());           // 对话框也要相对于当前窗口进行居中
+        this.setLayout(null);                               // 因为对话框默认大小不可变，所以对话框默认布局为空，方便布置组件
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.addWindowListener(new WindowAdapter() {
             @Override
@@ -34,10 +35,10 @@ public abstract class AbstractDialog extends JDialog {
     public AbstractDialog(AbstractDialog parent, String title, Dimension size){
         super(parent, title, true);   // 对话框默认情况下都采用这种模式
 
-        this.setSize(size);                 // 对话框的大小默认情况下无法进行修改
+        this.setSize(size);                  // 对话框的大小默认情况下无法进行修改
         this.setResizable(false);
-        this.setLocation(this.calculateCenter());  // 对话框也要相对于当前窗口进行居中
-        this.setLayout(null);               // 因为对话框默认大小不可变，所以对话框默认布局为空，方便布置组件
+        this.setLocation(this.calculateCenter());   // 对话框也要相对于当前窗口进行居中
+        this.setLayout(null);                       // 因为对话框默认大小不可变，所以对话框默认布局为空，方便布置组件
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.addWindowListener(new WindowAdapter() {
             @Override
@@ -45,7 +46,7 @@ public abstract class AbstractDialog extends JDialog {
                 AbstractDialog.this.closeDialog();
             }
         });
-        initDialogContent();   // 初始化对话框组件
+        initDialogContent();    // 初始化对话框组件
     }
 
     /**
@@ -64,7 +65,7 @@ public abstract class AbstractDialog extends JDialog {
 
 
     /**
-     * 一律只能用我们自己的openDialog()方法展示对话框，原本的可见性设置直接封掉
+     * 一律只能用我们自己的 openDialog() 方法展示对话框，原本的可见性设置直接封掉
      */
     @Override
     public void setVisible(boolean b) {
@@ -79,8 +80,8 @@ public abstract class AbstractDialog extends JDialog {
     private Point calculateCenter(){
         Point windowPoint = this.getParent().getLocation();
         Dimension windowSize = this.getParent().getSize();
-        int x = (int) (windowPoint.getX() + windowSize.getWidth() / 2 - this.getWidth() / 2);
-        int y = (int) (windowPoint.getY() + windowSize.getHeight() / 2 - this.getHeight() / 2);
+        int x = (int) (windowPoint.getX() + windowSize.getWidth() / 2 - (double) this.getWidth() / 2);
+        int y = (int) (windowPoint.getY() + windowSize.getHeight() / 2 - (double) this.getHeight() / 2);
         return new Point(x, y);
     }
 

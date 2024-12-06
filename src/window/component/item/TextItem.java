@@ -5,6 +5,8 @@ import manage.SelectManager;
 import window.enums.ColorName;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -12,6 +14,7 @@ import java.awt.event.MouseEvent;
 /**
  * 文本组件
  * 继承自文本域组件 - JTextArea
+ * 由于与 VisualItem 类不同派生，故本类的方法只能集中实现，代码相比 LineItem 等类较多
  */
 public class TextItem extends JTextArea {
     private final TextContent text;
@@ -60,8 +63,34 @@ public class TextItem extends JTextArea {
                 int x = getX() + e.getX() - mouseOffset.x;
                 int y = getY() + e.getY() - mouseOffset.y;
                 setLocation(x, y);  // 更新组件位置 (移动时)
+                saveChanges();
             }
         });
+
+        // 添加 DocumentListener 监听器，监听文本变化
+        this.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                saveChanges();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                saveChanges();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                saveChanges();
+            }
+        });
+    }
+
+    /**
+     * 返回当前 content，用于保存到 slide.List<content>
+     */
+    public TextContent getTextContent() {
+        return text;
     }
 
     /**
@@ -75,6 +104,16 @@ public class TextItem extends JTextArea {
         this.setLineWrap(true);         // 自动换行
         this.setWrapStyleWord(true);    // 按词换行
         this.setOpaque(false);          // 透明背景
+    }
+
+    /**
+     * 保存编辑到 content -- TODO 保存颜色
+     */
+    private void saveChanges() {
+        text.setX(this.getX());
+        text.setY(this.getY());
+        text.setValue(this.getText());
+        // 还可以添加其他保存逻辑，比如保存到文件或数据库
     }
 
     /**

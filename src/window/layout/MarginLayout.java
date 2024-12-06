@@ -3,7 +3,7 @@ package window.layout;
 import java.awt.*;
 
 /**
- * Brief: 外边距布局
+ * 外边距布局
  * 为组件设定一个外边距然后再展示出来，要求内部有且只能有一个组件
  */
 public class MarginLayout implements LayoutManager {

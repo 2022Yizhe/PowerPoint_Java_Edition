@@ -3,7 +3,7 @@ package window.layout;
 import java.awt.*;
 
 /**
- * Brief: 列表布局
+ * 列表布局
  * 内部的组件会以列表的形式从上往下排列
  * 注意，不能配合滚动条使用，如果需要，必须禁止横向大小修改，否则会出 BUG
  */
@@ -44,7 +44,7 @@ public class ListLayout implements LayoutManager {
     private Dimension calculateSize(Container parent){
         int height = 0;
         for (Component component : parent.getComponents())
-            height += component.getPreferredSize().getHeight();
+            height += (int) component.getPreferredSize().getHeight();
         return new Dimension(parent.getWidth(), height);
     }
 }

@@ -1,5 +1,6 @@
 package window.component.item;
 
+import entity.storage.LineContent;
 import entity.storage.OvalContent;
 import manage.SelectManager;
 import window.enums.ColorName;
@@ -44,12 +45,29 @@ public class OvalItem extends VisualItem {
     }
 
     /**
+     * 返回当前 content，用于保存编辑
+     */
+    public OvalContent getOvalContent() {
+        return oval;
+    }
+
+    /**
      * 组件配置逻辑，设置椭圆形属性
      */
     private void configure(){
         this.setBounds(oval.X(), oval.Y(), oval.RadiusX() + 10, oval.RadiusY() + 10);   // 更宽以添加外边框
 
         this.setOpaque(false);  // 透明背景
+    }
+
+    /**
+     * 保存编辑到 content -- TODO 保存颜色
+     */
+    protected void saveChanges() {
+        oval.setX(this.getX());
+        oval.setY(this.getY());
+        oval.setRadiusX(this.getWidth() - 10);
+        oval.setRadiusY(this.getHeight() - 10);
     }
 
     /**

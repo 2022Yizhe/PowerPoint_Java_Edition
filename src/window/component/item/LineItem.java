@@ -44,6 +44,13 @@ public class LineItem extends VisualItem {
     }
 
     /**
+     * 返回当前 content，用于保存编辑
+     */
+    public LineContent getLineContent() {
+        return line;
+    }
+
+    /**
      * 组件配置逻辑，设置直线属性
      */
     private void configure(){
@@ -51,8 +58,17 @@ public class LineItem extends VisualItem {
                 Math.min(line.StartX(), line.EndX()), Math.min(line.StartY(), line.EndY()),
                 Math.abs(line.EndX() - line.StartX()), Math.abs(line.EndY() - line.StartY())
         );
-
         this.setOpaque(false);  // 透明背景
+    }
+
+    /**
+     * 保存编辑到 content -- TODO 保存颜色
+     */
+    protected void saveChanges() {
+        line.setStartX(this.getX());
+        line.setStartY(this.getY());
+        line.setEndX(this.getX() + this.getWidth());
+        line.setEndY(this.getY() + this.getHeight());
     }
 
     /**

@@ -24,7 +24,7 @@ public class MainService extends AbstractService {
     private String directory;           // 当前项目的目录
     private String path;                // 当前项目文件的路径
 
-    private int index;                  // 当前编辑幻灯片的索引，随用户操作更新
+    private int iterator;               // 当前编辑幻灯片的索引，随用户操作更新
 
     private UndoManager undoManager;    // 重做管理器，用于编辑框支持撤销和重做操作
 
@@ -100,6 +100,7 @@ public class MainService extends AbstractService {
         }
 
         // 渲染指定项目
+        this.iterator = 0;
         this.clear();
         this.displayProject();
     }
@@ -225,14 +226,14 @@ public class MainService extends AbstractService {
 
     /**
      * 渲染项目
-     * index 指示渲染编辑面板的幻灯片，也指示预览面板的显示窗口 (例如预览面板最多放 5 张幻灯片)
+     * iterator 指示渲染编辑面板的幻灯片，也指示预览面板的显示窗口 (例如预览面板最多放 5 张幻灯片)
      */
     public void displayProject(){
         // 渲染预览面板
         previewSlides();
 
         // 渲染编辑面板
-        displaySlide(index);
+        displaySlide(iterator);
     }
 
     /**
@@ -250,7 +251,11 @@ public class MainService extends AbstractService {
                     // 配置左键渲染
                     Slide slide = slides.get(index);
                     ListItem item = new ListItem(slide.Title(), () -> {
-                        displaySlide(index);
+                        if(iterator == index)   // 如果点击的 item 是原来的 item，则无需切换渲染
+                            return;
+                        saveEdit();             // 切换 item 时，先保存旧的操作
+                        displaySlide(index);    // 渲染 item
+                        iterator = index;       // 渲染 item 后，更新 iterator
                     });
                     // 配置右键菜单
                     JPopupMenu popupMenu = this.getComponent("main.popup.slide");
@@ -296,5 +301,21 @@ public class MainService extends AbstractService {
     private void clearEdit(){
         SlidePanel editPanel = this.getComponent("main.panel.edit");
         editPanel.clear();
+    }
+
+    /**
+     * 快速保存终端在编辑面板上的操作，面板代号 - main.panel.edit
+     * 每次 DisplaySlide 之前调用此方法，保存上一次的所有修改内容
+     */
+    private void saveEdit(){
+        // 获取当前编辑内容
+        SlidePanel editPanel = this.getComponent("main.panel.edit");
+        List<AbstractContent> contents = editPanel.getContents();
+
+        // 保存到 presentation
+        Presentation presentation = ProjectManager.getInstance().getProcess().getPresentation();
+        List<Slide> slides = presentation.Slides();
+        Slide slide = slides.get(iterator);
+        slide.setContent(contents);
     }
 }

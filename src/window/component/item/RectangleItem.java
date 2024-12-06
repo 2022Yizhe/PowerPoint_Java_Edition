@@ -1,5 +1,6 @@
 package window.component.item;
 
+import entity.storage.LineContent;
 import entity.storage.RectangleContent;
 import manage.SelectManager;
 import window.enums.ColorName;
@@ -44,12 +45,29 @@ public class RectangleItem extends VisualItem {
     }
 
     /**
+     * 返回当前 content，用于保存编辑
+     */
+    public RectangleContent getRectangleContent() {
+        return rectangle;
+    }
+
+    /**
      * 组件配置逻辑，设置矩形属性
      */
     private void configure(){
         this.setBounds(rectangle.X(), rectangle.Y(), rectangle.Width() + 20, rectangle.Height() + 20);    // 更宽以添加外边框
 
         this.setOpaque(false);  // 透明背景
+    }
+
+    /**
+     * 保存编辑到 content -- TODO 保存颜色
+     */
+    protected void saveChanges() {
+        rectangle.setX(this.getX());
+        rectangle.setY(this.getY());
+        rectangle.setWidth(this.getWidth() - 20);
+        rectangle.setHeight(this.getHeight() - 20);
     }
 
     /**

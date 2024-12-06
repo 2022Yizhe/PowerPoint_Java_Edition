@@ -1,6 +1,7 @@
 package window.component.item;
 
 import entity.storage.ImageContent;
+import entity.storage.LineContent;
 import manage.SelectManager;
 import window.enums.ColorName;
 
@@ -49,6 +50,13 @@ public class ImageItem extends VisualItem {
     }
 
     /**
+     * 返回当前 content，用于保存编辑
+     */
+    public ImageContent getImageContent() {
+        return imageContent;
+    }
+
+    /**
      * 组件配置逻辑，设置图像属性
      */
     private void configure(){
@@ -62,6 +70,16 @@ public class ImageItem extends VisualItem {
         }
 
         this.setOpaque(false);  // 透明背景
+    }
+
+    /**
+     * 保存编辑到 content -- TODO 保存颜色
+     */
+    protected void saveChanges() {
+        imageContent.setX(this.getX());
+        imageContent.setY(this.getY());
+        imageContent.setWidth(this.getWidth());
+        imageContent.setHeight(this.getHeight());
     }
 
     /**

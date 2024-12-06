@@ -11,7 +11,6 @@ public enum ReturnCode {
     private final int code;
     private final String message;
 
-    // 构造函数
     ReturnCode(int code, String message) {
         this.code = code;
         this.message = message;

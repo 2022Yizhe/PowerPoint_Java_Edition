@@ -15,6 +15,7 @@ import java.io.IOException;
  * 解析引擎
  * 采用标准的 json 语法来存储 ppt 文件，并使用 Jackson 解析器实现对源文件的解析，步骤如下：
  * - 解析源文件 (.json) 返回一个 presentation 对象
+ * Jackson 这个工具是常用的 json 解析工具，我们主要使用它的序列化和反序列化功能
  */
 public class ProcessEngine {
     /**

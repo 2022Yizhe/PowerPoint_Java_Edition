@@ -10,7 +10,7 @@ import java.awt.event.MouseEvent;
  * 继承自基本组件 - JComponent
  * 分别派生出 Line, Rectangle, Oval, Circle, Image 等组件，负责设计基本图形和图像类
  */
-public class VisualItem extends JComponent {
+public abstract class VisualItem extends JComponent {
     protected JPopupMenu popupMenu;
     protected boolean isSelected;
     protected Point mouseOffset;
@@ -53,7 +53,14 @@ public class VisualItem extends JComponent {
                 int x = getX() + e.getX() - mouseOffset.x;
                 int y = getY() + e.getY() - mouseOffset.y;
                 setLocation(x, y);  // 更新组件位置 (移动时)
+                saveChanges();
             }
         });
     }
+
+    /**
+     * 保存编辑到 content
+     * 由子类实现具体保存做法
+     */
+    abstract protected void saveChanges();
 }

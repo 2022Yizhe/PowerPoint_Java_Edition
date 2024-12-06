@@ -1,6 +1,7 @@
 package window.component.item;
 
 import entity.storage.CircleContent;
+import entity.storage.LineContent;
 import manage.SelectManager;
 import window.enums.ColorName;
 
@@ -42,12 +43,28 @@ public class CircleItem extends VisualItem {
     }
 
     /**
+     * 返回当前 content，用于保存编辑
+     */
+    public CircleContent getCircleContent() {
+        return circle;
+    }
+
+    /**
      * 组件配置逻辑，设置圆形属性
      */
     private void configure(){
         this.setBounds(circle.X(), circle.Y(), circle.Radius() + 10, circle.Radius() + 10);
 
         this.setOpaque(false);  // 透明背景
+    }
+
+    /**
+     * 保存编辑到 content -- TODO 保存颜色
+     */
+    protected void saveChanges() {
+        circle.setX(this.getX());
+        circle.setY(this.getY());
+        circle.setRadius(this.getWidth() - 10);
     }
 
     /**

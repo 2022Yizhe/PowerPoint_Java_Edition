@@ -4,6 +4,13 @@ import com.fasterxml.jackson.annotation.*;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * 抽象内容类
+ * 一张幻灯片中含有各种类型的内容，比如说：Text, Image, Line, Rectangle, Oval, Circle 等
+ * 这个类是具体内容类的抽象基类，含有 '内容类型' 一个数据成员，用于标识内容的类型
+ * lombok 这个工具用于批量自动生成这些数据类的 set 和 get 方法，而无需手动写即可使用
+ */
+
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
@@ -17,6 +24,7 @@ import lombok.Setter;
         @JsonSubTypes.Type(value = CircleContent.class, name = "circle"),
         @JsonSubTypes.Type(value = ImageContent.class, name = "image")
 })
+
 @Setter @Getter
 public abstract class AbstractContent {
     private String contentType;
