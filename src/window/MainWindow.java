@@ -33,7 +33,7 @@ public class MainWindow extends AbstractWindow <MainService>{
 
         // 更新状态栏
         JLabel status_label = this.getComponent("main.label.status");
-        status_label.setText("Load default project: " + ProjectManager.getInstance().getProject().Filepath());
+        status_label.setText("  Load default project: " + ProjectManager.getInstance().getProject().Filepath());
     }
 
     /**
@@ -61,7 +61,7 @@ public class MainWindow extends AbstractWindow <MainService>{
         // 显示区域，包含左侧的预览区域，右侧的单页展示和编辑区域，还有最下面的状态栏区域
         this.addComponent("main.panel.content", new NoDotsSplitPane(JSplitPane.VERTICAL_SPLIT), BorderLayout.CENTER, panel -> {
             // 先纵向分割出最下方状态栏和中心区域两个部分
-            panel.setResizeWeight(0.99);    // 上侧面板将保持更大的相对大小
+            panel.setResizeWeight(0.98);    // 上侧面板将保持更大的相对大小
             panel.setEnabled(false);        // 禁用分割条移动
 
             // 配置最下方的提示行区域
@@ -174,12 +174,12 @@ public class MainWindow extends AbstractWindow <MainService>{
      * @return 底部板块
      */
     private JPanel createStatusPanel(){
-        JLabel status_label= new JLabel("尚未打开任何幻灯片文件");
+        JLabel status_label= new JLabel("  注：未加载任何幻灯片文件");
         this.mapComponent("main.label.status", status_label);
         status_label.setEnabled(false);
 
-        JPanel bottom = new JPanel();
-        bottom.add(status_label);
+        JPanel bottom = new JPanel(new BorderLayout());
+        bottom.add(status_label, BorderLayout.WEST);
         return bottom;
     }
 
