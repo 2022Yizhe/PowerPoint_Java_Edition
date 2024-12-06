@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.exc.StreamWriteException;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.core.exc.StreamReadException;
 
+import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
 import entity.storage.*;
 
 import java.io.File;
@@ -25,7 +26,8 @@ public class ProcessEngine {
      */
     public static Presentation JsonParser(String json_path){
         ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.JAVA_LANG_OBJECT, JsonTypeInfo.As.PROPERTY);    // 启用多态性对象检查
+        objectMapper.activateDefaultTyping(LaissezFaireSubTypeValidator.instance,
+                ObjectMapper.DefaultTyping.JAVA_LANG_OBJECT, JsonTypeInfo.As.PROPERTY); // 启用多态性对象检查
 
         try {
             // 读取 JSON 文件
@@ -47,6 +49,43 @@ public class ProcessEngine {
         } catch (StreamReadException e) {
             // 捕获 DatabindException
             System.out.println("Error during data binding: " + e.getMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 序列化 - 在新建项目时，序列化一段默认 json 文本
+     * @return 解析结果 presentation，是一个幻灯片序列 (slides)，但只有一张幻灯片
+     */
+    public static Presentation JsonParser() {
+        String newProject = "{\n" +
+                "  \"title\": \"My Presentation\",\n" +
+                "  \"author\": \"Author Name\",\n" +
+                "  \"slides\": [\n" +
+                "    {\n" +
+                "      \"title\": \"Slide 1\",\n" +
+                "      \"content\": [\n" +
+                "        {\n" +
+                "          \"type\": \"text\",\n" +
+                "          \"contentType\": \"text\",\n" +
+                "          \"value\": \"单击此处添加文本\",\n" +
+                "          \"x\": 250,\n" +
+                "          \"y\": 250,\n" +
+                "          \"color\": \"black\"\n" +
+                "        }\n" +
+                "      ]\n" +
+                "    }\n" +
+                "  ]\n" +
+                "}";
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.activateDefaultTyping(LaissezFaireSubTypeValidator.instance,
+                ObjectMapper.DefaultTyping.JAVA_LANG_OBJECT, JsonTypeInfo.As.PROPERTY); // 启用多态性对象检查
+
+        try {
+            return objectMapper.readValue(newProject, Presentation.class);
         } catch (IOException e) {
             e.printStackTrace();
         }

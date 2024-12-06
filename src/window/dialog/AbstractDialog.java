@@ -9,7 +9,7 @@ import java.awt.event.WindowEvent;
 import java.util.function.Consumer;
 
 /**
- * 抽象 Dialog 类
+ * 抽象 UserInputDialog 类
  * 当前项目中所有对话框的顶层抽象类
  */
 public abstract class AbstractDialog extends JDialog {

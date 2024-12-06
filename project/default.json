@@ -1,76 +1,94 @@
 {
-  "title": "My Presentation",
-  "author": "Author Name",
-  "slides": [
-    {
-      "title": "Slide 1",
-      "content": [
-        {
-          "type": "text",
-          "contentType": "text",
-          "value": "This is the first slide.\n龙年出龙币",
-          "x": 250,
-          "y": 250,
-          "color": "red"
-        },
-        {
-          "type": "line",
-          "contentType": "line",
-          "startX": 60,
-          "startY": 80,
-          "endX": 400,
-          "endY": 400,
-          "color": "gray"
-        },
-        {
-          "type": "rectangle",
-          "contentType": "rectangle",
-          "width": 150,
-          "height": 100,
-          "x": 10,
-          "y": 10,
-          "color": "blue"
-        },
-        {
-          "type": "oval",
-          "contentType": "oval",
-          "radiusX": 100,
-          "radiusY": 50,
-          "x": 200,
-          "y": 100,
-          "color": "orange"
-        },
-        {
-          "type": "circle",
-          "contentType": "circle",
-          "radius": 100,
-          "x": 275,
-          "y": 75,
-          "color": "red"
-        },
-        {
-          "type": "image",
-          "contentType": "image",
-          "src": "E:\\Java\\project\\PowerPoint_Java_Edition_1.1\\project\\resource\\NEU.jpg",
-          "width": 400,
-          "height": 400,
-          "x": 300,
-          "y": 0
-        }
-      ]
-    },
-    {
-      "title": "Slide 2",
-      "content": [
-        {
-          "type": "text",
-          "contentType": "text",
-          "value": "This is the second slide.",
-          "x": 100,
-          "y": 100,
-          "color": "green"
-        }
-      ]
-    }
-  ]
+  "title" : "My Presentation",
+  "author" : "Author Name",
+  "slides" : [ {
+    "title" : "Slide 1",
+    "content" : [ {
+      "type" : "text",
+      "contentType" : "text",
+      "value" : "Java 期末大作业\n",
+      "x" : 430,
+      "y" : 57,
+      "color" : "red"
+    }, {
+      "type" : "text",
+      "contentType" : "text",
+      "value" : "奕\n",
+      "x" : 70,
+      "y" : 48,
+      "color" : "dark_gray"
+    }, {
+      "type" : "text",
+      "contentType" : "text",
+      "value" : "悟\n",
+      "x" : 144,
+      "y" : 48,
+      "color" : "dark_gray"
+    }, {
+      "type" : "line",
+      "contentType" : "line",
+      "startX" : -1,
+      "startY" : 313,
+      "endX" : 339,
+      "endY" : 633,
+      "color" : "gray"
+    }, {
+      "type" : "rectangle",
+      "contentType" : "rectangle",
+      "width" : 150,
+      "height" : 75,
+      "x" : 402,
+      "y" : 24,
+      "color" : "blue"
+    }, {
+      "type" : "oval",
+      "contentType" : "oval",
+      "radiusX" : 100,
+      "radiusY" : 50,
+      "x" : 29,
+      "y" : 28,
+      "color" : "orange"
+    }, {
+      "type" : "circle",
+      "contentType" : "circle",
+      "radius" : 100,
+      "x" : 104,
+      "y" : 5,
+      "color" : "yellow"
+    }, {
+      "type" : "image",
+      "contentType" : "image",
+      "src" : "E:\\Java\\project\\PowerPoint_Java_Edition_1.1\\project\\resource\\NEU.jpg",
+      "width" : 501,
+      "height" : 367,
+      "x" : 545,
+      "y" : 257
+    } ]
+  }, {
+    "title" : "Slide 2",
+    "content" : [ {
+      "type" : "text",
+      "contentType" : "text",
+      "value" : "本次报告的主题是:\n基于 Java 开发的 PowerPoint 程序",
+      "x" : 147,
+      "y" : 102,
+      "color" : "dark_gary"
+    }, {
+      "type" : "line",
+      "contentType" : "line",
+      "startX" : 20,
+      "startY" : 10,
+      "endX" : 420,
+      "endY" : 10,
+      "color" : "sky_blue"
+    }, {
+      "type" : "image",
+      "contentType" : "image",
+      "src" : "E:\\Java\\project\\PowerPoint_Java_Edition_1.1\\project\\resource\\PowerPoint.png",
+      "width" : 141,
+      "height" : 103,
+      "x" : 388,
+      "y" : 87
+    } ]
+  } ]
 }

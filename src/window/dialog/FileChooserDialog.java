@@ -33,11 +33,14 @@ public class FileChooserDialog extends AbstractDialog {
 
         this.addComponent(fileChooser, chooser -> {
             chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-            // 监听器，当选择完成后，就关闭当前窗口
+            // 添加监听器，当选择完成后，就关闭当前窗口
             chooser.addActionListener(e -> FileChooserDialog.this.closeDialog());
         });
     }
 
+    /**
+     * 获取对话框的文件选择结果
+     */
     public File getSelectedFile(){
         return fileChooser.getSelectedFile();
     }

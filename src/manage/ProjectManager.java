@@ -72,7 +72,7 @@ public class ProjectManager {
      * @throws FileNotFoundException 调用这个方法的代码要处理可能发生的异常
      */
     public void loadProject(String name, String directory) throws FileNotFoundException {
-        // 加载指定项目 - 删除旧项目 - 加载新项目
+        // 加载指定项目 - 删除旧项目，加载新项目
         File file = new File(directory + "/" + name);
         if(!file.exists()) {
             throw new FileNotFoundException("Failed to load project!");
@@ -86,13 +86,16 @@ public class ProjectManager {
     }
 
     /**
-     * 新建项目，需指定项目文件名称和存储目录
+     * 新建项目，需指定项目文件名称，文件路径在保存时再确定
      * @param name 项目文件名
-     * @param filepath 项目文件目录
      */
-    public void createProject(String name, String filepath) {
-        PROJECT = new ProjectEntity(name, filepath);
-        // TODO
+    public void createProject(String name) {
+        // 加载新项目
+        PROJECT = null;                                     // 提示垃圾回收器 (GC) 可以回收
+        PROJECT = new ProjectEntity(name, null);    // 创建新实例
+
+        // 解析新项目 ~ parse default string
+        parseProject();
     }
 
     /**
@@ -120,7 +123,15 @@ public class ProjectManager {
      * 解析幻灯片项目，在加载完毕项目之后进行
      */
     private void parseProject() {
-        Presentation presentation = JsonParser(PROJECT.Filepath() + '/' + PROJECT.Name());
+        Presentation presentation;
+
+        // 解析项目
+        if (PROJECT.Filepath() == null)
+            presentation = JsonParser();    // 无参方法表示解析新建项目
+        else
+            presentation = JsonParser(PROJECT.Filepath() + '/' + PROJECT.Name());
+
+        // 检查解析情况
         if (presentation == null) {
             PROCESS.setPresentation(null);
             PROCESS.setExitcode(ReturnCode.FAIL_TO_PARSE);

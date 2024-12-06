@@ -36,6 +36,9 @@ public class DirectoryChooserDialog extends AbstractDialog {
         });
     }
 
+    /**
+     * 获取对话框的文件选择结果
+     */
     public File getSelectedFile(){
         return fileChooser.getSelectedFile();
     }

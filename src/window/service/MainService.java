@@ -8,10 +8,10 @@ import window.component.SlidePanel;
 import window.component.item.ListItem;
 import window.dialog.DirectoryChooserDialog;
 import window.dialog.FileChooserDialog;
+import window.dialog.InputDialog;
 
 import javax.swing.*;
 import javax.swing.undo.UndoManager;
-import java.awt.event.*;
 import java.io.*;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -110,7 +110,28 @@ public class MainService extends AbstractService {
      * 新建一个已有的 miniPpt 项目
      */
     public void newFileButtonAction(){
+        // 打开对话框，输入项目文件名
+        InputDialog inputDialog = new InputDialog(this.getWindow());
+        inputDialog.openDialog();
+        String inputString = inputDialog.getInput();
+        if(inputString == null) return;
 
+        // 输入合法性检查 (简略)
+        if (inputString.isEmpty()){
+            name = "untitled.json";
+        } else {
+            if(!(inputString.startsWith(".json", inputString.length() - 6)) || inputString.length() < 6){
+                name = inputString + ".json";
+            }
+        }
+
+        // 解析新建项目
+        ProjectManager.getInstance().createProject(name);
+
+        // 渲染新建项目
+        this.iterator = 0;
+        this.clear();
+        this.displayProject();
     }
 
     /**
@@ -199,22 +220,6 @@ public class MainService extends AbstractService {
      */
     public void deleteSlide(){
         // TODO
-    }
-
-    /**
-     * @ 配置右键菜单服务
-     * @return MouseAdapter
-     */
-    public MouseAdapter rightClick(){
-        JPanel previewPanel = this.getComponent("main.panel.preview");
-        JPopupMenu popupMenu = this.getComponent("main.popup.slide");
-        return new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (e.getButton() == MouseEvent.BUTTON3)
-                    popupMenu.show(previewPanel, e.getX(), e.getY());
-            }
-        };
     }
 
     /**
