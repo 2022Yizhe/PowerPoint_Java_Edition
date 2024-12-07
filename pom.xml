@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+<!--定义项目的组标识符，通常使用公司或组织的域名反转-->
+    <groupId>org.powerpoint</groupId>
+<!--定义项目的唯一标识符，即项目名称-->
+    <artifactId>PowerPoint_Java_Edition_2.1</artifactId>
+<!--定义项目的版本-->
+    <version>1.0-SNAPSHOT</version>
+
+<!--定义项目的构建配置-->
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+<!--定义项目依赖的所有库，为方便使用项目路径-->
+    <dependencies>
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf</artifactId>
+            <version>3.5.2</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/flatlaf-3.5.2.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml</groupId>
+            <artifactId>jackson.annotations</artifactId>
+            <version>2.18.2</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/jackson-annotations-2.18.2.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml</groupId>
+            <artifactId>jackson.core</artifactId>
+            <version>2.18.2</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/jackson-core-2.18.2.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml</groupId>
+            <artifactId>jackson.databind</artifactId>
+            <version>2.18.1</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/jackson-databind-2.18.1.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>com.lombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.36</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/lombok-1.18.36.jar</systemPath>
+        </dependency>
+    </dependencies>
+</project>
