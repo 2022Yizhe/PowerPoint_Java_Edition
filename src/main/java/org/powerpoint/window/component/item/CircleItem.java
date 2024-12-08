@@ -34,9 +34,11 @@ public class CircleItem extends VisualItem {
             @Override
             public void mousePressed(MouseEvent e) {
                 // 记录鼠标相对组件的位置
-                mouseOffset = e.getPoint();
-                SelectManager.getInstance().selectItem(CircleItem.this);  // 通知选择管理
-                repaint();  // 鼠标按下时立即请求重绘，以显示边框
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    mouseOffset = e.getPoint();
+                    SelectManager.getInstance().selectItem(CircleItem.this);  // 通知选择管理
+                    repaint();  // 鼠标按下时立即请求重绘，以显示边框
+                }
             }
         });
     }

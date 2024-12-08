@@ -50,10 +50,12 @@ public abstract class VisualItem extends JComponent {
             @Override
             public void mouseDragged(MouseEvent e) {
                 // 获取当前组件的位置
-                int x = getX() + e.getX() - mouseOffset.x;
-                int y = getY() + e.getY() - mouseOffset.y;
-                setLocation(x, y);  // 更新组件位置 (移动时)
-                saveChanges();
+                if (SwingUtilities.isLeftMouseButton(e)) {
+                    int x = getX() + e.getX() - mouseOffset.x;
+                    int y = getY() + e.getY() - mouseOffset.y;
+                    setLocation(x, y);  // 更新组件位置 (移动时)
+                    saveChanges();
+                }
             }
         });
     }

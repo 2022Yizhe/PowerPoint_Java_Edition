@@ -43,9 +43,11 @@ public class TextItem extends JTextArea {
             @Override
             public void mousePressed(MouseEvent e) {
                 // 记录鼠标相对组件的位置
-                mouseOffset = e.getPoint();
-                SelectManager.getInstance().selectItem(TextItem.this);  // 通知选择管理
-                repaint();  // 鼠标按下时立即请求重绘，以显示边框
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    mouseOffset = e.getPoint();
+                    SelectManager.getInstance().selectItem(TextItem.this);  // 通知选择管理
+                    repaint();  // 鼠标按下时立即请求重绘，以显示边框
+                }
             }
 
             @Override
@@ -63,11 +65,13 @@ public class TextItem extends JTextArea {
             @Override
             public void mouseDragged(MouseEvent e) {
                 // 获取当前组件的位置
-                if(!popupMenu.isVisible()) {
-                    int x = getX() + e.getX() - mouseOffset.x;
-                    int y = getY() + e.getY() - mouseOffset.y;
-                    setLocation(x, y);  // 更新组件位置 (移动时)
-                    saveChanges();
+                if (SwingUtilities.isLeftMouseButton(e)) {
+                    if (!popupMenu.isVisible()) {
+                        int x = getX() + e.getX() - mouseOffset.x;
+                        int y = getY() + e.getY() - mouseOffset.y;
+                        setLocation(x, y);  // 更新组件位置 (移动时)
+                        saveChanges();
+                    }
                 }
             }
         });
@@ -145,7 +149,7 @@ public class TextItem extends JTextArea {
         popupMenu.add(size);
 
         // 颜色菜单项
-        JMenu color = getjMenu();
+        JMenu color = configureColorMenu();
         popupMenu.add(color);
 
         // 删除菜单项
@@ -197,7 +201,7 @@ public class TextItem extends JTextArea {
      * 这种方法只能一个一个添加，很麻烦
      * @return JMenu 一个配置完毕的颜色菜单项
      */
-    private JMenu getjMenu() {
+    private JMenu configureColorMenu() {
         JMenu color = new JMenu("颜色");
         JMenuItem c_black = new JMenuItem("Black");
         JMenuItem c_white = new JMenuItem("White");
