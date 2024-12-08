@@ -9,7 +9,7 @@
       "value" : "Java 期末大作业\n",
       "x" : 430,
       "y" : 57,
-      "color" : "red"
+      "color" : "java.awt.Color[r=135,g=206,b=235]"
     }, {
       "type" : "text",
       "contentType" : "text",
@@ -72,7 +72,7 @@
       "value" : "本次报告的主题是:\n基于 Java 开发的 PowerPoint 程序",
       "x" : 147,
       "y" : 102,
-      "color" : "dark_gary"
+      "color" : "dark_gray"
     }, {
       "type" : "line",
       "contentType" : "line",

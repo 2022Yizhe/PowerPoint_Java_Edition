@@ -38,7 +38,7 @@ public class SlidePanel extends JPanel {
     }
 
     /**
-     * 将 AbstractContent 转换为可布局的 JComponent
+     * 将 Content 转换为可布局的 JComponent
      * @param content 解析后的一个 content 对象
      */
     public void addContent(AbstractContent content) {

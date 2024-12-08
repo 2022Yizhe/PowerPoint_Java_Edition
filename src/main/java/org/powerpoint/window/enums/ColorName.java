@@ -2,6 +2,8 @@ package org.powerpoint.window.enums;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 // 定义颜色枚举类
 public enum ColorName {
@@ -33,13 +35,41 @@ public enum ColorName {
         return color;
     }
 
-    // 根据颜色名称获取 Color 对象
+    // 根据颜色字符串获取 Color 对象
     public static Color getColor(String colorName) {
         try {
-            // 使用枚举查找对应的颜色
-            return ColorName.valueOf(colorName.toUpperCase()).getColor();
+            if(!colorName.startsWith("java.awt.Color")) {
+                // 根据颜色别名查找枚举值
+                return ColorName.valueOf(colorName.toUpperCase()).getColor();
+            } else {
+                // 使用正则表达式提取 RGB 值
+                Pattern pattern = Pattern.compile("r=(\\d+),g=(\\d+),b=(\\d+)");
+                Matcher matcher = pattern.matcher(colorName);
+
+                if (matcher.find()) {
+                    // 提取 r, g, b 的字符串
+                    String rStr = matcher.group(1);
+                    String gStr = matcher.group(2);
+                    String bStr = matcher.group(3);
+
+                    // 使用 Integer.parseInt() 将提取的字符串转换为整数
+                    int r = Integer.parseInt(rStr);
+                    int g = Integer.parseInt(gStr);
+                    int b = Integer.parseInt(bStr);
+
+                    return new Color(r, g, b);  // 创建 Color 对象
+                } else {
+                    throw new IllegalArgumentException("无效的颜色字符串");
+                }
+            }
         } catch (IllegalArgumentException e) {
-            return Color.BLACK; // 默认返回黑色
+            System.out.println("[org.powerpoint][Warning] Unsupported color: " + colorName);
+            return Color.BLACK;     // 默认返回黑色
         }
+    }
+
+    // 根据 Color 对象返回颜色字符串
+    public static String getColorName(Color color) {
+        return color.toString();
     }
 }
