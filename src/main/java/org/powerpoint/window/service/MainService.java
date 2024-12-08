@@ -13,6 +13,7 @@ import org.powerpoint.window.dialog.InputDialog;
 import javax.swing.*;
 import javax.swing.undo.UndoManager;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -212,10 +213,22 @@ public class MainService extends AbstractService {
 
     /**
      * @ 配置右键菜单服务
-     * 创建一个幻灯片
+     * 创建一个幻灯片，插入到右键幻灯片的下一张
      */
     public void createSlide(){
-        // TODO
+        // 获取幻灯片序列
+        Presentation presentation = ProjectManager.getInstance().getProcess().getPresentation();
+        List<Slide> slides = presentation.Slides();
+
+        // 添加一张新 slide
+        Slide slide = new Slide();
+        slide.initDefault();
+        slides.add(++iterator, slide);
+
+        // 重新渲染
+        clear();
+        previewSlides();
+        displaySlide(iterator);
     }
 
     /**
@@ -283,7 +296,7 @@ public class MainService extends AbstractService {
         JPanel previewPanel = this.getComponent("main.panel.preview");
         IntStream.range(0, slides.size())       // 使用 IntStream 获取索引，以便构造 clickAction
                 .forEach(index -> {
-                    // 配置左键渲染
+                    // 配置左、右键渲染
                     Slide slide = slides.get(index);
                     ListItem item = new ListItem(slide.Title(), () -> {
                         if(iterator == index)   // 如果点击的 item 是原来的 item，则无需切换渲染
@@ -292,7 +305,7 @@ public class MainService extends AbstractService {
                         displaySlide(index);    // 渲染 item
                         iterator = index;       // 渲染 item 后，更新 iterator
                     });
-                    // 配置右键菜单
+                    // 设置右键菜单 - 在 Window 层构造
                     JPopupMenu popupMenu = this.getComponent("main.popup.slide");
                     item.setPopupMenu(popupMenu);
                     // 配置完毕，装载到预览面板

@@ -30,13 +30,13 @@ public class ListItem extends JComponent {
      *  允许外部代码设置 clickAction 的具体实现
      */
     @Setter
-    private Runnable clickAction;       // 用于存储点击时要执行的操作，初始为 null
+    private Runnable clickAction;       // 用于存储点击时要执行的操作，即外嵌代码，初始为 null
     private boolean mouseOver = false;  // 鼠标是否悬停在该组件上，初始为 false
 
-    public ListItem(String title, Runnable clickAction) {
+    public ListItem(String title, Runnable leftClickAction) {
         this.title = title;
         this.popupMenu = null;
-        this.clickAction = clickAction;         // TODO - 左键打开项目，配置右键菜单
+        this.clickAction = leftClickAction; // 左键渲染项目，并配置右键菜单
 
         // 配置自定义外观
         this.setUI(new ListItemUI());
@@ -58,10 +58,12 @@ public class ListItem extends JComponent {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                if(e.getButton() == MouseEvent.BUTTON1)         // 左键打开项目 - clickAction 在 Service 层构造
+                if(e.getButton() == MouseEvent.BUTTON1)         // 左键渲染项目 - clickAction 在 Service 层构造
                     clickAction.run();
-                else if (e.getButton() == MouseEvent.BUTTON3)   // 右键显示菜单 - clickAction 在 Service 层构造
+                else if (e.getButton() == MouseEvent.BUTTON3) { // 右键显示菜单，也渲染项目 - clickAction 在 Service 层构造
+                    clickAction.run();
                     popupMenu.show(ListItem.this, e.getX(), e.getY());
+                }
             }
         });
     }

@@ -71,8 +71,8 @@ public class ProcessEngine {
                 "          \"type\": \"text\",\n" +
                 "          \"contentType\": \"text\",\n" +
                 "          \"value\": \"单击此处添加文本\",\n" +
-                "          \"x\": 250,\n" +
-                "          \"y\": 250,\n" +
+                "          \"x\": 200,\n" +
+                "          \"y\": 100,\n" +
                 "          \"color\": \"black\"\n" +
                 "        }\n" +
                 "      ]\n" +

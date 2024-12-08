@@ -125,7 +125,7 @@ public class MainWindow extends AbstractWindow <MainService>{
         previewPanel.setBackground(ColorName.DEFAULT.getColor());
         this.mapComponent("main.panel.preview", previewPanel);
 
-        // 配置右键弹出菜单，包括创建新的幻灯片和删除幻灯片 - TODO - 对 previewPanel 中的 Item 生效
+        // 配置右键弹出菜单，包括创建新的幻灯片和删除幻灯片 - TODO - 增加一个重命名功能
         JPopupMenu popupMenu = new JPopupMenu();
         this.mapComponent("main.popup.slide", popupMenu);
         this.add(popupMenu);

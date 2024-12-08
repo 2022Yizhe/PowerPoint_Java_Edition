@@ -58,7 +58,7 @@
     }, {
       "type" : "image",
       "contentType" : "image",
-      "src" : "E:\\Java\\project\\PowerPoint_Java_Edition_1.1\\project\\resource\\NEU.jpg",
+      "src" : "E:\\Java\\project\\PowerPoint_Java_Edition_2.1\\project\\resource\\NEU.jpg",
       "width" : 501,
       "height" : 367,
       "x" : 545,
@@ -84,7 +84,7 @@
     }, {
       "type" : "image",
       "contentType" : "image",
-      "src" : "E:\\Java\\project\\PowerPoint_Java_Edition_1.1\\project\\resource\\PowerPoint.png",
+      "src" : "E:\\Java\\project\\PowerPoint_Java_Edition_2.1\\project\\resource\\PowerPoint.png",
       "width" : 141,
       "height" : 103,
       "x" : 388,

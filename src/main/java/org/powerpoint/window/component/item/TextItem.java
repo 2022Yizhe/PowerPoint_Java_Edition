@@ -79,19 +79,13 @@ public class TextItem extends JTextArea {
         // 添加 DocumentListener 监听器，监听文本变化
         this.getDocument().addDocumentListener(new DocumentListener() {
             @Override
-            public void insertUpdate(DocumentEvent e) {
-                saveChanges();
-            }
+            public void insertUpdate(DocumentEvent e) { saveChanges(); }
 
             @Override
-            public void removeUpdate(DocumentEvent e) {
-                saveChanges();
-            }
+            public void removeUpdate(DocumentEvent e) { saveChanges(); }
 
             @Override
-            public void changedUpdate(DocumentEvent e) {
-                saveChanges();
-            }
+            public void changedUpdate(DocumentEvent e) { saveChanges(); }
         });
     }
 

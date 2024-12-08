@@ -8,6 +8,8 @@ import java.awt.*;
 
 /**
  * 整个项目的主启动类，项目的运行就从这里开始
+ * 注意事项：
+ * 1. 如果加载不出图片，请自行更改 default.json 的图像路径。目前不支持图像资源内嵌到 .json 文件
  */
 public class Main {
     public static void main(String[] args) throws Exception {
