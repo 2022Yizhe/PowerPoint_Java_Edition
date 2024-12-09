@@ -1,7 +1,5 @@
 package org.powerpoint.window.component.item;
 
-import org.powerpoint.window.enums.ColorName;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -41,7 +39,7 @@ public abstract class VisualItem extends JComponent {
      * 添加鼠标监听器
      * 处理左键拖动 + 右键菜单，这是所有派生组件公用的监听器
      */
-    public void addMouseListeners(){
+    protected void addMouseListeners(){
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {

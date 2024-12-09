@@ -66,20 +66,8 @@ public class LineItem extends VisualItem {
      */
     private void configureMenu(){
         // 粗度菜单项
-        JMenu size = new JMenu("粗度");
-        JMenuItem s_1 = new JMenuItem("1");
-        JMenuItem s_2 = new JMenuItem("2");
-        JMenuItem s_3 = new JMenuItem("3");
-        JMenuItem s_4 = new JMenuItem("4");
-        s_1.addActionListener(e -> {});
-        s_2.addActionListener(e -> {});
-        s_3.addActionListener(e -> {});
-        s_4.addActionListener(e -> {});
-        size.add(s_1);
-        size.add(s_2);
-        size.add(s_3);
-        size.add(s_4);
-        popupMenu.add(size);
+        JMenu thickness = configureThicknessMenu();
+        popupMenu.add(thickness);
 
         // 颜色菜单项
         JMenu color = configureColorMenu();
@@ -118,11 +106,8 @@ public class LineItem extends VisualItem {
         g2d.setStroke(new BasicStroke(line.getThickness()));
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // 设置线条颜色和宽度
+        // 设置线条颜色，绘制直线
         g2d.setColor(ColorName.getColor(line.getColor()));
-        g2d.setStroke(new BasicStroke(1.2F)); // 设置线条宽度
-
-        // 绘制直线
         g2d.drawLine(0, 0, line.getEndX() - line.getStartX(), line.getEndY() - line.getStartY());
 
         // 如果选中，绘制边框
@@ -144,43 +129,53 @@ public class LineItem extends VisualItem {
         JMenuItem c_red = new JMenuItem("Red");
         JMenuItem c_blue = new JMenuItem("Blue");
         JMenuItem c_green = new JMenuItem("Green");
+        JMenuItem c_yellow = new JMenuItem("Yellow");
+        JMenuItem c_orange = new JMenuItem("Orange");
+        JMenuItem c_gray = new JMenuItem("Gray");
         JMenuItem c_sky_blue = new JMenuItem("Sky_Blue");
         c_black.addActionListener(e -> {
-            line.setColor(ColorName.BLACK.getColor().toString());     // 保存颜色更改
-            this.getGraphics().setColor(ColorName.BLACK.getColor());    // 重绘
-            this.repaint();
+            line.setColor(ColorName.BLACK.getColor().toString());  // 保存颜色更改
+            this.repaint(); // 重绘
         });
-        c_white.addActionListener(e -> {
-            line.setColor(ColorName.BLACK.getColor().toString());
-            this.getGraphics().setColor(ColorName.WHITE.getColor());
-            this.repaint();
-        });
-        c_red.addActionListener(e -> {
-            line.setColor(ColorName.RED.getColor().toString());
-            this.getGraphics().setColor(ColorName.RED.getColor());
-            this.repaint();
-        });
-        c_blue.addActionListener(e -> {
-            line.setColor(ColorName.BLUE.getColor().toString());
-            this.getGraphics().setColor(ColorName.BLUE.getColor());
-            this.repaint();
-        });
-        c_green.addActionListener(e -> {
-            line.setColor(ColorName.GREEN.getColor().toString());
-            this.getGraphics().setColor(ColorName.GREEN.getColor());
-            this.repaint();
-        });
-        c_sky_blue.addActionListener(e -> {
-            line.setColor(ColorName.SKY_BLUE.getColor().toString());
-            this.getGraphics().setColor(ColorName.SKY_BLUE.getColor());
-            this.repaint();
-        });
+        c_white.addActionListener(e -> { line.setColor(ColorName.BLACK.getColor().toString()); this.repaint(); });
+        c_red.addActionListener(e -> { line.setColor(ColorName.RED.getColor().toString()); this.repaint(); });
+        c_blue.addActionListener(e -> { line.setColor(ColorName.BLUE.getColor().toString()); this.repaint(); });
+        c_green.addActionListener(e -> { line.setColor(ColorName.GREEN.getColor().toString()); this.repaint(); });
+        c_yellow.addActionListener(e -> { line.setColor(ColorName.YELLOW.getColor().toString()); this.repaint(); });
+        c_orange.addActionListener(e -> { line.setColor(ColorName.ORANGE.getColor().toString()); this.repaint(); });
+        c_gray.addActionListener(e -> { line.setColor(ColorName.GRAY.getColor().toString()); this.repaint(); });
+        c_sky_blue.addActionListener(e -> { line.setColor(ColorName.SKY_BLUE.getColor().toString()); this.repaint(); });
         color.add(c_black);
         color.add(c_white);
         color.add(c_red);
         color.add(c_blue);
         color.add(c_green);
+        color.add(c_yellow);
+        color.add(c_orange);
+        color.add(c_gray);
         color.add(c_sky_blue);
         return color;
+    }
+
+    /**
+     * 配置粗度菜单项
+     * 这种方法只能一个一个添加，很麻烦
+     * @return JMenu 一个配置完毕的菜单项
+     */
+    private JMenu configureThicknessMenu(){
+        JMenu thickness = new JMenu("粗度");
+        JMenuItem s_1 = new JMenuItem("1");
+        JMenuItem s_2 = new JMenuItem("2");
+        JMenuItem s_3 = new JMenuItem("3");
+        JMenuItem s_4 = new JMenuItem("4");
+        s_1.addActionListener(e -> { line.setThickness(1); this.repaint(); });
+        s_2.addActionListener(e -> { line.setThickness(2); this.repaint(); });
+        s_3.addActionListener(e -> { line.setThickness(3); this.repaint(); });
+        s_4.addActionListener(e -> { line.setThickness(4); this.repaint(); });
+        thickness.add(s_1);
+        thickness.add(s_2);
+        thickness.add(s_3);
+        thickness.add(s_4);
+        return thickness;
     }
 }

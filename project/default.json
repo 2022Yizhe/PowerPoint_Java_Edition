@@ -2,34 +2,34 @@
   "title" : "My Presentation",
   "author" : "Author Name",
   "slides" : [ {
-    "title" : "Slide 1",
+    "title" : "概览",
     "content" : [ {
       "type" : "text",
       "contentType" : "text",
       "value" : "Java 期末大作业\n",
-      "x" : 430,
+      "x" : 413,
       "y" : 57,
       "color" : "java.awt.Color[r=135,g=206,b=235]",
-      "font" : "宋体",
-      "size" : 12
+      "font" : "楷体",
+      "size" : 18
     }, {
       "type" : "text",
       "contentType" : "text",
       "value" : "奕\n",
       "x" : 70,
       "y" : 48,
-      "color" : "dark_gray",
+      "color" : "java.awt.Color[r=64,g=64,b=64]",
       "font" : "楷体",
-      "size" : 12
+      "size" : 15
     }, {
       "type" : "text",
       "contentType" : "text",
       "value" : "悟\n",
       "x" : 144,
       "y" : 48,
-      "color" : "dark_gray",
+      "color" : "java.awt.Color[r=0,g=255,b=0]",
       "font" : "楷体",
-      "size" : 12
+      "size" : 15
     }, {
       "type" : "line",
       "contentType" : "line",
@@ -38,7 +38,7 @@
       "endX" : 339,
       "endY" : 633,
       "color" : "gray",
-      "thickness" : 1
+      "thickness" : 2
     }, {
       "type" : "rectangle",
       "contentType" : "rectangle",
@@ -56,7 +56,7 @@
       "x" : 29,
       "y" : 28,
       "color" : "orange",
-      "thickness" : 1
+      "thickness" : 4
     }, {
       "type" : "circle",
       "contentType" : "circle",
@@ -64,7 +64,7 @@
       "x" : 104,
       "y" : 5,
       "color" : "yellow",
-      "thickness" : 1
+      "thickness" : 2
     }, {
       "type" : "image",
       "contentType" : "image",
@@ -75,16 +75,16 @@
       "y" : 257
     } ]
   }, {
-    "title" : "Slide 2",
+    "title" : "主题",
     "content" : [ {
       "type" : "text",
       "contentType" : "text",
       "value" : "本次报告的主题是:\n基于 Java 开发的 PowerPoint 程序",
-      "x" : 147,
-      "y" : 102,
-      "color" : "dark_gray",
-      "font" : "等线",
-      "size" : 12
+      "x" : 164,
+      "y" : 103,
+      "color" : "java.awt.Color[r=64,g=64,b=64]",
+      "font" : "楷体",
+      "size" : 18
     }, {
       "type" : "line",
       "contentType" : "line",
@@ -102,6 +102,18 @@
       "height" : 103,
       "x" : 388,
       "y" : 87
+    } ]
+  }, {
+    "title" : "新建幻灯片",
+    "content" : [ {
+      "type" : "text",
+      "contentType" : "text",
+      "value" : "单击此处添加文本",
+      "x" : 200,
+      "y" : 100,
+      "color" : "BLACK",
+      "font" : "等线",
+      "size" : 12
     } ]
   } ]
 }

@@ -119,32 +119,11 @@ public class TextItem extends JTextArea {
      */
     private void configureMenu() {
         // 字体菜单项
-        JMenu font = new JMenu("字体");
-        JMenuItem f_songti = new JMenuItem("宋体");
-        JMenuItem f_kaiti = new JMenuItem("楷体");
-        JMenuItem f_dengxian = new JMenuItem("等线");
-        f_songti.addActionListener(e -> {});
-        f_kaiti.addActionListener(e -> {});
-        f_dengxian.addActionListener(e -> {});
-        font.add(f_songti);
-        font.add(f_kaiti);
-        font.add(f_dengxian);
+        JMenu font = configureFontMenu();
         popupMenu.add(font);
 
         // 大小菜单项
-        JMenu size = new JMenu("大小");
-        JMenuItem s_9 = new JMenuItem("9");
-        JMenuItem s_11 = new JMenuItem("11");
-        JMenuItem s_13 = new JMenuItem("13");
-        JMenuItem s_15 = new JMenuItem("15");
-        s_9.addActionListener(e -> {});
-        s_11.addActionListener(e -> {});
-        s_13.addActionListener(e -> {});
-        s_15.addActionListener(e -> {});
-        size.add(s_9);
-        size.add(s_11);
-        size.add(s_13);
-        size.add(s_15);
+        JMenu size = configureSizeMenu();
         popupMenu.add(size);
 
         // 颜色菜单项
@@ -170,6 +149,8 @@ public class TextItem extends JTextArea {
         text.setY(this.getY());
         text.setValue(this.getText());
         text.setColor(ColorName.getColorName(this.getForeground()));
+        text.setFont(this.getFont().getFamily());
+        text.setSize(this.getFont().getSize());
         // 还可以添加其他保存逻辑，比如保存到文件或数据库
     }
 
@@ -202,7 +183,7 @@ public class TextItem extends JTextArea {
     /**
      * 配置颜色菜单项
      * 这种方法只能一个一个添加，很麻烦
-     * @return JMenu 一个配置完毕的颜色菜单项
+     * @return JMenu 一个配置完毕的菜单项
      */
     private JMenu configureColorMenu() {
         JMenu color = new JMenu("颜色");
@@ -211,20 +192,88 @@ public class TextItem extends JTextArea {
         JMenuItem c_red = new JMenuItem("Red");
         JMenuItem c_blue = new JMenuItem("Blue");
         JMenuItem c_green = new JMenuItem("Green");
+        JMenuItem c_yellow = new JMenuItem("Yellow");
+        JMenuItem c_orange = new JMenuItem("Orange");
+        JMenuItem c_gray = new JMenuItem("Gray");
         JMenuItem c_sky_blue = new JMenuItem("Sky_Blue");
         c_black.addActionListener(e -> { this.setForeground(ColorName.BLACK.getColor()); this.saveChanges();});     // 保存颜色更改
         c_white.addActionListener(e -> { this.setForeground(ColorName.WHITE.getColor()); this.saveChanges();});
         c_red.addActionListener(e -> { this.setForeground(ColorName.RED.getColor()); this.saveChanges();});
         c_blue.addActionListener(e -> { this.setForeground(ColorName.BLUE.getColor()); this.saveChanges();});
         c_green.addActionListener(e -> { this.setForeground(ColorName.GREEN.getColor()); this.saveChanges();});
+        c_yellow.addActionListener(e -> { this.setForeground(ColorName.YELLOW.getColor()); this.saveChanges();});
+        c_orange.addActionListener(e -> { this.setForeground(ColorName.ORANGE.getColor()); this.saveChanges();});
+        c_gray.addActionListener(e -> { this.setForeground(ColorName.GRAY.getColor()); this.saveChanges();});
         c_sky_blue.addActionListener(e -> { this.setForeground(ColorName.SKY_BLUE.getColor()); this.saveChanges();});
         color.add(c_black);
         color.add(c_white);
         color.add(c_red);
         color.add(c_blue);
         color.add(c_green);
+        color.add(c_yellow);
+        color.add(c_orange);
+        color.add(c_gray);
         color.add(c_sky_blue);
         return color;
+    }
+
+    /**
+     * 配置字体菜单项
+     * 这种方法只能一个一个添加，很麻烦
+     * @return JMenu 一个配置完毕的菜单项
+     */
+    private JMenu configureFontMenu() {
+        JMenu font = new JMenu("字体");
+        JMenuItem f_songti = new JMenuItem("宋体");
+        JMenuItem f_kaiti = new JMenuItem("楷体");
+        JMenuItem f_dengxian = new JMenuItem("等线");
+        JMenuItem f_Microsoft_YaHei = new JMenuItem("Microsoft YaHei");
+        JMenuItem f_Arial_Unicode_MS = new JMenuItem("Arial Unicode MS");
+        f_songti.addActionListener(e -> { this.setFont(new Font("宋体", Font.PLAIN, text.getSize())); this.saveChanges(); });
+        f_kaiti.addActionListener(e -> { this.setFont(new Font("楷体", Font.PLAIN, text.getSize())); this.saveChanges(); });
+        f_dengxian.addActionListener(e -> { this.setFont(new Font("等线", Font.PLAIN, text.getSize())); this.saveChanges(); });
+        f_Microsoft_YaHei.addActionListener(e -> { this.setFont(new Font("Microsoft YaHei", Font.PLAIN, text.getSize())); this.saveChanges(); });
+        f_Arial_Unicode_MS.addActionListener(e -> { this.setFont(new Font("Arial Unicode MS", Font.PLAIN, text.getSize())); this.saveChanges(); });
+        font.add(f_songti);
+        font.add(f_kaiti);
+        font.add(f_dengxian);
+        font.add(f_Microsoft_YaHei);
+        font.add(f_Arial_Unicode_MS);
+        return font;
+    }
+
+    /**
+     * 配置大小菜单项 (字体大小)
+     * 这种方法只能一个一个添加，很麻烦
+     * @return JMenu 一个配置完毕的菜单项
+     */
+    private JMenu configureSizeMenu() {
+        JMenu size = new JMenu("大小");
+        JMenuItem s_9 = new JMenuItem("9");
+        JMenuItem s_12 = new JMenuItem("12");
+        JMenuItem s_15 = new JMenuItem("15");
+        JMenuItem s_18 = new JMenuItem("18");
+        JMenuItem s_21 = new JMenuItem("21");
+        JMenuItem s_24 = new JMenuItem("24");
+        JMenuItem s_30 = new JMenuItem("30");
+        JMenuItem s_45 = new JMenuItem("45");
+        s_9.addActionListener(e -> { this.setFont(new Font(text.getFont(), Font.PLAIN, 9)); this.saveChanges(); });
+        s_12.addActionListener(e -> { this.setFont(new Font(text.getFont(), Font.PLAIN, 12)); this.saveChanges(); });
+        s_15.addActionListener(e -> { this.setFont(new Font(text.getFont(), Font.PLAIN, 15)); this.saveChanges(); });
+        s_18.addActionListener(e -> { this.setFont(new Font(text.getFont(), Font.PLAIN, 18)); this.saveChanges(); });
+        s_21.addActionListener(e -> { this.setFont(new Font(text.getFont(), Font.PLAIN, 21)); this.saveChanges(); });
+        s_24.addActionListener(e -> { this.setFont(new Font(text.getFont(), Font.PLAIN, 24)); this.saveChanges(); });
+        s_30.addActionListener(e -> { this.setFont(new Font(text.getFont(), Font.PLAIN, 30)); this.saveChanges(); });
+        s_45.addActionListener(e -> { this.setFont(new Font(text.getFont(), Font.PLAIN, 45)); this.saveChanges(); });
+        size.add(s_9);
+        size.add(s_12);
+        size.add(s_15);
+        size.add(s_18);
+        size.add(s_21);
+        size.add(s_24);
+        size.add(s_30);
+        size.add(s_45);
+        return size;
     }
 }
 

@@ -55,7 +55,6 @@ public class RectangleItem extends VisualItem {
      */
     private void configure(){
         this.setBounds(rectangle.getX(), rectangle.getY(), rectangle.getWidth() + 20, rectangle.getHeight() + 20);    // 更宽以添加外边框
-
         this.setOpaque(false);  // 透明背景
     }
 
@@ -64,20 +63,8 @@ public class RectangleItem extends VisualItem {
      */
     private void configureMenu(){
         // 粗度菜单项
-        JMenu size = new JMenu("粗度");
-        JMenuItem s_1 = new JMenuItem("1");
-        JMenuItem s_2 = new JMenuItem("2");
-        JMenuItem s_3 = new JMenuItem("3");
-        JMenuItem s_4 = new JMenuItem("4");
-        s_1.addActionListener(e -> {});
-        s_2.addActionListener(e -> {});
-        s_3.addActionListener(e -> {});
-        s_4.addActionListener(e -> {});
-        size.add(s_1);
-        size.add(s_2);
-        size.add(s_3);
-        size.add(s_4);
-        popupMenu.add(size);
+        JMenu thickness = configureThicknessMenu();
+        popupMenu.add(thickness);
 
         // 颜色菜单项
         JMenu color = configureColorMenu();
@@ -134,52 +121,62 @@ public class RectangleItem extends VisualItem {
     /**
      * 配置颜色菜单项
      * 这种方法只能一个一个添加，很麻烦
-     * @return JMenu 一个配置完毕的颜色菜单项
+     * @return JMenu 一个配置完毕的菜单项
      */
-    protected JMenu configureColorMenu(){
+    private JMenu configureColorMenu(){
         JMenu color = new JMenu("颜色");
         JMenuItem c_black = new JMenuItem("Black");
         JMenuItem c_white = new JMenuItem("White");
         JMenuItem c_red = new JMenuItem("Red");
         JMenuItem c_blue = new JMenuItem("Blue");
         JMenuItem c_green = new JMenuItem("Green");
+        JMenuItem c_yellow = new JMenuItem("Yellow");
+        JMenuItem c_orange = new JMenuItem("Orange");
+        JMenuItem c_gray = new JMenuItem("Gray");
         JMenuItem c_sky_blue = new JMenuItem("Sky_Blue");
         c_black.addActionListener(e -> {
-            rectangle.setColor(ColorName.BLACK.getColor().toString());     // 保存颜色更改
-            this.getGraphics().setColor(ColorName.BLACK.getColor());    // 重绘
-            this.repaint();
+            rectangle.setColor(ColorName.BLACK.getColor().toString());  // 保存颜色更改
+            this.repaint(); // 重绘
         });
-        c_white.addActionListener(e -> {
-            rectangle.setColor(ColorName.BLACK.getColor().toString());
-            this.getGraphics().setColor(ColorName.WHITE.getColor());
-            this.repaint();
-        });
-        c_red.addActionListener(e -> {
-            rectangle.setColor(ColorName.RED.getColor().toString());
-            this.getGraphics().setColor(ColorName.RED.getColor());
-            this.repaint();
-        });
-        c_blue.addActionListener(e -> {
-            rectangle.setColor(ColorName.BLUE.getColor().toString());
-            this.getGraphics().setColor(ColorName.BLUE.getColor());
-            this.repaint();
-        });
-        c_green.addActionListener(e -> {
-            rectangle.setColor(ColorName.GREEN.getColor().toString());
-            this.getGraphics().setColor(ColorName.GREEN.getColor());
-            this.repaint();
-        });
-        c_sky_blue.addActionListener(e -> {
-            rectangle.setColor(ColorName.SKY_BLUE.getColor().toString());
-            this.getGraphics().setColor(ColorName.SKY_BLUE.getColor());
-            this.repaint();
-        });
+        c_white.addActionListener(e -> { rectangle.setColor(ColorName.BLACK.getColor().toString()); this.repaint(); });
+        c_red.addActionListener(e -> { rectangle.setColor(ColorName.RED.getColor().toString()); this.repaint(); });
+        c_blue.addActionListener(e -> { rectangle.setColor(ColorName.BLUE.getColor().toString()); this.repaint(); });
+        c_green.addActionListener(e -> { rectangle.setColor(ColorName.GREEN.getColor().toString()); this.repaint(); });
+        c_yellow.addActionListener(e -> { rectangle.setColor(ColorName.YELLOW.getColor().toString()); this.repaint(); });
+        c_orange.addActionListener(e -> { rectangle.setColor(ColorName.ORANGE.getColor().toString()); this.repaint(); });
+        c_gray.addActionListener(e -> { rectangle.setColor(ColorName.GRAY.getColor().toString()); this.repaint(); });
+        c_sky_blue.addActionListener(e -> { rectangle.setColor(ColorName.SKY_BLUE.getColor().toString()); this.repaint(); });
         color.add(c_black);
         color.add(c_white);
         color.add(c_red);
         color.add(c_blue);
         color.add(c_green);
+        color.add(c_yellow);
+        color.add(c_orange);
+        color.add(c_gray);
         color.add(c_sky_blue);
         return color;
+    }
+
+    /**
+     * 配置粗度菜单项
+     * 这种方法只能一个一个添加，很麻烦
+     * @return JMenu 一个配置完毕的菜单项
+     */
+    private JMenu configureThicknessMenu(){
+        JMenu thickness = new JMenu("粗度");
+        JMenuItem s_1 = new JMenuItem("1");
+        JMenuItem s_2 = new JMenuItem("2");
+        JMenuItem s_3 = new JMenuItem("3");
+        JMenuItem s_4 = new JMenuItem("4");
+        s_1.addActionListener(e -> { rectangle.setThickness(1); this.repaint(); });
+        s_2.addActionListener(e -> { rectangle.setThickness(2); this.repaint(); });
+        s_3.addActionListener(e -> { rectangle.setThickness(3); this.repaint(); });
+        s_4.addActionListener(e -> { rectangle.setThickness(4); this.repaint(); });
+        thickness.add(s_1);
+        thickness.add(s_2);
+        thickness.add(s_3);
+        thickness.add(s_4);
+        return thickness;
     }
 }
