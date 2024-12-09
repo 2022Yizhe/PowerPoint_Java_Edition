@@ -126,10 +126,10 @@ public class ProjectManager {
         Presentation presentation;
 
         // 解析项目
-        if (PROJECT.Filepath() == null)
+        if (PROJECT.getFilepath() == null)
             presentation = JsonParser();    // 无参方法表示解析新建项目
         else
-            presentation = JsonParser(PROJECT.Filepath() + '/' + PROJECT.Name());
+            presentation = JsonParser(PROJECT.getFilepath() + '/' + PROJECT.getName());
 
         // 检查解析情况
         if (presentation == null) {

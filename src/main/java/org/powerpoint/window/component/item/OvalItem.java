@@ -54,7 +54,7 @@ public class OvalItem extends VisualItem {
      * 组件配置逻辑，设置椭圆形属性
      */
     private void configure(){
-        this.setBounds(oval.X(), oval.Y(), oval.RadiusX() + 10, oval.RadiusY() + 10);   // 更宽以添加外边框
+        this.setBounds(oval.getX(), oval.getY(), oval.getRadiusX() + 10, oval.getRadiusY() + 10);   // 更宽以添加外边框
 
         this.setOpaque(false);  // 透明背景
     }
@@ -113,6 +113,7 @@ public class OvalItem extends VisualItem {
 
         // 将 Graphics 转换为 Graphics2D, 从而可以启用抗锯齿
         Graphics2D g2d = (Graphics2D) g;
+        g2d.setStroke(new BasicStroke(oval.getThickness()));
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         // 填充椭圆形
@@ -120,8 +121,8 @@ public class OvalItem extends VisualItem {
 //        g2d.fillRect(rectangle.X(), rectangle.Y(), rectangle.Width(), rectangle.Height());
 
         // 绘制椭圆形边框
-        g2d.setColor(ColorName.getColor(oval.Color()));
-        g2d.drawOval(5, 5, oval.RadiusX(), oval.RadiusY());   // 边框占用额外宽度，置中心
+        g2d.setColor(ColorName.getColor(oval.getColor()));
+        g2d.drawOval(5, 5, oval.getRadiusX(), oval.getRadiusY());   // 边框占用额外宽度，置中心
 
         // 如果选中，绘制边框
         if (isSelected) {

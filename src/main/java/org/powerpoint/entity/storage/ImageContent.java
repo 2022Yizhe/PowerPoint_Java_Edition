@@ -10,10 +10,4 @@ public class ImageContent extends AbstractContent {
     private int height;
     private int x;
     private int y;
-
-    public String Src(){ return src; }
-    public int Width(){ return width; }
-    public int Height(){ return height; }
-    public int X(){ return x; }
-    public int Y(){ return y; }
 }

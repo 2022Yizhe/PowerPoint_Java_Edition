@@ -45,7 +45,7 @@ public class SlidePanel extends JPanel {
         JComponent item = null;
 
         // 组件识别成功后，分别添加到管理容器
-        switch (content.ContentType()) {
+        switch (content.getContentType()) {
             case "text":
                 item = new TextItem((TextContent) content, this::deleteTextItem);
                 text_items.add((TextItem) item);
@@ -71,7 +71,7 @@ public class SlidePanel extends JPanel {
                 image_items.add((ImageItem) item);
                 break;
             default:
-                throw new IllegalArgumentException("Unsupported content type: " + content.ContentType());
+                throw new IllegalArgumentException("Unsupported content type: " + content.getContentType());
         }
         // 布局到窗口
         this.add(item);

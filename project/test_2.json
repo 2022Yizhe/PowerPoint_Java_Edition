@@ -9,7 +9,9 @@
       "value" : "This is the first slide.\n龙年出龙币",
       "x" : 35,
       "y" : 44,
-      "color" : "red"
+      "color" : "red",
+      "font" : "等线",
+      "size" : 12
     }, {
       "type" : "line",
       "contentType" : "line",
@@ -17,7 +19,8 @@
       "startY" : 356,
       "endX" : 294,
       "endY" : 676,
-      "color" : "gray"
+      "color" : "gray",
+      "thickness" : 1
     }, {
       "type" : "rectangle",
       "contentType" : "rectangle",
@@ -25,7 +28,8 @@
       "height" : 100,
       "x" : 10,
       "y" : 10,
-      "color" : "blue"
+      "color" : "blue",
+      "thickness" : 1
     }, {
       "type" : "oval",
       "contentType" : "oval",
@@ -33,14 +37,16 @@
       "radiusY" : 50,
       "x" : 204,
       "y" : 37,
-      "color" : "orange"
+      "color" : "orange",
+      "thickness" : 1
     }, {
       "type" : "circle",
       "contentType" : "circle",
       "radius" : 100,
       "x" : 36,
       "y" : 130,
-      "color" : "red"
+      "color" : "red",
+      "thickness" : 1
     }, {
       "type" : "image",
       "contentType" : "image",
@@ -58,7 +64,9 @@
       "value" : "This is the second slide.",
       "x" : 44,
       "y" : 37,
-      "color" : "green"
+      "color" : "green",
+      "font" : "等线",
+      "size" : 12
     } ]
   }, {
     "title" : "Slide 3",
@@ -68,7 +76,9 @@
       "value" : "Welcome to Slide 3!",
       "x" : 855,
       "y" : 25,
-      "color" : "blue"
+      "color" : "blue",
+      "font" : "等线",
+      "size" : 12
     }, {
       "type" : "line",
       "contentType" : "line",
@@ -76,7 +86,8 @@
       "startY" : -2,
       "endX" : 1010,
       "endY" : 148,
-      "color" : "black"
+      "color" : "black",
+      "thickness" : 1
     } ]
   }, {
     "title" : "Slide 4",
@@ -86,7 +97,9 @@
       "value" : "This slide contains a rectangle.",
       "x" : 388,
       "y" : 178,
-      "color" : "black"
+      "color" : "black",
+      "font" : "等线",
+      "size" : 12
     }, {
       "type" : "rectangle",
       "contentType" : "rectangle",
@@ -94,7 +107,8 @@
       "height" : 150,
       "x" : 377,
       "y" : 110,
-      "color" : "yellow"
+      "color" : "yellow",
+      "thickness" : 1
     } ]
   }, {
     "title" : "Slide 5",
@@ -104,14 +118,17 @@
       "value" : "A circle on Slide 5.",
       "x" : 150,
       "y" : 150,
-      "color" : "white"
+      "color" : "white",
+      "font" : "等线",
+      "size" : 12
     }, {
       "type" : "circle",
       "contentType" : "circle",
       "radius" : 80,
       "x" : 447,
       "y" : 236,
-      "color" : "purple"
+      "color" : "purple",
+      "thickness" : 1
     } ]
   }, {
     "title" : "Slide 6",
@@ -121,7 +138,9 @@
       "value" : "This is an oval.",
       "x" : 270,
       "y" : 130,
-      "color" : "black"
+      "color" : "black",
+      "font" : "等线",
+      "size" : 12
     }, {
       "type" : "oval",
       "contentType" : "oval",
@@ -129,7 +148,8 @@
       "radiusY" : 60,
       "x" : 260,
       "y" : 106,
-      "color" : "pink"
+      "color" : "pink",
+      "thickness" : 1
     } ]
   }, {
     "title" : "Slide 7",
@@ -139,7 +159,9 @@
       "value" : "Image on Slide 7.",
       "x" : 0,
       "y" : 566,
-      "color" : "blue"
+      "color" : "blue",
+      "font" : "等线",
+      "size" : 12
     }, {
       "type" : "image",
       "contentType" : "image",
@@ -157,7 +179,9 @@
       "value" : "Line on Slide 8.",
       "x" : 836,
       "y" : 554,
-      "color" : "black"
+      "color" : "black",
+      "font" : "等线",
+      "size" : 12
     }, {
       "type" : "line",
       "contentType" : "line",
@@ -165,7 +189,8 @@
       "startY" : 100,
       "endX" : 500,
       "endY" : 100,
-      "color" : "green"
+      "color" : "green",
+      "thickness" : 1
     } ]
   }, {
     "title" : "Slide 9",
@@ -175,7 +200,9 @@
       "value" : "Rectangle on Slide 9.",
       "x" : 100,
       "y" : 100,
-      "color" : "white"
+      "color" : "white",
+      "font" : "等线",
+      "size" : 12
     }, {
       "type" : "rectangle",
       "contentType" : "rectangle",
@@ -183,7 +210,8 @@
       "height" : 200,
       "x" : 324,
       "y" : 160,
-      "color" : "orange"
+      "color" : "orange",
+      "thickness" : 1
     } ]
   }, {
     "title" : "Slide 10",
@@ -193,7 +221,9 @@
       "value" : "Thank you!",
       "x" : 406,
       "y" : 249,
-      "color" : "black"
+      "color" : "black",
+      "font" : "等线",
+      "size" : 12
     } ]
   } ]
 }

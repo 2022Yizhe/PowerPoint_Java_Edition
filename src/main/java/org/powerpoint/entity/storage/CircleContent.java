@@ -9,9 +9,5 @@ public class CircleContent extends AbstractContent{
     private int x;
     private int y;
     private String color;
-
-    public int Radius(){ return radius; }
-    public int X(){ return x; }
-    public int Y(){ return y; }
-    public String Color(){ return color; }
+    private int thickness;
 }

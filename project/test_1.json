@@ -9,7 +9,9 @@
       "value" : "你好",
       "x" : 65,
       "y" : 55,
-      "color" : "green"
+      "color" : "green",
+      "font" : "等线",
+      "size" : 12
     }, {
       "type" : "rectangle",
       "contentType" : "rectangle",
@@ -17,7 +19,8 @@
       "height" : 100,
       "x" : 4,
       "y" : 8,
-      "color" : "blue"
+      "color" : "blue",
+      "thickness" : 1
     }, {
       "type" : "oval",
       "contentType" : "oval",
@@ -25,7 +28,8 @@
       "radiusY" : 50,
       "x" : 34,
       "y" : 36,
-      "color" : "dark_gray"
+      "color" : "dark_gray",
+      "thickness" : 1
     }, {
       "type" : "image",
       "contentType" : "image",
@@ -43,7 +47,9 @@
       "value" : "我喜欢你",
       "x" : 900,
       "y" : 577,
-      "color" : "sky_blue"
+      "color" : "sky_blue",
+      "font" : "等线",
+      "size" : 12
     } ]
   } ]
 }

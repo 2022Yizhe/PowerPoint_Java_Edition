@@ -28,6 +28,4 @@ import lombok.Setter;
 @Setter @Getter
 public abstract class AbstractContent {
     private String contentType;
-
-    public String ContentType(){ return contentType; }
 }

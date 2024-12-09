@@ -54,7 +54,7 @@ public class RectangleItem extends VisualItem {
      * 组件配置逻辑，设置矩形属性
      */
     private void configure(){
-        this.setBounds(rectangle.X(), rectangle.Y(), rectangle.Width() + 20, rectangle.Height() + 20);    // 更宽以添加外边框
+        this.setBounds(rectangle.getX(), rectangle.getY(), rectangle.getWidth() + 20, rectangle.getHeight() + 20);    // 更宽以添加外边框
 
         this.setOpaque(false);  // 透明背景
     }
@@ -113,6 +113,7 @@ public class RectangleItem extends VisualItem {
 
         // 将 Graphics 转换为 Graphics2D, 从而可以启用抗锯齿
         Graphics2D g2d = (Graphics2D) g;
+        g2d.setStroke(new BasicStroke(rectangle.getThickness()));
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         // 填充矩形
@@ -120,8 +121,8 @@ public class RectangleItem extends VisualItem {
 //        g2d.fillRect(rectangle.X(), rectangle.Y(), rectangle.Width(), rectangle.Height());
 
         // 绘制矩形边框
-        g2d.setColor(ColorName.getColor(rectangle.Color()));
-        g2d.drawRect(10, 10, rectangle.Width() , rectangle.Height());    // 边框占用额外宽度，置中心
+        g2d.setColor(ColorName.getColor(rectangle.getColor()));
+        g2d.drawRect(10, 10, rectangle.getWidth() , rectangle.getHeight());    // 边框占用额外宽度，置中心
 
         // 如果选中，绘制边框
         if (isSelected) {

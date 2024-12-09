@@ -34,14 +34,14 @@ public class ProcessEngine {
             Presentation presentation = objectMapper.readValue(new File(json_path), Presentation.class);
 
             // 终端打印部分读取到的数据
-            System.out.println("Presentation Title: " + presentation.Title());
-            for (Slide slide : presentation.Slides()) {
-                System.out.println("Slide Title: " + slide.Title());
-                for (AbstractContent content : slide.Contents()) {
+            System.out.println("Presentation Title: " + presentation.getTitle());
+            for (Slide slide : presentation.getSlides()) {
+                System.out.println("Slide Title: " + slide.getTitle());
+                for (AbstractContent content : slide.getContent()) {
                     if (content instanceof TextContent) {
-                        System.out.println("Text: " + ((TextContent) content).Value());
+                        System.out.println("Text: " + ((TextContent) content).getValue());
                     } else if (content instanceof ImageContent) {
-                        System.out.println("Image Source: " + ((ImageContent) content).Src());
+                        System.out.println("Image Source: " + ((ImageContent) content).getSrc());
                     }
                 }
             }
@@ -73,7 +73,9 @@ public class ProcessEngine {
                 "          \"value\": \"单击此处添加文本\",\n" +
                 "          \"x\": 200,\n" +
                 "          \"y\": 100,\n" +
-                "          \"color\": \"black\"\n" +
+                "          \"color\": \"black\",\n" +
+                "          \"font\": \"等线\",\n" +
+                "          \"size\": 12\n" +
                 "        }\n" +
                 "      ]\n" +
                 "    }\n" +

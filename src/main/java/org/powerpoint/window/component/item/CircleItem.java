@@ -54,7 +54,7 @@ public class CircleItem extends VisualItem {
      * 组件配置逻辑，设置圆形属性
      */
     private void configure(){
-        this.setBounds(circle.X(), circle.Y(), circle.Radius() + 10, circle.Radius() + 10);
+        this.setBounds(circle.getX(), circle.getY(), circle.getRadius() + 10, circle.getRadius() + 10);
 
         this.setOpaque(false);  // 透明背景
     }
@@ -112,6 +112,7 @@ public class CircleItem extends VisualItem {
 
         // 将 Graphics 转换为 Graphics2D, 从而可以启用抗锯齿
         Graphics2D g2d = (Graphics2D) g;
+        g2d.setStroke(new BasicStroke(circle.getThickness()));
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         // 填充圆形
@@ -119,8 +120,8 @@ public class CircleItem extends VisualItem {
 //        g2d.fillRect(rectangle.X(), rectangle.Y(), rectangle.Width(), rectangle.Height());
 
         // 绘制圆形边框
-        g2d.setColor(ColorName.getColor(circle.Color()));
-        g2d.drawOval(5, 5, circle.Radius(), circle.Radius());   // 边框占用额外宽度，置中心
+        g2d.setColor(ColorName.getColor(circle.getColor()));
+        g2d.drawOval(5, 5, circle.getRadius(), circle.getRadius());   // 边框占用额外宽度，置中心
 
         // 如果选中，绘制边框
         if (isSelected) {

@@ -27,7 +27,8 @@ public class TextItem extends JTextArea {
     private Runnable deleteAction;
 
     public TextItem(TextContent text, Runnable deleteAction) {
-        super(text.Value());
+        super(text.getValue());
+        this.setFont(new Font(text.getFont(), Font.PLAIN, text.getSize()));
 
         // 配置文本
         this.text = text;
@@ -104,8 +105,8 @@ public class TextItem extends JTextArea {
      * 组件配置逻辑，设置文本属性
      */
     private void configure(){
-        this.setBounds(text.X(), text.Y(), 200, 80);    // 默认外边框
-        this.setForeground(ColorName.getColor(text.Color()));
+        this.setBounds(text.getX(), text.getY(), 200, 80);    // 默认外边框
+        this.setForeground(ColorName.getColor(text.getColor()));
 
         this.setEditable(true);         // 可编辑
         this.setLineWrap(true);         // 自动换行

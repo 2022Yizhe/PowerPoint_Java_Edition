@@ -61,8 +61,8 @@ public class ImageItem extends VisualItem {
     private void configure(){
         // 加载图像
         try {
-            this.image = ImageIO.read(new File(imageContent.Src()));
-            this.setBounds(imageContent.X(), imageContent.Y(), image.getWidth(), image.getHeight());
+            this.image = ImageIO.read(new File(imageContent.getSrc()));
+            this.setBounds(imageContent.getX(), imageContent.getY(), image.getWidth(), image.getHeight());
         } catch (IOException e) {
             e.printStackTrace();
             this.image = null;  // 加载失败时设置为 null

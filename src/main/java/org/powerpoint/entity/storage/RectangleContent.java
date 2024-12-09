@@ -10,10 +10,5 @@ public class RectangleContent extends AbstractContent{
     private int x;
     private int y;
     private String color;
-
-    public int Width(){ return width; }
-    public int Height(){ return height; }
-    public int X(){ return x; }
-    public int Y(){ return y; }
-    public String Color(){ return color; }
+    private int thickness;
 }

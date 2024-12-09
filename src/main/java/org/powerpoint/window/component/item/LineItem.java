@@ -55,8 +55,8 @@ public class LineItem extends VisualItem {
      */
     private void configure(){
         this.setBounds(
-                Math.min(line.StartX(), line.EndX()), Math.min(line.StartY(), line.EndY()),
-                Math.abs(line.EndX() - line.StartX()), Math.abs(line.EndY() - line.StartY())
+                Math.min(line.getStartX(), line.getEndX()), Math.min(line.getStartY(), line.getEndY()),
+                Math.abs(line.getEndX() - line.getStartX()), Math.abs(line.getEndY() - line.getStartY())
         );
         this.setOpaque(false);  // 透明背景
     }
@@ -115,14 +115,15 @@ public class LineItem extends VisualItem {
 
         // 将 Graphics 转换为 Graphics2D, 从而可以启用抗锯齿
         Graphics2D g2d = (Graphics2D) g;
+        g2d.setStroke(new BasicStroke(line.getThickness()));
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         // 设置线条颜色和宽度
-        g2d.setColor(ColorName.getColor(line.Color()));
+        g2d.setColor(ColorName.getColor(line.getColor()));
         g2d.setStroke(new BasicStroke(1.2F)); // 设置线条宽度
 
         // 绘制直线
-        g2d.drawLine(0, 0, line.EndX() - line.StartX(), line.EndY() - line.StartY());
+        g2d.drawLine(0, 0, line.getEndX() - line.getStartX(), line.getEndY() - line.getStartY());
 
         // 如果选中，绘制边框
         if (isSelected) {

@@ -16,9 +16,6 @@ public class Slide {
     private String title;
     private List<AbstractContent> content;
 
-    public String Title() { return title; }
-    public List<AbstractContent> Contents() { return content; }
-
     /**
      * 初始化 slide 对象
      * title 为默认值 “Slide new”，序列中只有一个 TextContent 组件，其为默认值 “单击此处添加文本”
@@ -31,6 +28,8 @@ public class Slide {
         defaultText.setX(200);
         defaultText.setY(100);
         defaultText.setColor("BLACK");
+        defaultText.setFont("等线");
+        defaultText.setSize(12);
         contents.add(defaultText);
 
         this.setContent(contents);

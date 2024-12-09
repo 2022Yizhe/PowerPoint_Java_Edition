@@ -9,21 +9,27 @@
       "value" : "Java 期末大作业\n",
       "x" : 430,
       "y" : 57,
-      "color" : "java.awt.Color[r=135,g=206,b=235]"
+      "color" : "java.awt.Color[r=135,g=206,b=235]",
+      "font" : "宋体",
+      "size" : 12
     }, {
       "type" : "text",
       "contentType" : "text",
       "value" : "奕\n",
       "x" : 70,
       "y" : 48,
-      "color" : "dark_gray"
+      "color" : "dark_gray",
+      "font" : "楷体",
+      "size" : 12
     }, {
       "type" : "text",
       "contentType" : "text",
       "value" : "悟\n",
       "x" : 144,
       "y" : 48,
-      "color" : "dark_gray"
+      "color" : "dark_gray",
+      "font" : "楷体",
+      "size" : 12
     }, {
       "type" : "line",
       "contentType" : "line",
@@ -31,7 +37,8 @@
       "startY" : 313,
       "endX" : 339,
       "endY" : 633,
-      "color" : "gray"
+      "color" : "gray",
+      "thickness" : 1
     }, {
       "type" : "rectangle",
       "contentType" : "rectangle",
@@ -39,7 +46,8 @@
       "height" : 75,
       "x" : 402,
       "y" : 24,
-      "color" : "blue"
+      "color" : "blue",
+      "thickness" : 1
     }, {
       "type" : "oval",
       "contentType" : "oval",
@@ -47,14 +55,16 @@
       "radiusY" : 50,
       "x" : 29,
       "y" : 28,
-      "color" : "orange"
+      "color" : "orange",
+      "thickness" : 1
     }, {
       "type" : "circle",
       "contentType" : "circle",
       "radius" : 100,
       "x" : 104,
       "y" : 5,
-      "color" : "yellow"
+      "color" : "yellow",
+      "thickness" : 1
     }, {
       "type" : "image",
       "contentType" : "image",
@@ -72,7 +82,9 @@
       "value" : "本次报告的主题是:\n基于 Java 开发的 PowerPoint 程序",
       "x" : 147,
       "y" : 102,
-      "color" : "dark_gray"
+      "color" : "dark_gray",
+      "font" : "等线",
+      "size" : 12
     }, {
       "type" : "line",
       "contentType" : "line",
@@ -80,7 +92,8 @@
       "startY" : 10,
       "endX" : 420,
       "endY" : 10,
-      "color" : "sky_blue"
+      "color" : "sky_blue",
+      "thickness" : 1
     }, {
       "type" : "image",
       "contentType" : "image",
