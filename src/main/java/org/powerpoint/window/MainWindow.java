@@ -130,6 +130,10 @@ public class MainWindow extends AbstractWindow <MainService>{
         this.mapComponent("main.popup.slide", popupMenu);
         this.add(popupMenu);
 
+        JMenuItem renameItem = new JMenuItem("重命名");
+        renameItem.addActionListener(e -> service.renameSlide());
+        popupMenu.add(renameItem);
+
         JMenuItem createItem = new JMenuItem("新建幻灯片");
         createItem.addActionListener(e -> service.createSlide());
         popupMenu.add(createItem);

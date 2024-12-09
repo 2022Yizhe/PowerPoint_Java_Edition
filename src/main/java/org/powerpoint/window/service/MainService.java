@@ -13,7 +13,6 @@ import org.powerpoint.window.dialog.InputDialog;
 import javax.swing.*;
 import javax.swing.undo.UndoManager;
 import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -213,7 +212,31 @@ public class MainService extends AbstractService {
 
     /**
      * @ 配置右键菜单服务
-     * 创建一个幻灯片，插入到右键幻灯片的下一张
+     * 为幻灯片重命名，修改的变量为 Slide.title
+     */
+    public void renameSlide(){
+        // 获取幻灯片序列
+        Presentation presentation = ProjectManager.getInstance().getProcess().getPresentation();
+        List<Slide> slides = presentation.Slides();
+
+        // 弹出对话框，修改这张幻灯片的 title
+        InputDialog inputDialog = new InputDialog(this.getWindow());
+        inputDialog.openDialog();
+        String inputStr = inputDialog.getInput();
+        if(inputStr == null) return;
+
+        Slide slide = slides.get(iterator);
+        slide.setTitle(inputStr);
+
+        // 重新渲染
+        clear();
+        previewSlides();
+        displaySlide(iterator);
+    }
+
+    /**
+     * @ 配置右键菜单服务
+     * 创建一张幻灯片，插入到右键幻灯片的下一张
      */
     public void createSlide(){
         // 获取幻灯片序列
@@ -233,18 +256,40 @@ public class MainService extends AbstractService {
 
     /**
      * @ 配置右键菜单服务
-     * 复制一个幻灯片，直接粘贴在指定幻灯片下一张
+     * 复制一张幻灯片，插入到指定幻灯片下一张
      */
     public void copySlide(){
-        // TODO
+        // 获取幻灯片序列
+        Presentation presentation = ProjectManager.getInstance().getProcess().getPresentation();
+        List<Slide> slides = presentation.Slides();
+
+        // 复制这张 slide
+        Slide slide = new Slide();
+        slide.copySlide(slides.get(iterator));
+        slides.add(++iterator, slide);
+
+        // 重新渲染
+        clear();
+        previewSlides();
+        displaySlide(iterator);
     }
 
     /**
      * @ 配置右键菜单服务
-     * 删除一个幻灯片
+     * 删除一张幻灯片，删除后 iterator 前移一位
      */
     public void deleteSlide(){
-        // TODO
+        // 获取幻灯片序列
+        Presentation presentation = ProjectManager.getInstance().getProcess().getPresentation();
+        List<Slide> slides = presentation.Slides();
+
+        // 删除这张 slide
+        slides.remove(iterator);
+
+        // 重新渲染
+        clear();
+        previewSlides();
+        displaySlide(--iterator);
     }
 
     /**

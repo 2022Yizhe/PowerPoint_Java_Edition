@@ -12,8 +12,8 @@ import java.awt.*;
 public class InputDialog extends AbstractDialog {
     String input;
 
-    public InputDialog(AbstractDialog parent) { super(parent, "输入项目名称", new Dimension(400, 200)); }
-    public InputDialog(AbstractWindow parent) { super(parent, "输入项目名称", new Dimension(400, 200)); }
+    public InputDialog(AbstractDialog parent) { super(parent, "用户输入", new Dimension(400, 200)); }
+    public InputDialog(AbstractWindow parent) { super(parent, "用户输入", new Dimension(400, 200)); }
 
     @Override
     protected void initDialogContent() {

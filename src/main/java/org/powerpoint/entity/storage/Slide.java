@@ -36,4 +36,12 @@ public class Slide {
         this.setContent(contents);
         this.setTitle("Slide new");
     }
+
+    /**
+     * 复制函数
+     */
+    public void copySlide(Slide slide){
+        this.setTitle(slide.getTitle());
+        this.setContent(slide.getContent());
+    }
 }
