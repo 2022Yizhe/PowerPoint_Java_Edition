@@ -22,13 +22,13 @@ public class ImageItem extends VisualItem {
 
     private BufferedImage image;
 
-    public ImageItem(ImageContent imageContent) {
-        super();
+    public ImageItem(ImageContent imageContent, Runnable deleteAction) {
+        super(deleteAction);
 
         this.imageContent = imageContent;
         configure();
 
-        // 配置右键菜单 -- TODO
+        // 配置右键菜单
         configureMenu();
         this.add(popupMenu);
 
@@ -77,12 +77,16 @@ public class ImageItem extends VisualItem {
     private void configureMenu(){
         // 删除菜单项
         JMenuItem delete = new JMenuItem("Delete");
-        delete.addActionListener(e -> {});
+        delete.addActionListener(e -> {
+            marked = true;
+            deleteAction.run();
+            this.setVisible(false); // 因为已经绘制的不会自动消失，直接设为不可见，再次加载幻灯片时已删除
+        });
         popupMenu.add(delete);
     }
 
     /**
-     * 保存编辑到 content -- TODO 保存颜色
+     * 保存编辑到 content
      */
     protected void saveChanges() {
         imageContent.setX(this.getX());

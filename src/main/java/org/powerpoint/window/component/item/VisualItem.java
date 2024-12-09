@@ -17,10 +17,15 @@ public abstract class VisualItem extends JComponent {
     protected boolean isSelected;
     protected Point mouseOffset;
 
-    public VisualItem() {
-        this.popupMenu = new JPopupMenu();
+    public boolean marked;
+    protected Runnable deleteAction;
+
+    public VisualItem(Runnable deleteAction) {
+        popupMenu = new JPopupMenu();
         isSelected = false;
         mouseOffset = new Point(0,0);
+        marked = false;
+        this.deleteAction = deleteAction;
     }
 
     /**
@@ -34,10 +39,9 @@ public abstract class VisualItem extends JComponent {
 
     /**
      * 添加鼠标监听器
-     * 处理左键拖动 + 右键菜单
+     * 处理左键拖动 + 右键菜单，这是所有派生组件公用的监听器
      */
     public void addMouseListeners(){
-        // 监听
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {

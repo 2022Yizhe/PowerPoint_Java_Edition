@@ -16,8 +16,8 @@ import java.awt.event.MouseEvent;
 public class LineItem extends VisualItem {
     private final LineContent line;
 
-    public LineItem(LineContent line) {
-        super();
+    public LineItem(LineContent line, Runnable deleteAction) {
+        super(deleteAction);
 
         // 配置直线
         this.line = line;
@@ -87,7 +87,11 @@ public class LineItem extends VisualItem {
 
         // 删除菜单项
         JMenuItem delete = new JMenuItem("Delete");
-        delete.addActionListener(e -> {});
+        delete.addActionListener(e -> {
+            marked = true;
+            deleteAction.run();
+            this.setVisible(false); // 因为已经绘制的不会自动消失，直接设为不可见，再次加载幻灯片时已删除
+        });
         popupMenu.add(delete);
     }
 

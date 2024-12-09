@@ -23,7 +23,10 @@ public class TextItem extends JTextArea {
     private boolean isSelected = false;
     private Point mouseOffset;
 
-    public TextItem(TextContent text) {
+    public boolean marked = false;
+    private Runnable deleteAction;
+
+    public TextItem(TextContent text, Runnable deleteAction) {
         super(text.Value());
 
         // 配置文本
@@ -34,6 +37,9 @@ public class TextItem extends JTextArea {
         this.popupMenu = new JPopupMenu();
         configureMenu();
         this.add(popupMenu);
+
+        // 配置 Runnable
+        this.deleteAction = deleteAction;
 
         // 添加 Mouse 监听器，监听鼠标点击事件
         this.addMouseListener(new MouseAdapter() {
@@ -146,7 +152,11 @@ public class TextItem extends JTextArea {
 
         // 删除菜单项
         JMenuItem delete = new JMenuItem("Delete");
-        delete.addActionListener(e -> {});
+        delete.addActionListener(e -> {
+            marked = true;
+            deleteAction.run();
+            this.setVisible(false); // 因为已经绘制的不会自动消失，直接设为不可见，再次加载幻灯片时已删除
+        });
         popupMenu.add(delete);
     }
 

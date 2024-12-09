@@ -47,27 +47,27 @@ public class SlidePanel extends JPanel {
         // 组件识别成功后，分别添加到管理容器
         switch (content.ContentType()) {
             case "text":
-                item = new TextItem((TextContent) content);
+                item = new TextItem((TextContent) content, this::deleteTextItem);
                 text_items.add((TextItem) item);
                 break;
             case "line":
-                item = new LineItem((LineContent) content);
+                item = new LineItem((LineContent) content, this::deleteLineItem);
                 line_items.add((LineItem) item);
                 break;
             case "rectangle":
-                item = new RectangleItem((RectangleContent) content);
+                item = new RectangleItem((RectangleContent) content, this::deleteRectangleItem);
                 rectangle_items.add((RectangleItem) item);
                 break;
             case "oval":
-                item = new OvalItem((OvalContent) content);
+                item = new OvalItem((OvalContent) content, this::deleteOvalItem);
                 oval_items.add((OvalItem) item);
                 break;
             case "circle":
-                item = new CircleItem((CircleContent) content);
+                item = new CircleItem((CircleContent) content, this::deleteCircleItem);
                 circle_items.add((CircleItem) item);
                 break;
             case "image":
-                item = new ImageItem((ImageContent) content);
+                item = new ImageItem((ImageContent) content, this::deleteImageItem);
                 image_items.add((ImageItem) item);
                 break;
             default:
@@ -143,4 +143,15 @@ public class SlidePanel extends JPanel {
         }
         return contents;
     }
+
+    /**
+     * 删除一个组件
+     * 具体组件的右键菜单删除功能的外嵌代码
+     */
+    private void deleteTextItem(){ text_items.removeIf(item -> item.marked); }
+    private void deleteLineItem(){ line_items.removeIf(item -> item.marked); }
+    private void deleteRectangleItem(){ rectangle_items.removeIf(item -> item.marked); }
+    private void deleteOvalItem(){ oval_items.removeIf(item -> item.marked); }
+    private void deleteCircleItem(){ circle_items.removeIf(item -> item.marked); }
+    private void deleteImageItem(){ image_items.removeIf(item -> item.marked); }
 }

@@ -16,8 +16,8 @@ import java.awt.event.MouseEvent;
 public class RectangleItem extends VisualItem {
     private final RectangleContent rectangle;
 
-    public RectangleItem(RectangleContent rectangle) {
-        super();
+    public RectangleItem(RectangleContent rectangle, Runnable deleteAction) {
+        super(deleteAction);
 
         // 配置矩形
         this.rectangle = rectangle;
@@ -85,7 +85,11 @@ public class RectangleItem extends VisualItem {
 
         // 删除菜单项
         JMenuItem delete = new JMenuItem("Delete");
-        delete.addActionListener(e -> {});
+        delete.addActionListener(e -> {
+            marked = true;
+            deleteAction.run();
+            this.setVisible(false); // 因为已经绘制的不会自动消失，直接设为不可见，再次加载幻灯片时已删除
+        });
         popupMenu.add(delete);
     }
 
