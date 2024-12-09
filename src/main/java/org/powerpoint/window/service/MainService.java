@@ -24,7 +24,11 @@ public class MainService extends AbstractService {
     private String directory;           // 当前项目的目录
     private String path;                // 当前项目文件的路径
 
-    private int iterator;               // 当前编辑幻灯片的索引，随用户操作更新
+    private int iterator = 0;           // 当前编辑幻灯片的索引，随用户操作更新
+
+    private boolean toolFlag = false;   // 处理多级监听信号的变量，如点击 tools 后再点击编辑面板，执行操作
+    private boolean editFlag = false;
+    private String tool;
 
     private UndoManager undoManager;    // 重做管理器，用于编辑框支持撤销和重做操作
 
@@ -175,7 +179,14 @@ public class MainService extends AbstractService {
      * 添加横排文本框
      */
     public void textAreaButtonAction(){
+        // 新建文本框，文本框内容为默认文本，文本框位置为鼠标点击位置
+        SlidePanel slidePanel = this.getComponent("main.panel.edit");
+        TextContent text = new TextContent();
+        text.initDefault(slidePanel.getClickX(), slidePanel.getClickY());
 
+        // 添加到面板组件，并单独渲染之
+        slidePanel.addContent(text);
+        slidePanel.repaint();
     }
 
     /**
@@ -183,7 +194,14 @@ public class MainService extends AbstractService {
      * 绘制直线
      */
     public void lineShapeButtonAction(){
+        // 新建直线，直线固定为横线，直线位置为鼠标点击位置
+        SlidePanel slidePanel = this.getComponent("main.panel.edit");
+        LineContent line = new LineContent();
+        line.initDefault(slidePanel.getClickX(), slidePanel.getClickY());
 
+        // 添加到面板组件，并单独渲染之
+        slidePanel.addContent(line);
+        slidePanel.repaint();
     }
 
     /**
@@ -191,7 +209,14 @@ public class MainService extends AbstractService {
      * 绘制矩形
      */
     public void rectangleShapeButtonAction(){
+        // 新建矩形，矩形具有默认大小，矩形位置为鼠标点击位置
+        SlidePanel slidePanel = this.getComponent("main.panel.edit");
+        RectangleContent rectangle = new RectangleContent();
+        rectangle.initDefault(slidePanel.getClickX(), slidePanel.getClickY());
 
+        // 添加到面板组件，并单独渲染之
+        slidePanel.addContent(rectangle);
+        slidePanel.repaint();
     }
 
     /**
@@ -199,15 +224,70 @@ public class MainService extends AbstractService {
      * 绘制椭圆形（包含圆形）
      */
     public void ovalShapeButtonAction(){
+        // 新建椭圆形，椭圆形具有默认大小，位置为鼠标点击位置
+        SlidePanel slidePanel = this.getComponent("main.panel.edit");
+        OvalContent oval = new OvalContent();
+        oval.initDefault(slidePanel.getClickX(), slidePanel.getClickY());
 
+        // 添加到面板组件，并单独渲染之
+        slidePanel.addContent(oval);
+        slidePanel.repaint();
     }
 
     /**
      * @ Tools
-     * 插入一张图片
+     * 插入一张图片 -- TODO 弹出对话框，输入图片路径参数
      */
     public void imageInsertButtonAction(){
+        // 插入一张图片，位置为鼠标点击位置
+        SlidePanel slidePanel = this.getComponent("main.panel.edit");
+        ImageContent image = new ImageContent();
+        image.initDefault(slidePanel.getClickX(), slidePanel.getClickY());
 
+        // 添加到面板组件，并单独渲染之
+        slidePanel.addContent(image);
+        slidePanel.repaint();
+    }
+
+    /**
+     * 处理多级监听事件
+     * @param event 发出监听信号的组件
+     */
+    public void handleEvent(String event){
+        // 简易图灵机 - 当两个事件连续发生时才均为 true
+        if (event.startsWith("button")){
+            toolFlag = true;
+            tool = event;
+        } else if (event.startsWith("panel")){
+            editFlag = toolFlag;
+        }
+
+        // 进行事件识别，处理任务
+        if (toolFlag && editFlag){
+            switch (tool){
+                case "button_textArea":
+                    textAreaButtonAction();
+                    break;
+                case "button_lineShape":
+                    lineShapeButtonAction();
+                    break;
+                case "button_rectangleShape":
+                    rectangleShapeButtonAction();
+                    break;
+                case "button_ovalShape":
+                    ovalShapeButtonAction();
+                    break;
+                case "button_imageInsert":
+                    imageInsertButtonAction();
+                    break;
+                default:
+                    System.out.println("Unhandled event: " + event);
+                    break;
+            }
+            // 处理结束，重置状态
+            toolFlag = false;
+            editFlag = false;
+        }
     }
 
     /**

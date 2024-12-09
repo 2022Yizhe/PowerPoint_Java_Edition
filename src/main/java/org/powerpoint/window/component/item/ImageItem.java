@@ -67,7 +67,6 @@ public class ImageItem extends VisualItem {
             e.printStackTrace();
             this.image = null;  // 加载失败时设置为 null
         }
-
         this.setOpaque(false);  // 透明背景
     }
 

@@ -56,7 +56,7 @@ public class LineItem extends VisualItem {
     private void configure(){
         this.setBounds(
                 Math.min(line.getStartX(), line.getEndX()), Math.min(line.getStartY(), line.getEndY()),
-                Math.abs(line.getEndX() - line.getStartX()), Math.abs(line.getEndY() - line.getStartY())
+                Math.abs(line.getEndX() - line.getStartX()) + 10, Math.abs(line.getEndY() - line.getStartY() + 10)    // 为绘制边框留 10 px
         );
         this.setOpaque(false);  // 透明背景
     }

@@ -157,7 +157,9 @@ public class MainWindow extends AbstractWindow <MainService>{
      */
     private JScrollPane createRightPanel(){
         // 创建一个可操作面板
-        SlidePanel editPanel = new SlidePanel();
+        SlidePanel editPanel = new SlidePanel(() -> {
+            service.handleEvent("panel_edit");  // 点击事件 2
+        });
         editPanel.setPreferredSize(new Dimension(0, 400));  // c.设置首选尺寸，避免分割异常的问题
         this.mapComponent("main.panel.edit", editPanel);
 
@@ -228,7 +230,7 @@ public class MainWindow extends AbstractWindow <MainService>{
         // 按钮 - 文本 (绘制横排文本框)
         this.addComponent(tools_panel, "main.button.tools.textArea", new JButton("绘制横排文本框"), button -> {
             button.setPreferredSize(new Dimension(240, 40));
-            button.addActionListener(e -> service.textAreaButtonAction());
+            button.addActionListener(e -> service.handleEvent("button_textArea"));  // 点击事件 1
         });
         return tools_panel;
     }
@@ -250,15 +252,15 @@ public class MainWindow extends AbstractWindow <MainService>{
         // 按钮 - 绘制 (直线、矩形、椭圆)
         this.addComponent(tools_panel, "main.button.tools.lineShape", new JButton("直线"), button -> {
             button.setPreferredSize(new Dimension(80, 40));
-            button.addActionListener(e -> service.lineShapeButtonAction());
+            button.addActionListener(e -> service.handleEvent("button_lineShape"));         // 点击事件 1
         });
         this.addComponent(tools_panel, "main.button.tools.rectangleShape", new JButton("矩形"), button -> {
             button.setPreferredSize(new Dimension(80, 40));
-            button.addActionListener(e -> service.rectangleShapeButtonAction());
+            button.addActionListener(e -> service.handleEvent("button_rectangleShape"));    // 点击事件 1
         });
         this.addComponent(tools_panel, "main.button.tools.ovalShape", new JButton("椭圆"), button -> {
             button.setPreferredSize(new Dimension(80, 40));
-            button.addActionListener(e -> service.ovalShapeButtonAction());
+            button.addActionListener(e -> service.handleEvent("button_ovalShape"));         // 点击事件 1
         });
         return tools_panel;
     }
@@ -280,7 +282,7 @@ public class MainWindow extends AbstractWindow <MainService>{
         // 按钮 - 插入 (图像等资源)
         this.addComponent(tools_panel, "main.button.tools.imageInsert", new JButton("此设备"), button -> {
             button.setPreferredSize(new Dimension(120, 40));
-            button.addActionListener(e -> service.imageInsertButtonAction());
+            button.addActionListener(e -> service.handleEvent("button_imageInsert"));   // 点击事件 1
         });
         return tools_panel;
     }

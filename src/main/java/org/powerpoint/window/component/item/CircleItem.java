@@ -55,7 +55,6 @@ public class CircleItem extends VisualItem {
      */
     private void configure(){
         this.setBounds(circle.getX(), circle.getY(), circle.getRadius() + 10, circle.getRadius() + 10);
-
         this.setOpaque(false);  // 透明背景
     }
 

@@ -55,7 +55,6 @@ public class OvalItem extends VisualItem {
      */
     private void configure(){
         this.setBounds(oval.getX(), oval.getY(), oval.getRadiusX() + 10, oval.getRadiusY() + 10);   // 更宽以添加外边框
-
         this.setOpaque(false);  // 透明背景
     }
 

@@ -1,5 +1,6 @@
 package org.powerpoint.window.component;
 
+import lombok.Getter;
 import org.powerpoint.entity.storage.*;
 import org.powerpoint.manage.SelectManager;
 import org.powerpoint.window.component.item.*;
@@ -23,7 +24,15 @@ public class SlidePanel extends JPanel {
     private List<CircleItem> circle_items = new ArrayList<>();
     private List<ImageItem> image_items = new ArrayList<>();
 
-    public SlidePanel() {
+    private Runnable clickAction;           // 外嵌代码
+    @Getter
+    private int clickX = 0;
+    @Getter
+    private int clickY = 0;
+
+    public SlidePanel(Runnable clickAction) {
+        this.clickAction = clickAction;
+
         this.setLayout(null);               // 采用绝对布局 (以便自由拖动组件)
         this.setBackground(Color.WHITE);    // 设置为白板 (背景色为白色)
 
@@ -33,6 +42,10 @@ public class SlidePanel extends JPanel {
             public void mousePressed(MouseEvent e) {
                 // 点击背景板时，清除所有组件的选中状态
                 SelectManager.getInstance().clearAll();
+                // 如果有多级监听事件，记录鼠标点击的位置，并处理之
+                clickX = e.getX();
+                clickY = e.getY();
+                clickAction.run();
             }
         });
     }

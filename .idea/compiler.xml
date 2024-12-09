@@ -7,7 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="PowerPoint_Java_Edition_2.1" />
+        <module name="PowerPoint_Java_Edition" />
       </profile>
     </annotationProcessing>
   </component>

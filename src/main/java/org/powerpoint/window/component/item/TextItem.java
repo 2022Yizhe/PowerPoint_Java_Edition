@@ -105,7 +105,7 @@ public class TextItem extends JTextArea {
      * 组件配置逻辑，设置文本属性
      */
     private void configure(){
-        this.setBounds(text.getX(), text.getY(), 200, 80);    // 默认外边框
+        this.setBounds(text.getX(), text.getY(), 200, 80);    // 设置一个默认大小的外边框 -- TODO 支持鼠标调整大小
         this.setForeground(ColorName.getColor(text.getColor()));
 
         this.setEditable(true);         // 可编辑

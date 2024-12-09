@@ -11,4 +11,18 @@ public class RectangleContent extends AbstractContent{
     private int y;
     private String color;
     private int thickness;
+
+    /**
+     * 初始化默认矩形
+     * 坐标参数通过鼠标点击事件传递
+     */
+    public void initDefault(int x, int y){
+        super.setContentType("rectangle");
+        this.width = 150;
+        this.height = 75;
+        this.x = x;
+        this.y = y;
+        this.color = "black";
+        this.thickness = 1;
+    }
 }
