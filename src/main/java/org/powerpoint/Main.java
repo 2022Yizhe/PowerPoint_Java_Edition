@@ -22,5 +22,6 @@ public class Main {
         // 初始化窗口
         MainWindow minipptWindow = new MainWindow("PowerPoint Java Edition");
         minipptWindow.openWindow();
+        System.out.println( UIManager.getColor("Panel.background"));    // - UI manager 获取的默认颜色为 swing 类型的 color
     }
 }

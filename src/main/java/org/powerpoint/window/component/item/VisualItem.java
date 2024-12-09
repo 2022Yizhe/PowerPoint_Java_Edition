@@ -1,5 +1,7 @@
 package org.powerpoint.window.component.item;
 
+import org.powerpoint.window.enums.ColorName;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;

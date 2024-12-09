@@ -29,13 +29,11 @@ public class ImageItem extends VisualItem {
         configure();
 
         // 配置右键菜单 -- TODO
-        this.popupMenu = new JPopupMenu();
-        // popupMenu.add(new JMenuItem("Delete"));  // 示例菜单项
-        this.setPreferredSize(new Dimension(0, 50));
+        configureMenu();
         this.add(popupMenu);
 
         // 监听器
-        this.addMouseListeners();
+        super.addMouseListeners();
         this.addMouseListener(new MouseAdapter() {
             /// 注：mouseClicked 包括了 mousePressed 和 mouseReleased 两个监听信号，这里只用到 mousePressed
             @Override
@@ -71,6 +69,16 @@ public class ImageItem extends VisualItem {
         }
 
         this.setOpaque(false);  // 透明背景
+    }
+
+    /**
+     * 组件配置逻辑，设置右键弹出菜单
+     */
+    private void configureMenu(){
+        // 删除菜单项
+        JMenuItem delete = new JMenuItem("Delete");
+        delete.addActionListener(e -> {});
+        popupMenu.add(delete);
     }
 
     /**

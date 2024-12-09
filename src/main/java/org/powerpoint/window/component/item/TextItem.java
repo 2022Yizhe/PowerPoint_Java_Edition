@@ -30,11 +30,9 @@ public class TextItem extends JTextArea {
         this.text = text;
         configure();
 
-        // 配置右键菜单 -- TODO
+        // 配置右键菜单
         this.popupMenu = new JPopupMenu();
         configureMenu();
-
-        this.setPreferredSize(new Dimension(0, 50));
         this.add(popupMenu);
 
         // 添加 Mouse 监听器，监听鼠标点击事件

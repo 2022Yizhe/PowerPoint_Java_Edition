@@ -23,14 +23,12 @@ public class LineItem extends VisualItem {
         this.line = line;
         configure();
 
-        // 配置右键菜单 -- TODO
-        this.popupMenu = new JPopupMenu();
-        // popupMenu.add(new JMenuItem("Delete"));  // 示例菜单项
-        this.setPreferredSize(new Dimension(0, 50));
+        // 配置右键菜单
+        configureMenu();
         this.add(popupMenu);
 
         // 监听器
-        this.addMouseListeners();
+        super.addMouseListeners();
         this.addMouseListener(new MouseAdapter() {
             /// 注：mouseClicked 包括了 mousePressed 和 mouseReleased 两个监听信号，这里只用到 mousePressed
             @Override
@@ -64,7 +62,37 @@ public class LineItem extends VisualItem {
     }
 
     /**
-     * 保存编辑到 content -- TODO 保存颜色
+     * 组件配置逻辑，设置右键弹出菜单
+     */
+    private void configureMenu(){
+        // 粗度菜单项
+        JMenu size = new JMenu("粗度");
+        JMenuItem s_1 = new JMenuItem("1");
+        JMenuItem s_2 = new JMenuItem("2");
+        JMenuItem s_3 = new JMenuItem("3");
+        JMenuItem s_4 = new JMenuItem("4");
+        s_1.addActionListener(e -> {});
+        s_2.addActionListener(e -> {});
+        s_3.addActionListener(e -> {});
+        s_4.addActionListener(e -> {});
+        size.add(s_1);
+        size.add(s_2);
+        size.add(s_3);
+        size.add(s_4);
+        popupMenu.add(size);
+
+        // 颜色菜单项
+        JMenu color = configureColorMenu();
+        popupMenu.add(color);
+
+        // 删除菜单项
+        JMenuItem delete = new JMenuItem("Delete");
+        delete.addActionListener(e -> {});
+        popupMenu.add(delete);
+    }
+
+    /**
+     * 保存编辑到 content
      */
     protected void saveChanges() {
         line.setStartX(this.getX());
@@ -97,5 +125,57 @@ public class LineItem extends VisualItem {
             g.setColor(ColorName.LIGHT_GRAY.getColor());   // 设置边框颜色
             g.drawRect(0, 0, getWidth() - 1, getHeight() - 1); // 绘制边框
         }
+    }
+
+    /**
+     * 配置颜色菜单项
+     * 这种方法只能一个一个添加，很麻烦
+     * @return JMenu 一个配置完毕的颜色菜单项
+     */
+    private JMenu configureColorMenu(){
+        JMenu color = new JMenu("颜色");
+        JMenuItem c_black = new JMenuItem("Black");
+        JMenuItem c_white = new JMenuItem("White");
+        JMenuItem c_red = new JMenuItem("Red");
+        JMenuItem c_blue = new JMenuItem("Blue");
+        JMenuItem c_green = new JMenuItem("Green");
+        JMenuItem c_sky_blue = new JMenuItem("Sky_Blue");
+        c_black.addActionListener(e -> {
+            line.setColor(ColorName.BLACK.getColor().toString());     // 保存颜色更改
+            this.getGraphics().setColor(ColorName.BLACK.getColor());    // 重绘
+            this.repaint();
+        });
+        c_white.addActionListener(e -> {
+            line.setColor(ColorName.BLACK.getColor().toString());
+            this.getGraphics().setColor(ColorName.WHITE.getColor());
+            this.repaint();
+        });
+        c_red.addActionListener(e -> {
+            line.setColor(ColorName.RED.getColor().toString());
+            this.getGraphics().setColor(ColorName.RED.getColor());
+            this.repaint();
+        });
+        c_blue.addActionListener(e -> {
+            line.setColor(ColorName.BLUE.getColor().toString());
+            this.getGraphics().setColor(ColorName.BLUE.getColor());
+            this.repaint();
+        });
+        c_green.addActionListener(e -> {
+            line.setColor(ColorName.GREEN.getColor().toString());
+            this.getGraphics().setColor(ColorName.GREEN.getColor());
+            this.repaint();
+        });
+        c_sky_blue.addActionListener(e -> {
+            line.setColor(ColorName.SKY_BLUE.getColor().toString());
+            this.getGraphics().setColor(ColorName.SKY_BLUE.getColor());
+            this.repaint();
+        });
+        color.add(c_black);
+        color.add(c_white);
+        color.add(c_red);
+        color.add(c_blue);
+        color.add(c_green);
+        color.add(c_sky_blue);
+        return color;
     }
 }

@@ -1,6 +1,5 @@
 package org.powerpoint.window.enums;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,7 +19,7 @@ public enum ColorName {
     ORANGE(Color.ORANGE),
     LIGHT_GRAY(Color.LIGHT_GRAY),
     // 自定义颜色
-    DEFAULT(UIManager.getColor("Panel.background")),
+    DEFAULT(new Color(242,242,242)),
     SKY_BLUE(new Color(135, 206, 235));
 
 
@@ -64,11 +63,14 @@ public enum ColorName {
             }
         } catch (IllegalArgumentException e) {
             System.out.println("[org.powerpoint][Warning] Unsupported color: " + colorName);
+            e.printStackTrace();
             return Color.BLACK;     // 默认返回黑色
         }
     }
 
-    // 根据 Color 对象返回颜色字符串
+    /**
+     * 根据 Color 对象返回颜色字符串
+     */
     public static String getColorName(Color color) {
         return color.toString();
     }
