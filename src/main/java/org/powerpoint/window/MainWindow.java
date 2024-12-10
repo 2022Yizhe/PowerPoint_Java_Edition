@@ -3,6 +3,7 @@ package org.powerpoint.window;
 import org.powerpoint.window.component.NoDotsSplitPane;
 import org.powerpoint.window.component.ShortSplitPane;
 import org.powerpoint.window.component.SlidePanel;
+import org.powerpoint.window.dialog.SaveChangeDialog;
 import org.powerpoint.window.enums.CloseAction;
 import org.powerpoint.window.enums.ColorName;
 import org.powerpoint.window.layout.ListLayout;
@@ -300,7 +301,18 @@ public class MainWindow extends AbstractWindow <MainService>{
      */
     @Override
     protected boolean onClose() {
-        // 关闭之前的操作
-        return service.stopProcess();
+        // 询问用户是否保存未修改的内容
+        if (!service.ifSaveChange()) {
+            SaveChangeDialog dialog = new SaveChangeDialog(this);
+            dialog.openDialog();
+            boolean ifCancel = dialog.isCancel();
+            boolean ifSave = dialog.isSaveChange();
+            if (!ifCancel)      // 退出程序
+                return service.stopProcess(ifSave);
+            else
+                return false;   // 不退出程序
+        } else {
+            return true;        // 直接退出程序
+        }
     }
 }

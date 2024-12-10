@@ -1,0 +1,64 @@
+{
+  "title" : "My Presentation",
+  "author" : "Author Name",
+  "slides" : [ {
+    "title" : "Slide 1",
+    "content" : [ {
+      "type" : "text",
+      "contentType" : "text",
+      "value" : "单击此处添加文本",
+      "x" : 200,
+      "y" : 100,
+      "color" : "black",
+      "font" : "等线",
+      "size" : 12
+    }, {
+      "type" : "oval",
+      "contentType" : "oval",
+      "radiusX" : 100,
+      "radiusY" : 50,
+      "x" : 772,
+      "y" : 307,
+      "color" : "black",
+      "thickness" : 1
+    }, {
+      "type" : "circle",
+      "contentType" : "circle",
+      "radius" : 100,
+      "x" : 77,
+      "y" : 96,
+      "color" : "black",
+      "thickness" : 1
+    } ]
+  }, {
+    "title" : "Slide new",
+    "content" : [ {
+      "type" : "text",
+      "contentType" : "text",
+      "value" : "单击此处添加文本",
+      "x" : 200,
+      "y" : 100,
+      "color" : "BLACK",
+      "font" : "等线",
+      "size" : 12
+    }, {
+      "type" : "line",
+      "contentType" : "line",
+      "startX" : 290,
+      "startY" : 184,
+      "endX" : 390,
+      "endY" : 184,
+      "color" : "black",
+      "thickness" : 1
+    }, {
+      "type" : "rectangle",
+      "contentType" : "rectangle",
+      "width" : 150,
+      "height" : 75,
+      "x" : 258,
+      "y" : 220,
+      "color" : "black",
+      "thickness" : 1
+    } ]
+  } ]
+}

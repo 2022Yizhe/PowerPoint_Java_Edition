@@ -6,10 +6,7 @@ import org.powerpoint.manage.ProcessEngine;
 import org.powerpoint.window.MainWindow;
 import org.powerpoint.window.component.SlidePanel;
 import org.powerpoint.window.component.item.ListItem;
-import org.powerpoint.window.dialog.DirectoryChooserDialog;
-import org.powerpoint.window.dialog.ImageChooserDialog;
-import org.powerpoint.window.dialog.JsonChooserDialog;
-import org.powerpoint.window.dialog.InputDialog;
+import org.powerpoint.window.dialog.*;
 
 import javax.swing.*;
 import javax.swing.undo.UndoManager;
@@ -33,15 +30,16 @@ public class MainService extends AbstractService {
     private boolean editFlag = false;
     private String tool;
 
+    private boolean saveCheck = true;
+
     private UndoManager undoManager;    // 重做管理器，用于编辑框支持撤销和重做操作
 
     /**
      * 设定当前项目的名称和路径
      * @param json_path 路径
      */
-    public void setPath(String json_path){
-        this.path = json_path.replace("\\", "/");
-    }
+    public void setPath(String json_path){ this.path = json_path.replace("\\", "/"); }
+    public boolean ifSaveChange(){ return saveCheck; }
 
     /**
      * @ Control
@@ -113,7 +111,8 @@ public class MainService extends AbstractService {
 
         // 更新状态栏
         JLabel status_label = this.getComponent("main.label.status");
-        status_label.setText("  Load project: " + directory + "\\" + name);
+        status_label.setText("  Load project: " + directory + File.separator + name);
+        saveCheck = true;
     }
 
     /**
@@ -147,6 +146,7 @@ public class MainService extends AbstractService {
         // 更新状态栏
         JLabel status_label = this.getComponent("main.label.status");
         status_label.setText("  New project: " + name + " - Unsaved");
+        saveCheck = false;
     }
 
     /**
@@ -161,7 +161,7 @@ public class MainService extends AbstractService {
         if(selectedFile == null) return;
 
         // 获取新路径
-        name = ProjectManager.getInstance().getProject().getName();    // 文件名与原文件一样
+        name = ProjectManager.getInstance().getProject().getName(); // 文件名与原文件一样
         directory = selectedFile.getAbsolutePath();                 // 新路径
         path = selectedFile.getAbsolutePath();                      // 新目录 - 两者一样是因为选择的是文件夹
 
@@ -174,12 +174,13 @@ public class MainService extends AbstractService {
 
         // 更新状态栏
         JLabel status_label = this.getComponent("main.label.status");
-        status_label.setText("  Load project: " + directory + "\\" + name);
+        status_label.setText("  Load project: " + directory + File.separator + name);
+        saveCheck = true;
     }
 
     /**
      * @ Tools
-     * 添加横排文本框
+     * 添加横排文本框 (注：此类添加组件的方式并没有立即保存到 slides，只是单独保存到面板组件)
      */
     public void textAreaButtonAction(){
         // 新建文本框，文本框内容为默认文本，文本框位置为鼠标点击位置
@@ -323,6 +324,7 @@ public class MainService extends AbstractService {
             // 处理结束，重置状态
             toolFlag = false;
             editFlag = false;
+            saveCheck = false;
         }
     }
 
@@ -331,6 +333,9 @@ public class MainService extends AbstractService {
      * 为幻灯片重命名，修改的变量为 Slide.title
      */
     public void renameSlide(){
+        // 保存最后一次的修改
+        saveEdit();
+
         // 获取幻灯片序列
         Presentation presentation = ProjectManager.getInstance().getProcess().getPresentation();
         List<Slide> slides = presentation.getSlides();
@@ -348,6 +353,7 @@ public class MainService extends AbstractService {
         clear();
         previewSlides();
         displaySlide(iterator);
+        saveCheck = false;
     }
 
     /**
@@ -355,6 +361,9 @@ public class MainService extends AbstractService {
      * 创建一张幻灯片，插入到右键幻灯片的下一张
      */
     public void createSlide(){
+        // 保存最后一次的修改
+        saveEdit();
+
         // 获取幻灯片序列
         Presentation presentation = ProjectManager.getInstance().getProcess().getPresentation();
         List<Slide> slides = presentation.getSlides();
@@ -368,6 +377,7 @@ public class MainService extends AbstractService {
         clear();
         previewSlides();
         displaySlide(iterator);
+        saveCheck = false;
     }
 
     /**
@@ -375,6 +385,9 @@ public class MainService extends AbstractService {
      * 复制一张幻灯片，插入到指定幻灯片下一张
      */
     public void copySlide(){
+        // 保存最后一次的修改
+        saveEdit();
+
         // 获取幻灯片序列
         Presentation presentation = ProjectManager.getInstance().getProcess().getPresentation();
         List<Slide> slides = presentation.getSlides();
@@ -388,6 +401,7 @@ public class MainService extends AbstractService {
         clear();
         previewSlides();
         displaySlide(iterator);
+        saveCheck = false;
     }
 
     /**
@@ -408,6 +422,7 @@ public class MainService extends AbstractService {
         if (iterator != 0)
             iterator = iterator - 1;
         displaySlide(iterator);
+        saveCheck = false;
     }
 
     /**
@@ -425,6 +440,9 @@ public class MainService extends AbstractService {
         // 先加载项目
         try {
             ProjectManager.getInstance().loadDefaultProject();
+            name = ProjectManager.getInstance().getProject().getName();
+            directory = ProjectManager.getInstance().getProject().getFilepath();
+            path = directory + File.separator + name;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -528,13 +546,36 @@ public class MainService extends AbstractService {
         List<Slide> slides = presentation.getSlides();
         Slide slide = slides.get(iterator);
         slide.setContent(contents);
+        saveCheck = true;
     }
 
     /**
      * 主窗口接收到关闭信号，需要终止所有进程
      * @return 程序是否正常退出
      */
-    public boolean stopProcess(){
+    public boolean stopProcess(boolean ifSave){
+        // 选择为是，保存项目
+        if (ifSave){
+            // 保存项目到路径
+            try {
+                if (ProjectManager.getInstance().getProject().getFilepath() == null) {  // 如果是新建项目，则保存到 project 文件夹
+                    // 保存最后一次添加的组件
+                    saveEdit();
+
+                    // 获取 project 路径
+                    String currentDirectory = System.getProperty("user.dir");
+                    String projectDirectory = "project";
+                    name = ProjectManager.getInstance().getProject().getName();
+                    directory = currentDirectory + File.separator + projectDirectory;
+                    path = directory + File.separator + name;
+                }
+                ProjectManager.getInstance().saveProject(name, directory);
+                saveCheck = true;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         ProcessEngine.stopProcess();
         return true;
     }

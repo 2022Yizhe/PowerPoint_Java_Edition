@@ -54,6 +54,7 @@ public abstract class AbstractWindow <R extends AbstractService> extends JFrame 
             public void windowClosing(WindowEvent e) {
                 if(onClose()) {   // 调用抽象方法，是否需要关闭窗口由子类的具体实现进行判断
                     AbstractWindow.this.closeWindow();
+                    AbstractWindow.this.dispose();
                 }
             }
         });

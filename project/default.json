@@ -31,6 +31,15 @@
       "font" : "楷体",
       "size" : 15
     }, {
+      "type" : "text",
+      "contentType" : "text",
+      "value" : "单击此处添加文本",
+      "x" : 304,
+      "y" : 239,
+      "color" : "java.awt.Color[r=0,g=0,b=0]",
+      "font" : "等线",
+      "size" : 12
+    }, {
       "type" : "line",
       "contentType" : "line",
       "startX" : -1,
@@ -40,6 +49,15 @@
       "color" : "gray",
       "thickness" : 2
     }, {
+      "type" : "line",
+      "contentType" : "line",
+      "startX" : 307,
+      "startY" : 325,
+      "endX" : 407,
+      "endY" : 325,
+      "color" : "black",
+      "thickness" : 1
+    }, {
       "type" : "rectangle",
       "contentType" : "rectangle",
       "width" : 150,
@@ -47,6 +65,15 @@
       "x" : 402,
       "y" : 24,
       "color" : "blue",
+      "thickness" : 1
+    }, {
+      "type" : "rectangle",
+      "contentType" : "rectangle",
+      "width" : 150,
+      "height" : 75,
+      "x" : 275,
+      "y" : 289,
+      "color" : "black",
       "thickness" : 1
     }, {
       "type" : "oval",
@@ -58,6 +85,15 @@
       "color" : "orange",
       "thickness" : 4
     }, {
+      "type" : "oval",
+      "contentType" : "oval",
+      "radiusX" : 100,
+      "radiusY" : 50,
+      "x" : 435,
+      "y" : 311,
+      "color" : "black",
+      "thickness" : 1
+    }, {
       "type" : "circle",
       "contentType" : "circle",
       "radius" : 100,
@@ -65,6 +101,14 @@
       "y" : 5,
       "color" : "yellow",
       "thickness" : 2
+    }, {
+      "type" : "circle",
+      "contentType" : "circle",
+      "radius" : 100,
+      "x" : 370,
+      "y" : 357,
+      "color" : "black",
+      "thickness" : 1
     }, {
       "type" : "image",
       "contentType" : "image",
@@ -114,6 +158,26 @@
       "color" : "BLACK",
       "font" : "等线",
       "size" : 12
+    } ]
+  }, {
+    "title" : "Slide new",
+    "content" : [ {
+      "type" : "text",
+      "contentType" : "text",
+      "value" : "单击此处添加文本",
+      "x" : 200,
+      "y" : 100,
+      "color" : "BLACK",
+      "font" : "等线",
+      "size" : 12
+    }, {
+      "type" : "image",
+      "contentType" : "image",
+      "src" : "E:\\Java\\project\\PowerPoint_Java_Edition_2.1\\project\\resource\\momoi_.png",
+      "width" : 998,
+      "height" : 1459,
+      "x" : 284,
+      "y" : 107
     } ]
   } ]
 }
