@@ -10,6 +10,7 @@ import org.powerpoint.window.dialog.*;
 
 import javax.swing.*;
 import javax.swing.undo.UndoManager;
+import java.awt.*;
 import java.io.*;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -20,7 +21,7 @@ import java.util.stream.IntStream;
 public class MainService extends AbstractService {
     private String name;                // 当前项目的名称
     private String directory;           // 当前项目的目录
-    private String path;                // 当前项目文件的路径
+    private String path;                // 当前项目文件的路径 - 暂时不用
 
     private String imagePath;           // 选择图像的路径
 
@@ -30,7 +31,7 @@ public class MainService extends AbstractService {
     private boolean editFlag = false;
     private String tool;
 
-    private boolean saveCheck = true;
+    private boolean saveFlag = true;    // 标志变量，检查内容是否已经保存
 
     private UndoManager undoManager;    // 重做管理器，用于编辑框支持撤销和重做操作
 
@@ -39,7 +40,7 @@ public class MainService extends AbstractService {
      * @param json_path 路径
      */
     public void setPath(String json_path){ this.path = json_path.replace("\\", "/"); }
-    public boolean ifSaveChange(){ return saveCheck; }
+    public boolean ifSave(){ return saveFlag; }
 
     /**
      * @ Control
@@ -112,7 +113,7 @@ public class MainService extends AbstractService {
         // 更新状态栏
         JLabel status_label = this.getComponent("main.label.status");
         status_label.setText("  Load project: " + directory + File.separator + name);
-        saveCheck = true;
+        saveFlag = true;
     }
 
     /**
@@ -146,7 +147,7 @@ public class MainService extends AbstractService {
         // 更新状态栏
         JLabel status_label = this.getComponent("main.label.status");
         status_label.setText("  New project: " + name + " - Unsaved");
-        saveCheck = false;
+        saveFlag = false;
     }
 
     /**
@@ -175,7 +176,7 @@ public class MainService extends AbstractService {
         // 更新状态栏
         JLabel status_label = this.getComponent("main.label.status");
         status_label.setText("  Load project: " + directory + File.separator + name);
-        saveCheck = true;
+        saveFlag = true;
     }
 
     /**
@@ -324,7 +325,7 @@ public class MainService extends AbstractService {
             // 处理结束，重置状态
             toolFlag = false;
             editFlag = false;
-            saveCheck = false;
+            saveFlag = false;
         }
     }
 
@@ -353,7 +354,7 @@ public class MainService extends AbstractService {
         clear();
         previewSlides();
         displaySlide(iterator);
-        saveCheck = false;
+        saveFlag = false;
     }
 
     /**
@@ -377,7 +378,7 @@ public class MainService extends AbstractService {
         clear();
         previewSlides();
         displaySlide(iterator);
-        saveCheck = false;
+        saveFlag = false;
     }
 
     /**
@@ -401,7 +402,7 @@ public class MainService extends AbstractService {
         clear();
         previewSlides();
         displaySlide(iterator);
-        saveCheck = false;
+        saveFlag = false;
     }
 
     /**
@@ -422,7 +423,7 @@ public class MainService extends AbstractService {
         if (iterator != 0)
             iterator = iterator - 1;
         displaySlide(iterator);
-        saveCheck = false;
+        saveFlag = false;
     }
 
     /**
@@ -485,8 +486,10 @@ public class MainService extends AbstractService {
                         saveEdit();             // 切换 item 时，先保存旧的操作
                         displaySlide(index);    // 渲染 item
                         iterator = index;       // 渲染 item 后，更新 iterator
+
+                        clearCheckStatus();     // 重置选中状态
                     });
-                    // 设置右键菜单 - 在 Window 层构造
+                    // 配置右键菜单 - 在 Window 层构造
                     JPopupMenu popupMenu = this.getComponent("main.popup.slide");
                     item.setPopupMenu(popupMenu);
                     // 配置完毕，装载到预览面板
@@ -533,6 +536,21 @@ public class MainService extends AbstractService {
     }
 
     /**
+     * 重置预览面板 Items 的选中状态
+     */
+    private void clearCheckStatus() {
+        JPanel previewPanel = this.getComponent("main.panel.preview");
+        Component[] components = previewPanel.getComponents();
+
+        for (Component component : components) {
+            if (component instanceof ListItem listItem) { // 检查是否为 ListItem 类型
+                listItem.setChecked(false);
+                listItem.repaint();
+            }
+        }
+    }
+
+    /**
      * 快速保存终端在编辑面板上的操作，面板代号 - main.panel.edit
      * 每次 DisplaySlide 之前调用此方法，保存上一次的所有修改内容
      */
@@ -546,7 +564,7 @@ public class MainService extends AbstractService {
         List<Slide> slides = presentation.getSlides();
         Slide slide = slides.get(iterator);
         slide.setContent(contents);
-        saveCheck = true;
+        saveFlag = true;
     }
 
     /**
@@ -570,7 +588,7 @@ public class MainService extends AbstractService {
                     path = directory + File.separator + name;
                 }
                 ProjectManager.getInstance().saveProject(name, directory);
-                saveCheck = true;
+                saveFlag = true;
             } catch (IOException e) {
                 e.printStackTrace();
             }

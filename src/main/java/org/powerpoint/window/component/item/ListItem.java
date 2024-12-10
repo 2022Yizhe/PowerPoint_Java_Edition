@@ -17,6 +17,9 @@ import java.awt.event.MouseEvent;
 public class ListItem extends JComponent {
     private final String title;     // 幻灯片的标题 (独立，并不属于 content)
 
+    @Setter
+    private boolean isChecked;      // 选中状态
+
     /**
      * -- SETTER --
      *  配置右键菜单
@@ -58,12 +61,16 @@ public class ListItem extends JComponent {
 
             @Override
             public void mouseClicked(MouseEvent e) {
+                // 点击操作
                 if(e.getButton() == MouseEvent.BUTTON1)         // 左键渲染项目 - clickAction 在 Service 层构造
                     clickAction.run();
                 else if (e.getButton() == MouseEvent.BUTTON3) { // 右键显示菜单，也渲染项目 - clickAction 在 Service 层构造
                     clickAction.run();
                     popupMenu.show(ListItem.this, e.getX(), e.getY());
                 }
+                // 为 Item 增加强调背景
+                isChecked = true;
+                ListItem.this.repaint();
             }
         });
     }
@@ -78,10 +85,19 @@ public class ListItem extends JComponent {
 
             // 绘制强调背景 (鼠标悬停时)
             if(mouseOver) {
-                g.setColor(new Color(255, 255, 255, 192));  // 设置强调颜色
+                g.setColor(new Color(255, 255, 255, 192));      // 设置强调颜色
                 g.fillRoundRect(5, 5, c.getWidth() - 5, c.getHeight() - 5, 10, 10);
-                g.setColor(ColorName.DEFAULT.getColor());               // 设置边框颜色
+                g.setColor(ColorName.DEFAULT.getColor());                   // 设置边框颜色
                 g.drawRect(5, 5, c.getWidth() - 5, c.getHeight() - 5);
+            } else {
+                // 绘制选中状态背景
+                if (isChecked){
+                    g.setColor(new Color(224, 224, 224, 192));  // 设置选中颜色
+                    g.fillRoundRect(5, 5, c.getWidth() - 5, c.getHeight() - 5, 10, 10);
+                } else {
+                    g.setColor(ColorName.DEFAULT.getColor());               // 设置未选中颜色
+                    g.fillRoundRect(5, 5, c.getWidth() - 5, c.getHeight() - 5, 10, 10);
+                }
             }
 
             // 绘制幻灯片标题 (指定样式为 'PLAIN')

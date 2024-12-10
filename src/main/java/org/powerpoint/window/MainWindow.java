@@ -302,7 +302,7 @@ public class MainWindow extends AbstractWindow <MainService>{
     @Override
     protected boolean onClose() {
         // 询问用户是否保存未修改的内容
-        if (!service.ifSaveChange()) {
+        if (!service.ifSave()) {
             SaveChangeDialog dialog = new SaveChangeDialog(this);
             dialog.openDialog();
             boolean ifCancel = dialog.isCancel();
