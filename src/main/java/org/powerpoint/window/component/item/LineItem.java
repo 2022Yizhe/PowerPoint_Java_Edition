@@ -33,11 +33,42 @@ public class LineItem extends VisualItem {
             /// 注：mouseClicked 包括了 mousePressed 和 mouseReleased 两个监听信号，这里只用到 mousePressed
             @Override
             public void mousePressed(MouseEvent e) {
+                // 点击右下角时，开始缩放组件大小
+                if(getWidth() - e.getX() <= 10 && getHeight() - e.getY() <= 10) {
+                    System.out.println("start resize");
+                    setCursor(Cursor.getPredefinedCursor(Cursor.SE_RESIZE_CURSOR));
+                    resizing = true;
+                }
                 // 记录鼠标相对组件的位置
                 if (e.getButton() == MouseEvent.BUTTON1) {
                     mouseOffset = e.getPoint();
                     SelectManager.getInstance().selectItem(LineItem.this);  // 通知选择管理
                     repaint();  // 鼠标按下时立即请求重绘，以显示边框
+                }
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1) {          // 左键恢复光标
+                    if (resizing) {
+                        resizing = false;
+                        setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+                    }
+                }
+            }
+        });
+
+        this.addMouseMotionListener(new MouseAdapter() {
+            // 监听拖动事件
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                if (resizing) {     // 在调整大小时更新组件的宽高
+                    int newWidth = e.getX();
+                    int newHeight = e.getY();
+                    if (newWidth != getWidth() || newHeight != getHeight()) {
+                        setSize(Math.max(6, newWidth), Math.max(6, newHeight)); // 最小尺寸限制
+                        saveChanges();
+                    }
                 }
             }
         });

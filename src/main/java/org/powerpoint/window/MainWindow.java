@@ -80,6 +80,9 @@ public class MainWindow extends AbstractWindow <MainService>{
      */
     private JPanel createControlPanel(){
         JPanel control_panel = new JPanel();
+//        control_panel.setBackground(new Color(255, 255, 255));  // 配色方案
+//        control_panel.setBorder(BorderFactory.createLineBorder(new Color(224, 224, 244)));
+//        control_panel.setForeground(new Color(51, 51, 51));
         control_panel.setPreferredSize(new Dimension(0, 50));   // 宽度为 0 意味着宽度将根据其他组件的布局动态调整
 
         // 采用流式布局，直接让按钮居右按顺序放置

@@ -18,6 +18,8 @@ public abstract class VisualItem extends JComponent {
     public boolean marked;
     protected Runnable deleteAction;
 
+    protected boolean resizing = false;
+
     public VisualItem(Runnable deleteAction) {
         popupMenu = new JPopupMenu();
         isSelected = false;
@@ -40,6 +42,20 @@ public abstract class VisualItem extends JComponent {
      * 处理左键拖动 + 右键菜单，这是所有派生组件公用的监听器
      */
     protected void addMouseListeners(){
+        this.addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                if (!resizing) {     // 在调整大小时更新组件的宽高
+                    if (SwingUtilities.isLeftMouseButton(e)) {
+                        int x = getX() + e.getX() - mouseOffset.x;
+                        int y = getY() + e.getY() - mouseOffset.y;
+                        setLocation(x, y);  // 更新组件位置 (移动时)
+                        saveChanges();
+                    }
+                }
+            }
+        });
+
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -47,19 +63,6 @@ public abstract class VisualItem extends JComponent {
                     ;// DO NOTHING
                 else if (e.getButton() == MouseEvent.BUTTON3)   // 右键显示菜单
                     popupMenu.show(e.getComponent(), e.getX(), e.getY());
-            }
-        });
-
-        this.addMouseMotionListener(new MouseAdapter() {
-            @Override
-            public void mouseDragged(MouseEvent e) {
-                // 获取当前组件的位置
-                if (SwingUtilities.isLeftMouseButton(e)) {
-                    int x = getX() + e.getX() - mouseOffset.x;
-                    int y = getY() + e.getY() - mouseOffset.y;
-                    setLocation(x, y);  // 更新组件位置 (移动时)
-                    saveChanges();
-                }
             }
         });
     }

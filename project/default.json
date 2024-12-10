@@ -7,8 +7,10 @@
       "type" : "text",
       "contentType" : "text",
       "value" : "Java 期末大作业\n",
-      "x" : 413,
-      "y" : 57,
+      "x" : 433,
+      "y" : 46,
+      "width" : 109,
+      "height" : 50,
       "color" : "java.awt.Color[r=135,g=206,b=235]",
       "font" : "楷体",
       "size" : 18
@@ -16,54 +18,60 @@
       "type" : "text",
       "contentType" : "text",
       "value" : "奕\n",
-      "x" : 70,
-      "y" : 48,
+      "x" : 63,
+      "y" : 41,
+      "width" : 38,
+      "height" : 25,
       "color" : "java.awt.Color[r=64,g=64,b=64]",
       "font" : "楷体",
-      "size" : 15
+      "size" : 18
     }, {
       "type" : "text",
       "contentType" : "text",
       "value" : "悟\n",
-      "x" : 144,
-      "y" : 48,
+      "x" : 140,
+      "y" : 42,
+      "width" : 47,
+      "height" : 25,
       "color" : "java.awt.Color[r=0,g=255,b=0]",
       "font" : "楷体",
-      "size" : 15
+      "size" : 18
     }, {
       "type" : "text",
       "contentType" : "text",
       "value" : "单击此处添加文本",
-      "x" : 304,
-      "y" : 239,
+      "x" : 339,
+      "y" : 223,
+      "width" : 44,
+      "height" : 62,
       "color" : "java.awt.Color[r=0,g=0,b=0]",
       "font" : "等线",
       "size" : 12
     }, {
       "type" : "line",
       "contentType" : "line",
-      "startX" : -1,
-      "startY" : 313,
-      "endX" : 339,
-      "endY" : 633,
+      "startX" : 177,
+      "startY" : 584,
+      "endX" : 534,
+      "endY" : 584,
       "color" : "gray",
       "thickness" : 2
     }, {
       "type" : "line",
       "contentType" : "line",
-      "startX" : 307,
-      "startY" : 325,
-      "endX" : 407,
-      "endY" : 325,
+      "startX" : 353,
+      "startY" : 316,
+      "endX" : 356,
+      "endY" : 366,
       "color" : "black",
       "thickness" : 1
     }, {
       "type" : "rectangle",
       "contentType" : "rectangle",
-      "width" : 150,
-      "height" : 75,
-      "x" : 402,
-      "y" : 24,
+      "width" : 174,
+      "height" : 55,
+      "x" : 386,
+      "y" : 32,
       "color" : "blue",
       "thickness" : 1
     }, {
@@ -78,45 +86,45 @@
     }, {
       "type" : "oval",
       "contentType" : "oval",
-      "radiusX" : 100,
-      "radiusY" : 50,
-      "x" : 29,
-      "y" : 28,
+      "radiusX" : 124,
+      "radiusY" : 66,
+      "x" : 5,
+      "y" : 16,
       "color" : "orange",
-      "thickness" : 4
+      "thickness" : 2
     }, {
       "type" : "oval",
       "contentType" : "oval",
-      "radiusX" : 100,
-      "radiusY" : 50,
-      "x" : 435,
-      "y" : 311,
+      "radiusX" : 46,
+      "radiusY" : 105,
+      "x" : 216,
+      "y" : 393,
       "color" : "black",
       "thickness" : 1
     }, {
       "type" : "circle",
       "contentType" : "circle",
-      "radius" : 100,
-      "x" : 104,
-      "y" : 5,
+      "radius" : 77,
+      "x" : 107,
+      "y" : 11,
       "color" : "yellow",
       "thickness" : 2
     }, {
       "type" : "circle",
       "contentType" : "circle",
       "radius" : 100,
-      "x" : 370,
-      "y" : 357,
+      "x" : 304,
+      "y" : 398,
       "color" : "black",
       "thickness" : 1
     }, {
       "type" : "image",
       "contentType" : "image",
       "src" : "E:\\Java\\project\\PowerPoint_Java_Edition_2.1\\project\\resource\\NEU.jpg",
-      "width" : 501,
-      "height" : 367,
-      "x" : 545,
-      "y" : 257
+      "width" : 462,
+      "height" : 357,
+      "x" : 572,
+      "y" : 285
     } ]
   }, {
     "title" : "主题",
@@ -124,8 +132,10 @@
       "type" : "text",
       "contentType" : "text",
       "value" : "本次报告的主题是:\n基于 Java 开发的 PowerPoint 程序",
-      "x" : 164,
+      "x" : 114,
       "y" : 103,
+      "width" : 273,
+      "height" : 75,
       "color" : "java.awt.Color[r=64,g=64,b=64]",
       "font" : "楷体",
       "size" : 18
@@ -154,8 +164,21 @@
       "contentType" : "text",
       "value" : "单击此处添加文本",
       "x" : 200,
-      "y" : 100,
-      "color" : "BLACK",
+      "y" : 101,
+      "width" : 200,
+      "height" : 80,
+      "color" : "java.awt.Color[r=255,g=0,b=0]",
+      "font" : "等线",
+      "size" : 12
+    }, {
+      "type" : "text",
+      "contentType" : "text",
+      "value" : "单击此处添加文本",
+      "x" : 200,
+      "y" : 133,
+      "width" : 150,
+      "height" : 75,
+      "color" : "java.awt.Color[r=0,g=0,b=0]",
       "font" : "等线",
       "size" : 12
     } ]
@@ -165,9 +188,11 @@
       "type" : "text",
       "contentType" : "text",
       "value" : "单击此处添加文本",
-      "x" : 200,
-      "y" : 100,
-      "color" : "BLACK",
+      "x" : 32,
+      "y" : 28,
+      "width" : 139,
+      "height" : 68,
+      "color" : "java.awt.Color[r=0,g=0,b=0]",
       "font" : "等线",
       "size" : 12
     }, {

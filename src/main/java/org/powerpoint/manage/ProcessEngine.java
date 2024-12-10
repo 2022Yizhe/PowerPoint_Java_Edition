@@ -73,6 +73,8 @@ public class ProcessEngine {
                 "          \"value\": \"单击此处添加文本\",\n" +
                 "          \"x\": 200,\n" +
                 "          \"y\": 100,\n" +
+                "          \"width\": 150,\n" +
+                "          \"height\": 75,\n" +
                 "          \"color\": \"black\",\n" +
                 "          \"font\": \"等线\",\n" +
                 "          \"size\": 12\n" +

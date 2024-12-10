@@ -8,6 +8,8 @@ public class TextContent extends AbstractContent {
     private String value;
     private int x;
     private int y;
+    private int width;
+    private int height;
     private String color;
     private String font;
     private int size;
@@ -21,6 +23,8 @@ public class TextContent extends AbstractContent {
         this.value = "单击此处添加文本";
         this.x = x;
         this.y = y;
+        this.width = 150;
+        this.height = 75;
         this.color = "black";
         this.font = "等线";
         this.size = 12;

@@ -26,6 +26,8 @@ public class TextItem extends JTextArea {
     public boolean marked = false;
     private Runnable deleteAction;
 
+    private boolean resizing = false;
+
     public TextItem(TextContent text, Runnable deleteAction) {
         super(text.getValue());
         this.setFont(new Font(text.getFont(), Font.PLAIN, text.getSize()));
@@ -47,6 +49,12 @@ public class TextItem extends JTextArea {
             /// 注：mouseClicked 包括了 mousePressed 和 mouseReleased 两个监听信号，这里只用到 mousePressed
             @Override
             public void mousePressed(MouseEvent e) {
+                // 点击右下角时，开始缩放组件大小
+                if(getWidth() - e.getX() <= 10 && getHeight() - e.getY() <= 10) {
+                    System.out.println("start resize");
+                    setCursor(Cursor.getPredefinedCursor(Cursor.SE_RESIZE_CURSOR));
+                    resizing = true;
+                }
                 // 记录鼠标相对组件的位置
                 if (e.getButton() == MouseEvent.BUTTON1) {
                     mouseOffset = e.getPoint();
@@ -57,20 +65,30 @@ public class TextItem extends JTextArea {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                if (e.getButton() == MouseEvent.BUTTON1) {          // 左键无操作
-                    ;// do nothing
+                if (e.getButton() == MouseEvent.BUTTON1) {          // 左键恢复光标
+                    if (resizing) {
+                        resizing = false;
+                        setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+                    }
                 } else if (e.getButton() == MouseEvent.BUTTON3) {   // 右键显示菜单
                     popupMenu.show(e.getComponent(), e.getX(), e.getY());
                 }
             }
         });
 
-        // 添加 MouseMotionListener 监听器，监听鼠标拖动事件
+        // 添加 MouseMotionListener 监听器
         this.addMouseMotionListener(new MouseAdapter() {
+            // 监听鼠标拖动事件
             @Override
             public void mouseDragged(MouseEvent e) {
-                // 获取当前组件的位置
-                if (SwingUtilities.isLeftMouseButton(e)) {
+                if (resizing) {     // 在调整大小时更新组件的宽高
+                    int newWidth = e.getX();
+                    int newHeight = e.getY();
+                    if (newWidth != getWidth() || newHeight != getHeight()) {
+                        setSize(Math.max(25, newWidth), Math.max(25, newHeight)); // 最小尺寸限制
+                        saveChanges();
+                    }
+                } else if (SwingUtilities.isLeftMouseButton(e)) {   // 获取当前组件的位置
                     if (!popupMenu.isVisible()) {
                         int x = getX() + e.getX() - mouseOffset.x;
                         int y = getY() + e.getY() - mouseOffset.y;
@@ -105,7 +123,7 @@ public class TextItem extends JTextArea {
      * 组件配置逻辑，设置文本属性
      */
     private void configure(){
-        this.setBounds(text.getX(), text.getY(), 200, 80);    // 设置一个默认大小的外边框 -- TODO 支持鼠标调整大小
+        this.setBounds(text.getX(), text.getY(), text.getWidth(), text.getHeight());    // TODO 支持鼠标调整大小
         this.setForeground(ColorName.getColor(text.getColor()));
 
         this.setEditable(true);         // 可编辑
@@ -147,6 +165,8 @@ public class TextItem extends JTextArea {
     private void saveChanges() {
         text.setX(this.getX());
         text.setY(this.getY());
+        text.setWidth(this.getWidth());
+        text.setHeight(this.getHeight());
         text.setValue(this.getText());
         text.setColor(ColorName.getColorName(this.getForeground()));
         text.setFont(this.getFont().getFamily());
