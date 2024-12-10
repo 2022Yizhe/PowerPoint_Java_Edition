@@ -56,7 +56,7 @@ public class LineItem extends VisualItem {
     private void configure(){
         this.setBounds(
                 Math.min(line.getStartX(), line.getEndX()), Math.min(line.getStartY(), line.getEndY()),
-                Math.abs(line.getEndX() - line.getStartX()) + 10, Math.abs(line.getEndY() - line.getStartY() + 10)    // 为绘制边框留 10 px
+                Math.abs(line.getEndX() - line.getStartX()) + 6, Math.abs(line.getEndY() - line.getStartY() + 6)
         );
         this.setOpaque(false);  // 透明背景
     }
@@ -87,10 +87,10 @@ public class LineItem extends VisualItem {
      * 保存编辑到 content
      */
     protected void saveChanges() {
-        line.setStartX(this.getX());
-        line.setStartY(this.getY());
-        line.setEndX(this.getX() + this.getWidth());
-        line.setEndY(this.getY() + this.getHeight());
+        line.setStartX(this.getX() + 3);
+        line.setStartY(this.getY() + 3);
+        line.setEndX(this.getX() + 3 + this.getWidth() - 6);
+        line.setEndY(this.getY() + 3 + this.getHeight() - 6);
     }
 
     /**
@@ -106,14 +106,19 @@ public class LineItem extends VisualItem {
         g2d.setStroke(new BasicStroke(line.getThickness()));
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // 设置线条颜色，绘制直线
+        // 设置线条颜色，绘制直线 (直线处理分为 2 类，标准横线和斜线)
         g2d.setColor(ColorName.getColor(line.getColor()));
-        g2d.drawLine(0, 0, line.getEndX() - line.getStartX(), line.getEndY() - line.getStartY());
+        if (line.getStartY() == line.getEndY()) {
+            g2d.drawLine(3, 3, line.getEndX() - line.getStartX(), 3);
+        } else {
+            g2d.drawLine(3, 3, line.getEndX() - line.getStartX(), line.getEndY() - line.getStartY());
+        }
 
         // 如果选中，绘制边框
         if (isSelected) {
-            g.setColor(ColorName.LIGHT_GRAY.getColor());   // 设置边框颜色
-            g.drawRect(0, 0, getWidth() - 1, getHeight() - 1); // 绘制边框
+            g2d.setColor(ColorName.LIGHT_GRAY.getColor());    // 设置边框默认颜色
+            g2d.setStroke(new BasicStroke(0.8F));       // 设置边框默认宽度
+            g2d.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
         }
     }
 

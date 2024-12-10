@@ -113,8 +113,9 @@ public class OvalItem extends VisualItem {
 
         // 如果选中，绘制边框
         if (isSelected) {
-            g2d.setColor(ColorName.LIGHT_GRAY.getColor());   // 设置边框颜色
-            g2d.drawRect(0, 0, getWidth() - 1, getHeight() - 1); // 绘制边框
+            g2d.setColor(ColorName.LIGHT_GRAY.getColor());    // 设置边框默认颜色
+            g2d.setStroke(new BasicStroke(0.8F));       // 设置边框默认宽度
+            g2d.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
         }
     }
 

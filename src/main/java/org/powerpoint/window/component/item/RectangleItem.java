@@ -107,14 +107,15 @@ public class RectangleItem extends VisualItem {
         g2d.setColor(ColorName.DEFAULT.getColor());
 //        g2d.fillRect(rectangle.X(), rectangle.Y(), rectangle.Width(), rectangle.Height());
 
-        // 绘制矩形边框
+        // 绘制矩形
         g2d.setColor(ColorName.getColor(rectangle.getColor()));
-        g2d.drawRect(10, 10, rectangle.getWidth() , rectangle.getHeight());    // 边框占用额外宽度，置中心
+        g2d.drawRect(10, 10, rectangle.getWidth() , rectangle.getHeight());    // 由于边框占用额外宽度，故矩形置中心
 
         // 如果选中，绘制边框
         if (isSelected) {
-            g2d.setColor(ColorName.LIGHT_GRAY.getColor());   // 设置边框颜色
-            g2d.drawRect(0, 0, getWidth() - 1, getHeight() - 1); // 绘制边框
+            g2d.setColor(ColorName.LIGHT_GRAY.getColor());    // 设置边框默认颜色
+            g2d.setStroke(new BasicStroke(0.8F));       // 设置边框默认宽度
+            g2d.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
         }
     }
 
