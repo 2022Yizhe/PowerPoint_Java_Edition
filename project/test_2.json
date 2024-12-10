@@ -9,6 +9,8 @@
       "value" : "This is the first \nslide.\n龙年出龙币",
       "x" : 18,
       "y" : 35,
+      "width" : 139,
+      "height" : 70,
       "color" : "java.awt.Color[r=255,g=0,b=0]",
       "font" : "微软雅黑",
       "size" : 15
@@ -50,7 +52,7 @@
     }, {
       "type" : "image",
       "contentType" : "image",
-      "src" : "E:\\Java\\project\\PowerPoint_Java_Edition_1.1\\project\\resource\\NEU.jpg",
+      "src" : "E:\\Java\\project\\PowerPoint_Java_Edition_2.1\\project\\resource\\NEU.jpg",
       "width" : 501,
       "height" : 367,
       "x" : 663,
@@ -64,6 +66,8 @@
       "value" : "This is the second slide.",
       "x" : 63,
       "y" : 45,
+      "width" : 341,
+      "height" : 25,
       "color" : "java.awt.Color[r=0,g=255,b=0]",
       "font" : "宋体",
       "size" : 15
@@ -74,8 +78,10 @@
       "type" : "text",
       "contentType" : "text",
       "value" : "Welcome to Slide 3!",
-      "x" : 819,
+      "x" : 849,
       "y" : 12,
+      "width" : 109,
+      "height" : 50,
       "color" : "java.awt.Color[r=0,g=0,b=255]",
       "font" : "宋体",
       "size" : 18
@@ -97,6 +103,8 @@
       "value" : "This slide contains a rectangle.",
       "x" : 388,
       "y" : 178,
+      "width" : 183,
+      "height" : 43,
       "color" : "java.awt.Color[r=0,g=0,b=255]",
       "font" : "宋体",
       "size" : 15
@@ -118,6 +126,8 @@
       "value" : "A circle on Slide 5.",
       "x" : 150,
       "y" : 150,
+      "width" : 109,
+      "height" : 50,
       "color" : "white",
       "font" : "等线",
       "size" : 12
@@ -138,6 +148,8 @@
       "value" : "This is an oval.",
       "x" : 275,
       "y" : 131,
+      "width" : 109,
+      "height" : 50,
       "color" : "java.awt.Color[r=0,g=0,b=0]",
       "font" : "宋体",
       "size" : 12
@@ -159,6 +171,8 @@
       "value" : "Image on Slide 7.\n提交记录",
       "x" : 302,
       "y" : 110,
+      "width" : 191,
+      "height" : 40,
       "color" : "java.awt.Color[r=0,g=0,b=255]",
       "font" : "宋体",
       "size" : 15
@@ -166,8 +180,8 @@
       "type" : "image",
       "contentType" : "image",
       "src" : "E:\\Java\\project\\PowerPoint_Java_Edition_2.1\\project\\resource\\githubCommit.png",
-      "width" : 300,
-      "height" : 200,
+      "width" : 245,
+      "height" : 191,
       "x" : 50,
       "y" : 50
     } ]
@@ -179,6 +193,8 @@
       "value" : "Line on Slide 8.",
       "x" : 836,
       "y" : 554,
+      "width" : 109,
+      "height" : 50,
       "color" : "java.awt.Color[r=255,g=0,b=0]",
       "font" : "宋体",
       "size" : 12
@@ -200,6 +216,8 @@
       "value" : "Rectangle on Slide 9.",
       "x" : 100,
       "y" : 100,
+      "width" : 109,
+      "height" : 50,
       "color" : "white",
       "font" : "等线",
       "size" : 12
@@ -219,8 +237,10 @@
       "type" : "text",
       "contentType" : "text",
       "value" : "Thank you!",
-      "x" : 389,
-      "y" : 250,
+      "x" : 384,
+      "y" : 229,
+      "width" : 170,
+      "height" : 40,
       "color" : "java.awt.Color[r=0,g=0,b=0]",
       "font" : "微软雅黑",
       "size" : 21

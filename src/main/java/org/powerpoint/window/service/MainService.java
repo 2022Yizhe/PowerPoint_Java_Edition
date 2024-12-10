@@ -31,7 +31,7 @@ public class MainService extends AbstractService {
     private boolean editFlag = false;
     private String tool;
 
-    private boolean saveFlag = true;    // 标志变量，检查内容是否已经保存
+    private boolean saveFlag = true;    // 标志变量，检查内容是否已经保存 -- TODO 配合重做管理实现更细致的保存检查
 
     private UndoManager undoManager;    // 重做管理器，用于编辑框支持撤销和重做操作
 

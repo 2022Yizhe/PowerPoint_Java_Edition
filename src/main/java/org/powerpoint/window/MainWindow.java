@@ -1,5 +1,6 @@
 package org.powerpoint.window;
 
+import org.powerpoint.window.component.button.BottomLineButton;
 import org.powerpoint.window.component.NoDotsSplitPane;
 import org.powerpoint.window.component.ShortSplitPane;
 import org.powerpoint.window.component.SlidePanel;
@@ -80,9 +81,7 @@ public class MainWindow extends AbstractWindow <MainService>{
      */
     private JPanel createControlPanel(){
         JPanel control_panel = new JPanel();
-//        control_panel.setBackground(new Color(255, 255, 255));  // 配色方案
-//        control_panel.setBorder(BorderFactory.createLineBorder(new Color(224, 224, 244)));
-//        control_panel.setForeground(new Color(51, 51, 51));
+//        control_panel.setBackground(new Color(52, 58, 64));   // 配色
         control_panel.setPreferredSize(new Dimension(0, 50));   // 宽度为 0 意味着宽度将根据其他组件的布局动态调整
 
         // 采用流式布局，直接让按钮居右按顺序放置
@@ -91,25 +90,25 @@ public class MainWindow extends AbstractWindow <MainService>{
         control_panel.setLayout(tools_layout);
 
         // 按钮 - 文件(打开、新建、保存)
-        this.addComponent(control_panel, "main.button.file", new JButton("文件"), button -> {
+        this.addComponent(control_panel, "main.button.file", new BottomLineButton("文件"), button -> {
             button.setPreferredSize(new Dimension(80, 40));
             button.addActionListener(e -> service.fileButtonAction());
         });
 
         // 按钮 - 文本
-        this.addComponent(control_panel, "main.button.text", new JButton("文本"), button -> {
+        this.addComponent(control_panel, "main.button.text", new BottomLineButton("文本"), button -> {
             button.setPreferredSize(new Dimension(80, 40));
             button.addActionListener(e -> service.textButtonAction());
         });
 
         // 按钮 - 绘制
-        this.addComponent(control_panel, "main.button.paint", new JButton("绘制"), button -> {
+        this.addComponent(control_panel, "main.button.paint", new BottomLineButton("绘制"), button -> {
             button.setPreferredSize(new Dimension(80, 40));
             button.addActionListener(e -> service.paintButtonAction());
         });
 
         // 按钮 - 插入
-        this.addComponent(control_panel, "main.button.insert", new JButton("插入"), button -> {
+        this.addComponent(control_panel, "main.button.insert", new BottomLineButton("插入"), button -> {
             button.setPreferredSize(new Dimension(80, 40));
             button.setToolTipText("选择一张图片");
             button.addActionListener(e -> service.insertButtonAction());
@@ -124,6 +123,7 @@ public class MainWindow extends AbstractWindow <MainService>{
     private JScrollPane createLeftPanel(){
         // 创建一个预览面板
         JPanel previewPanel = new JPanel();
+//        previewPanel.setBackground(new Color(52, 58, 64));   // 配色
         previewPanel.setLayout(new ListLayout());   // 采用自定义列表布局
         previewPanel.setPreferredSize(new Dimension(0, 400));   // c.设置首选尺寸，避免分割异常的问题
         previewPanel.setBackground(ColorName.DEFAULT.getColor());
@@ -183,6 +183,7 @@ public class MainWindow extends AbstractWindow <MainService>{
         status_label.setEnabled(false);
 
         JPanel bottom = new JPanel(new BorderLayout());
+//        bottom.setBackground(new Color(52, 58, 64, 192));   // 配色
         bottom.add(status_label, BorderLayout.WEST);
         return bottom;
     }
@@ -194,6 +195,7 @@ public class MainWindow extends AbstractWindow <MainService>{
      */
     public JPanel createFileToolsPanel(JSplitPane panel){
         JPanel tools_panel = new JPanel();
+//        tools_panel.setBackground(new Color(52, 58, 64));   // 配色
         tools_panel.setPreferredSize(new Dimension(0, 50));
 
         // 采用流式布局，直接让按钮居右按顺序放置
@@ -233,7 +235,7 @@ public class MainWindow extends AbstractWindow <MainService>{
 
         // 按钮 - 文本 (绘制横排文本框)
         this.addComponent(tools_panel, "main.button.tools.textArea", new JButton("绘制横排文本框"), button -> {
-            button.setPreferredSize(new Dimension(240, 40));
+            button.setPreferredSize(new Dimension(180, 40));
             button.addActionListener(e -> service.handleEvent("button_textArea"));  // 点击事件 1
         });
         return tools_panel;
@@ -289,7 +291,7 @@ public class MainWindow extends AbstractWindow <MainService>{
 
         // 按钮 - 插入 (图像等资源)
         this.addComponent(tools_panel, "main.button.tools.imageInsert", new JButton("此设备"), button -> {
-            button.setPreferredSize(new Dimension(120, 40));
+            button.setPreferredSize(new Dimension(100, 40));
             button.addActionListener(e -> {
                 service.chooseImage();
                 service.handleEvent("button_imageInsert");  // 点击事件 1

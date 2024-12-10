@@ -9,6 +9,8 @@
       "value" : "你好！",
       "x" : 65,
       "y" : 54,
+      "width" : 109,
+      "height" : 50,
       "color" : "java.awt.Color[r=135,g=206,b=235]",
       "font" : "宋体",
       "size" : 15
@@ -47,6 +49,8 @@
       "value" : "单击此处添加文本",
       "x" : 200,
       "y" : 100,
+      "width" : 109,
+      "height" : 50,
       "color" : "BLACK",
       "font" : "等线",
       "size" : 12
@@ -59,6 +63,8 @@
       "value" : "我喜欢你",
       "x" : 923,
       "y" : 591,
+      "width" : 109,
+      "height" : 50,
       "color" : "java.awt.Color[r=135,g=206,b=235]",
       "font" : "宋体",
       "size" : 9
