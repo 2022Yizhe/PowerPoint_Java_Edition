@@ -7,7 +7,8 @@ import org.powerpoint.window.MainWindow;
 import org.powerpoint.window.component.SlidePanel;
 import org.powerpoint.window.component.item.ListItem;
 import org.powerpoint.window.dialog.DirectoryChooserDialog;
-import org.powerpoint.window.dialog.FileChooserDialog;
+import org.powerpoint.window.dialog.ImageChooserDialog;
+import org.powerpoint.window.dialog.JsonChooserDialog;
 import org.powerpoint.window.dialog.InputDialog;
 
 import javax.swing.*;
@@ -23,6 +24,8 @@ public class MainService extends AbstractService {
     private String name;                // 当前项目的名称
     private String directory;           // 当前项目的目录
     private String path;                // 当前项目文件的路径
+
+    private String imagePath;           // 选择图像的路径
 
     private int iterator = 0;           // 当前编辑幻灯片的索引，随用户操作更新
 
@@ -88,7 +91,7 @@ public class MainService extends AbstractService {
      */
     public void openFileButtonAction(){
         // 打开文件选择器，选择一个文件 (.json)
-        FileChooserDialog chooser_dialog = new FileChooserDialog(this.getWindow());
+        JsonChooserDialog chooser_dialog = new JsonChooserDialog(this.getWindow());
         chooser_dialog.openDialog();
         File selectedFile = chooser_dialog.getSelectedFile();
         if(selectedFile == null) return;
@@ -251,13 +254,28 @@ public class MainService extends AbstractService {
 
     /**
      * @ Tools
-     * 插入一张图片 -- TODO 弹出对话框，输入图片路径参数
+     * 选择一张图片
+     */
+    public void chooseImage(){
+        // 打开文件选择器，选择一张图像文件
+        ImageChooserDialog chooser_dialog = new ImageChooserDialog(this.getWindow());
+        chooser_dialog.openDialog();
+        File selectedFile = chooser_dialog.getSelectedFile();
+        if(selectedFile == null) return;
+
+        // 获取图像路径
+        imagePath = selectedFile.getAbsolutePath();
+    }
+
+    /**
+     * @ Tools
+     * 插入一张图片
      */
     public void imageInsertButtonAction(){
         // 插入一张图片，位置为鼠标点击位置
         SlidePanel slidePanel = this.getComponent("main.panel.edit");
         ImageContent image = new ImageContent();
-        image.initDefault(slidePanel.getClickX(), slidePanel.getClickY());
+        image.initDefault(imagePath, slidePanel.getClickX(), slidePanel.getClickY());
 
         // 添加到面板组件，并单独渲染之
         slidePanel.addContent(image);

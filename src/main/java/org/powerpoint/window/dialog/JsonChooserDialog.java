@@ -8,15 +8,15 @@ import java.awt.*;
 import java.io.File;
 
 /**
- * 文件目录选择对话框
+ * Json 文件选择对话框
  */
-public class FileChooserDialog extends AbstractDialog {
+public class JsonChooserDialog extends AbstractDialog {
     private JFileChooser fileChooser;
 
-    public FileChooserDialog(AbstractDialog parent) {
+    public JsonChooserDialog(AbstractDialog parent) {
         super(parent, "请选择一个文件", new Dimension(720, 480));
     }
-    public FileChooserDialog(AbstractWindow parent) {
+    public JsonChooserDialog(AbstractWindow parent) {
         super(parent, "请选择一个文件", new Dimension(720, 480));
     }
 
@@ -34,7 +34,7 @@ public class FileChooserDialog extends AbstractDialog {
         this.addComponent(fileChooser, chooser -> {
             chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
             // 添加监听器，当选择完成后，就关闭当前窗口
-            chooser.addActionListener(e -> FileChooserDialog.this.closeDialog());
+            chooser.addActionListener(e -> JsonChooserDialog.this.closeDialog());
         });
     }
 
