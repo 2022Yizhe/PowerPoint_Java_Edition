@@ -137,7 +137,7 @@ public class CircleItem extends VisualItem {
             circle.setColor(ColorName.BLACK.getColor().toString());  // 保存颜色更改
             this.repaint(); // 重绘
         });
-        c_white.addActionListener(e -> { circle.setColor(ColorName.BLACK.getColor().toString()); this.repaint(); });
+        c_white.addActionListener(e -> { circle.setColor(ColorName.WHITE.getColor().toString()); this.repaint(); });
         c_red.addActionListener(e -> { circle.setColor(ColorName.RED.getColor().toString()); this.repaint(); });
         c_blue.addActionListener(e -> { circle.setColor(ColorName.BLUE.getColor().toString()); this.repaint(); });
         c_green.addActionListener(e -> { circle.setColor(ColorName.GREEN.getColor().toString()); this.repaint(); });

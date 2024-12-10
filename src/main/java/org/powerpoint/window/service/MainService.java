@@ -221,7 +221,7 @@ public class MainService extends AbstractService {
 
     /**
      * @ Tools
-     * 绘制椭圆形（包含圆形）
+     * 绘制椭圆形
      */
     public void ovalShapeButtonAction(){
         // 新建椭圆形，椭圆形具有默认大小，位置为鼠标点击位置
@@ -231,6 +231,21 @@ public class MainService extends AbstractService {
 
         // 添加到面板组件，并单独渲染之
         slidePanel.addContent(oval);
+        slidePanel.repaint();
+    }
+
+    /**
+     * @ Tools
+     * 绘制圆形
+     */
+    public void circleShapeButtonAction(){
+        // 新建圆形，圆形具有默认大小，位置为鼠标点击位置
+        SlidePanel slidePanel = this.getComponent("main.panel.edit");
+        CircleContent circle = new CircleContent();
+        circle.initDefault(slidePanel.getClickX(), slidePanel.getClickY());
+
+        // 添加到面板组件，并单独渲染之
+        slidePanel.addContent(circle);
         slidePanel.repaint();
     }
 
@@ -276,6 +291,9 @@ public class MainService extends AbstractService {
                     break;
                 case "button_ovalShape":
                     ovalShapeButtonAction();
+                    break;
+                case "button_circleShape":
+                    circleShapeButtonAction();
                     break;
                 case "button_imageInsert":
                     imageInsertButtonAction();

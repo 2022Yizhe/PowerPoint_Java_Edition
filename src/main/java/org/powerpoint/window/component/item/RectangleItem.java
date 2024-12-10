@@ -138,7 +138,7 @@ public class RectangleItem extends VisualItem {
             rectangle.setColor(ColorName.BLACK.getColor().toString());  // 保存颜色更改
             this.repaint(); // 重绘
         });
-        c_white.addActionListener(e -> { rectangle.setColor(ColorName.BLACK.getColor().toString()); this.repaint(); });
+        c_white.addActionListener(e -> { rectangle.setColor(ColorName.WHITE.getColor().toString()); this.repaint(); });
         c_red.addActionListener(e -> { rectangle.setColor(ColorName.RED.getColor().toString()); this.repaint(); });
         c_blue.addActionListener(e -> { rectangle.setColor(ColorName.BLUE.getColor().toString()); this.repaint(); });
         c_green.addActionListener(e -> { rectangle.setColor(ColorName.GREEN.getColor().toString()); this.repaint(); });

@@ -262,6 +262,10 @@ public class MainWindow extends AbstractWindow <MainService>{
             button.setPreferredSize(new Dimension(80, 40));
             button.addActionListener(e -> service.handleEvent("button_ovalShape"));         // 点击事件 1
         });
+        this.addComponent(tools_panel, "main.button.tools.circleShape", new JButton("圆"), button -> {
+            button.setPreferredSize(new Dimension(80, 40));
+            button.addActionListener(e -> service.handleEvent("button_circleShape"));       // 点击事件 1
+        });
         return tools_panel;
     }
 
