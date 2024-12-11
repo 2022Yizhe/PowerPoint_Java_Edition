@@ -511,6 +511,12 @@ public class MainService extends AbstractService {
         SlidePanel editPanel = this.getComponent("main.panel.edit");
         this.clearEdit();
         editPanel.setContents(slide.getContent());
+
+        // 检查渲染中的失败操作
+        if (editPanel.getFailedPath() != null) {
+            WarnDialog dialog = new WarnDialog(this.getWindow(), editPanel.getFailedPath());
+            dialog.openDialog();
+        }
     }
 
     /**

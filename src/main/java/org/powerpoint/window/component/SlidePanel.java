@@ -30,6 +30,10 @@ public class SlidePanel extends JPanel {
     @Getter
     private int clickY = 0;
 
+    private String failedPath = null;
+
+    public String getFailedPath() { return failedPath; }
+
     public SlidePanel(Runnable clickAction) {
         this.clickAction = clickAction;
 
@@ -81,7 +85,11 @@ public class SlidePanel extends JPanel {
                 break;
             case "image":
                 item = new ImageItem((ImageContent) content, this::deleteImageItem);
-                image_items.add((ImageItem) item);
+                if (((ImageItem) item).getImage() == null) {      // 检查失败的外嵌图像，常见于移动 json 文件
+                    failedPath = ((ImageContent) content).getSrc();
+                } else {
+                    image_items.add((ImageItem) item);
+                }
                 break;
             default:
                 throw new IllegalArgumentException("Unsupported content type: " + content.getContentType());
@@ -95,6 +103,7 @@ public class SlidePanel extends JPanel {
      * @param contents 解析后的一张幻灯片中的内容列表，包含多个 content 对象
      */
     public void setContents(List<AbstractContent> contents) {
+        this.failedPath = null;
         this.clear();
         for (AbstractContent content : contents) {
             addContent(content);

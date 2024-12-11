@@ -22,6 +22,8 @@ public class ImageItem extends VisualItem {
 
     private BufferedImage image;
 
+    public BufferedImage getImage(){ return image; }
+
     public ImageItem(ImageContent imageContent, Runnable deleteAction) {
         super(deleteAction);
 
@@ -95,7 +97,7 @@ public class ImageItem extends VisualItem {
             this.setBounds(imageContent.getX(), imageContent.getY(), image.getWidth(), image.getHeight());
         } catch (IOException e) {
             e.printStackTrace();
-            this.image = null;  // 加载失败时设置为 null
+            this.image = null;  // 加载图像失败时，设置为 null
         }
         this.setOpaque(false);  // 透明背景
     }
