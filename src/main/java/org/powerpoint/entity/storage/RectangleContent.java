@@ -25,4 +25,17 @@ public class RectangleContent extends AbstractContent{
         this.color = "black";
         this.thickness = 1;
     }
+
+    @Override
+    public RectangleContent clone() {
+        RectangleContent cloned = new RectangleContent();
+        cloned.setContentType(this.getContentType());
+        cloned.setWidth(this.getWidth());
+        cloned.setHeight(this.getHeight());
+        cloned.setX(this.getX());
+        cloned.setY(this.getY());
+        cloned.setColor(this.getColor());
+        cloned.setThickness(this.getThickness());
+        return cloned;
+    }
 }

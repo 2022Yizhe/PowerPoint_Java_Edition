@@ -28,4 +28,6 @@ import lombok.Setter;
 @Setter @Getter
 public abstract class AbstractContent {
     private String contentType;
+
+    abstract public AbstractContent clone();
 }

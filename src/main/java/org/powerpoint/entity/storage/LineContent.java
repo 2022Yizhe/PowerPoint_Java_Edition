@@ -3,6 +3,8 @@ package org.powerpoint.entity.storage;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.sound.sampled.Line;
+
 @Getter @Setter
 public class LineContent extends AbstractContent{
     private int startX;
@@ -24,5 +26,19 @@ public class LineContent extends AbstractContent{
         this.endY = y;
         this.color = "black";
         this.thickness = 1;
+    }
+
+    @Override
+    public LineContent clone() {
+        LineContent cloned = new LineContent();
+        cloned.setContentType(this.getContentType());
+        cloned.setStartX(this.getStartX());
+        cloned.setStartY(this.getStartY());
+        cloned.setEndX(this.getEndX());
+        cloned.setEndY(this.getEndY());
+        cloned.setColor(this.getColor());
+        cloned.setThickness(this.getThickness());
+        // 复制其他属性
+        return cloned;
     }
 }

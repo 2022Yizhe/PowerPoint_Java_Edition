@@ -23,4 +23,17 @@ public class CircleContent extends AbstractContent{
         this.color = "black";
         this.thickness = 1;
     }
+
+    @Override
+    public CircleContent clone() {
+        CircleContent cloned = new CircleContent();
+        cloned.setContentType(this.getContentType());
+        cloned.setX(this.getX());
+        cloned.setY(this.getY());
+        cloned.setRadius(this.getRadius());
+        cloned.setColor(this.getColor());
+        cloned.setThickness(this.getThickness());
+        // 复制其他属性
+        return cloned;
+    }
 }

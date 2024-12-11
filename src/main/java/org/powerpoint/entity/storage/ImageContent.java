@@ -23,4 +23,17 @@ public class ImageContent extends AbstractContent {
         this.x = x;
         this.y = y;
     }
+
+    @Override
+    public ImageContent clone() {
+        ImageContent cloned = new ImageContent();
+        cloned.setContentType(this.getContentType());
+        cloned.setSrc(this.getSrc());
+        cloned.setWidth(this.getWidth());
+        cloned.setHeight(this.getHeight());
+        cloned.setX(this.getX());
+        cloned.setY(this.getY());
+        // 复制其他属性
+        return cloned;
+    }
 }

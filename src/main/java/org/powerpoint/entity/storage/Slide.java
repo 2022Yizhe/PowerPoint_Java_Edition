@@ -41,6 +41,13 @@ public class Slide {
      */
     public void copySlide(Slide slide){
         this.setTitle(slide.getTitle());
-        this.setContent(slide.getContent());
+
+        // 创建一个新的内容列表，进行深拷贝
+        List<AbstractContent> newContents = new ArrayList<>();
+        for (AbstractContent content : slide.getContent()) {
+            // 假设 AbstractContent 有一个 clone 方法，进行深拷贝
+            newContents.add(content.clone());
+        }
+        this.setContent(newContents);
     }
 }

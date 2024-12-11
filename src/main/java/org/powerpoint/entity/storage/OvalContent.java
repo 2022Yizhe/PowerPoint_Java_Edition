@@ -25,4 +25,18 @@ public class OvalContent extends AbstractContent{
         this.color = "black";
         this.thickness = 1;
     }
+
+    @Override
+    public OvalContent clone() {
+        OvalContent cloned = new OvalContent();
+        cloned.setContentType(this.getContentType());
+        cloned.setX(this.getX());
+        cloned.setY(this.getY());
+        cloned.setRadiusX(this.getRadiusX());
+        cloned.setRadiusY(this.getRadiusY());
+        cloned.setColor(this.getColor());
+        cloned.setThickness(this.getThickness());
+        // 复制其他属性
+        return cloned;
+    }
 }
