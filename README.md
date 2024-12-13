@@ -17,19 +17,38 @@ PowerPoint_Java_Edition 是一个使用 Java 开发的简易演示文稿生成�
 - 添加文本、图片和图形
 - 保存和加载演示文稿文件
 
-## 安装和使用
+## 源码部署
 ### 前提条件
-- 安装 Java 9 或更高版本
+- 安装 Java 17
 - 安装 Maven
 
 ### 安装
 ```shell
-git clone https://github.com/YourUsername/PowerPoint_Java_Edition.git
-cd PowerPoint_Java_Edition
-mvn clean install
+  git clone https://github.com/YourUsername/PowerPoint_Java_Edition.git
+  cd PowerPoint_Java_Edition
+  mvn clean install
 ```
 
 ### 运行
 ```shell
-mvn exec:java -Dexec.mainClass="org.powerpoint.Main"
+   cd target
+   java -jar  PowerPoint_Java_Edition-1.0-SNAPSHOT.jar
+```
+
+## 字节码执行
+### 运行环境
+- 安装 Java 17
+### 检查 Java 运行时环境
+```shell
+  java -version
+```
+### 如果当前不是 Java 17
+```shell
+  set JAVA_HOME=C:\Program Files\Java\jdk-17  # 替换为你的 java-17 路径
+  set PATH=%JAVA_HOME%\bin;%PATH%
+```
+### 执行字节码
+```shell
+  cd PATH\TO  # 替换为字节码文件路径
+  java -jar PowerPoint_Java_Edition-1.0-SNAPSHOT-jar-with-dependencies.jar
 ```
