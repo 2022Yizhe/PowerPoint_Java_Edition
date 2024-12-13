@@ -34,21 +34,21 @@ public class ProcessEngine {
             Presentation presentation = objectMapper.readValue(new File(json_path), Presentation.class);
 
             // 终端打印部分读取到的数据
-            System.out.println("Presentation Title: " + presentation.getTitle());
+            System.out.println("[PowerPoint] Presentation Title: " + presentation.getTitle());
             for (Slide slide : presentation.getSlides()) {
-                System.out.println("Slide Title: " + slide.getTitle());
+                System.out.println("[PowerPoint] Slide Title: " + slide.getTitle());
                 for (AbstractContent content : slide.getContent()) {
                     if (content instanceof TextContent) {
-                        System.out.println("Text: " + ((TextContent) content).getValue());
+                        System.out.println("[PowerPoint] Text: " + ((TextContent) content).getValue());
                     } else if (content instanceof ImageContent) {
-                        System.out.println("Image Source: " + ((ImageContent) content).getSrc());
+                        System.out.println("[PowerPoint] Image: " + ((ImageContent) content).getSrc());
                     }
                 }
             }
             return presentation;
         } catch (StreamReadException e) {
             // 捕获 DatabindException
-            System.out.println("Error during data binding: " + e.getMessage());
+            System.out.println("[PowerPoint] Error during data binding: " + e.getMessage());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -77,7 +77,7 @@ public class ProcessEngine {
                 "          \"height\": 75,\n" +
                 "          \"color\": \"black\",\n" +
                 "          \"font\": \"等线\",\n" +
-                "          \"size\": 12\n" +
+                "          \"size\": 15\n" +
                 "        }\n" +
                 "      ]\n" +
                 "    }\n" +
@@ -107,7 +107,7 @@ public class ProcessEngine {
         try {
             objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File(json_path), presentation);
         } catch (StreamWriteException e){
-            System.out.println("Error during data binding: " + e.getMessage());
+            System.out.println("[PowerPoint] Error during data binding: " + e.getMessage());
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -35,7 +35,7 @@ public class OvalItem extends VisualItem {
             public void mousePressed(MouseEvent e) {
                 // 点击右下角时，开始缩放组件大小
                 if(getWidth() - e.getX() <= 10 && getHeight() - e.getY() <= 10) {
-                    System.out.println("start resize");
+                    System.out.println("[PowerPoint] (OvalItem) start resizing");
                     setCursor(Cursor.getPredefinedCursor(Cursor.SE_RESIZE_CURSOR));
                     resizing = true;
                 }

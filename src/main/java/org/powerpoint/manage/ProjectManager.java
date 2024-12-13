@@ -42,6 +42,8 @@ public class ProjectManager {
         String currentDirectory = System.getProperty("user.dir");
         String projectDirectory = "project";    // 定义项目文件夹
         String fileName = "default.json";       // 定义默认存储文件名
+        System.out.println("[Powerpoint] Load default project:");
+        System.out.println("[Powerpoint]" + currentDirectory + File.separator + projectDirectory + File.separator + fileName);
 
         // 创建默认项目文件目录
         File dir = new File(currentDirectory, projectDirectory);

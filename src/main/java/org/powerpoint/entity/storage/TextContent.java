@@ -27,7 +27,7 @@ public class TextContent extends AbstractContent {
         this.height = 75;
         this.color = "black";
         this.font = "等线";
-        this.size = 12;
+        this.size = 15;
     }
 
     @Override

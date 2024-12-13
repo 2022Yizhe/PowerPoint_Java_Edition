@@ -5,7 +5,7 @@ import java.awt.*;
 /**
  * 列表布局
  * 内部的组件会以列表的形式从上往下排列
- * 注意，不能配合滚动条使用，如果需要，必须禁止横向大小修改，否则会出 BUG
+ * 注意，不能配合滚动条使用，如果需要，使用时禁止横向大小修改，否则会出 BUG
  */
 public class ListLayout implements LayoutManager {
 

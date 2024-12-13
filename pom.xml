@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://www.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
 <!--定义项目的组标识符，通常使用公司或组织的域名反转-->
@@ -18,48 +17,68 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-<!--定义项目依赖的所有库，为方便使用项目路径-->
+<!--定义项目的所有依赖项，使用本地仓库/中央仓库，具体依赖项见./libs-->
     <dependencies>
         <dependency>
             <groupId>com.formdev</groupId>
             <artifactId>flatlaf</artifactId>
             <version>3.5.2</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/libs/flatlaf-3.5.2.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.fasterxml</groupId>
-            <artifactId>jackson.annotations</artifactId>
+            <artifactId>jackson-annotations</artifactId>
             <version>2.18.2</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/libs/jackson-annotations-2.18.2.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.fasterxml</groupId>
-            <artifactId>jackson.core</artifactId>
+            <artifactId>jackson-core</artifactId>
             <version>2.18.2</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/libs/jackson-core-2.18.2.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.fasterxml</groupId>
-            <artifactId>jackson.databind</artifactId>
+            <artifactId>jackson-databind</artifactId>
             <version>2.18.1</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/libs/jackson-databind-2.18.1.jar</systemPath>
         </dependency>
         <dependency>
-            <groupId>com.lombok</groupId>
+            <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.36</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/libs/lombok-1.18.36.jar</systemPath>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
-            <version>RELEASE</version>
-            <scope>compile</scope>
+            <version>20.1.0</version> <!-- 使用明确的版本号 -->
         </dependency>
     </dependencies>
+
+<!--使用 maven-assembly-plugin 插件，分发一个包含所有依赖项的单独 JAR 文件。-->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>org.powerpoint.Main</mainClass> <!-- 替换为你的主类 -->
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

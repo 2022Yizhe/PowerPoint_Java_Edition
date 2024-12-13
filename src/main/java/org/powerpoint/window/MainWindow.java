@@ -81,7 +81,6 @@ public class MainWindow extends AbstractWindow <MainService>{
      */
     private JPanel createControlPanel(){
         JPanel control_panel = new JPanel();
-//        control_panel.setBackground(new Color(52, 58, 64));   // 配色
         control_panel.setPreferredSize(new Dimension(0, 50));   // 宽度为 0 意味着宽度将根据其他组件的布局动态调整
 
         // 采用流式布局，直接让按钮居右按顺序放置
@@ -123,7 +122,6 @@ public class MainWindow extends AbstractWindow <MainService>{
     private JScrollPane createLeftPanel(){
         // 创建一个预览面板
         JPanel previewPanel = new JPanel();
-//        previewPanel.setBackground(new Color(52, 58, 64));   // 配色
         previewPanel.setLayout(new ListLayout());   // 采用自定义列表布局
         previewPanel.setPreferredSize(new Dimension(0, 400));   // c.设置首选尺寸，避免分割异常的问题
         previewPanel.setBackground(ColorName.DEFAULT.getColor());
@@ -178,14 +176,16 @@ public class MainWindow extends AbstractWindow <MainService>{
      * @return 底部板块
      */
     private JPanel createStatusPanel(){
+        JPanel statusPanel = new JPanel(new BorderLayout());
+        this.mapComponent("main.panel.status", statusPanel);
+
         JLabel status_label= new JLabel("  注：未加载任何幻灯片文件");
+        status_label.setFont(new Font("等线", Font.PLAIN, 15));
         this.mapComponent("main.label.status", status_label);
         status_label.setEnabled(false);
 
-        JPanel bottom = new JPanel(new BorderLayout());
-//        bottom.setBackground(new Color(52, 58, 64, 192));   // 配色
-        bottom.add(status_label, BorderLayout.WEST);
-        return bottom;
+        statusPanel.add(status_label, BorderLayout.NORTH);
+        return statusPanel;
     }
 
     /**
@@ -195,7 +195,6 @@ public class MainWindow extends AbstractWindow <MainService>{
      */
     public JPanel createFileToolsPanel(JSplitPane panel){
         JPanel tools_panel = new JPanel();
-//        tools_panel.setBackground(new Color(52, 58, 64));   // 配色
         tools_panel.setPreferredSize(new Dimension(0, 50));
 
         // 采用流式布局，直接让按钮居右按顺序放置
@@ -317,6 +316,9 @@ public class MainWindow extends AbstractWindow <MainService>{
             else
                 return false;   // 不退出程序
         } else {
+//            // (因为没有做重做管理，只进行了粗略检查，为避免部分组件功能未保存，
+//            // 这里可以公开 MainService 的 SaveEdit 方法，退出程序强制保存所有修改)
+//            service.saveEdit();
             return true;        // 直接退出程序
         }
     }

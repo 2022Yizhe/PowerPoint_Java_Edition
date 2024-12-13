@@ -42,7 +42,7 @@ public class ImageItem extends VisualItem {
             public void mousePressed(MouseEvent e) {
                 // 点击右下角时，开始缩放组件大小
                 if(getWidth() - e.getX() <= 10 && getHeight() - e.getY() <= 10) {
-                    System.out.println("start resize");
+                    System.out.println("[PowerPoint] (ImageItem) start resizing");
                     setCursor(Cursor.getPredefinedCursor(Cursor.SE_RESIZE_CURSOR));
                     resizing = true;
                 }
@@ -93,11 +93,16 @@ public class ImageItem extends VisualItem {
     private void configure(){
         // 加载图像
         try {
-            this.image = ImageIO.read(new File(imageContent.getSrc()));
+            image = ImageIO.read(new File(imageContent.getSrc()));
             this.setBounds(imageContent.getX(), imageContent.getY(), image.getWidth(), image.getHeight());
         } catch (IOException e) {
-            e.printStackTrace();
-            this.image = null;  // 加载图像失败时，设置为 null
+            System.out.println("[PowerPoint] 图像加载失败!");
+            System.out.println("[PowerPoint] ImgSrc: " + imageContent.getSrc());
+//            e.printStackTrace();
+            image = null;  // 加载图像失败时，设置为 null
+            marked = true; // 并且标记删除
+            deleteAction.run();
+            this.setVisible(false); // 因为已经绘制的不会自动消失，直接设为不可见，再次加载幻灯片时已删除
         }
         this.setOpaque(false);  // 透明背景
     }

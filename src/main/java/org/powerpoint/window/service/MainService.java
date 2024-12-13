@@ -155,6 +155,9 @@ public class MainService extends AbstractService {
      * 保存一个已有的 miniPpt 项目
      */
     public void saveFileButtonAction() {
+        // 先保存所有更改
+        saveEdit();
+
         // 打开文件选择器，选择一个保存位置
         DirectoryChooserDialog chooser_dialog = new DirectoryChooserDialog(this.getWindow());
         chooser_dialog.openDialog();
@@ -326,6 +329,7 @@ public class MainService extends AbstractService {
             toolFlag = false;
             editFlag = false;
             saveFlag = false;
+            saveEdit();
         }
     }
 
@@ -438,22 +442,38 @@ public class MainService extends AbstractService {
      * default.json 是一份已经写好的 Ppt 文件
      */
     public void displayDefaultProject(){
-        // 先加载项目
-        try {
-            ProjectManager.getInstance().loadDefaultProject();
-            name = ProjectManager.getInstance().getProject().getName();
-            directory = ProjectManager.getInstance().getProject().getFilepath();
-            path = directory + File.separator + name;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        // 渲染预览面板和编辑面板
-        previewSlides();
-        displaySlide(iterator);
+//        // *代码块开发和调试时使用*
+//        // 加载默认项目
+//        try {
+//            ProjectManager.getInstance().loadDefaultProject();
+//            name = ProjectManager.getInstance().getProject().getName();
+//            directory = ProjectManager.getInstance().getProject().getFilepath();
+//            path = directory + File.separator + name;
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        // 渲染预览面板和编辑面板
+//        previewSlides();
+//        displaySlide(iterator);
+//
+//        // 更新状态栏
+//        JLabel status_label = this.getComponent("main.label.status");
+//        status_label.setText("  Load default project: " + ProjectManager.getInstance().getProject().getFilepath());
+
+        // *项目发布时使用*
+        // 创建默认项目
+        name = "default.json";
+        ProjectManager.getInstance().createProject(name);
+
+        // 渲染新建项目
+        this.iterator = 0;
+        this.clear();
+        this.displayProject();
 
         // 更新状态栏
         JLabel status_label = this.getComponent("main.label.status");
-        status_label.setText("  Load default project: " + ProjectManager.getInstance().getProject().getFilepath());
+        status_label.setText("  New project: " + name + " - Unsaved");
+        saveFlag = false;
     }
 
     /**
@@ -509,7 +529,7 @@ public class MainService extends AbstractService {
 
         // ☆ edit ☆
         SlidePanel editPanel = this.getComponent("main.panel.edit");
-        this.clearEdit();
+        this.clearEdit();   // 先清除旧的面板组件
         editPanel.setContents(slide.getContent());
 
         // 检查渲染中的失败操作
