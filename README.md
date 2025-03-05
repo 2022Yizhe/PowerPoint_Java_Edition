@@ -17,6 +17,14 @@ PowerPoint_Java_Edition 是一个使用 Java 开发的简易演示文稿生成�
 - 添加文本、图片和图形
 - 保存和加载演示文稿文件
 
+## 程序结构
+
+![example](images/program_struc.png)
+
+## 工作流程
+
+![example](images/work_flow.png)
+
 ## 源码部署
 ### 前提条件
 - 安装 Java 17 及以上
